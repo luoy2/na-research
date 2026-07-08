@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>东京·箱根 4 日亲子攻略 · 一大一小 · 2026 夏</title>
+<meta name="description" content="西雅图飞东京，一大一小（5 岁）4 日游后回国：落日飞车完全拆解、孤独的美食家足汤咖啡、箱根一日环线、teamLab Planets、签证新价与行前必办。全部引用标注来源。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F0F4F5; --card:#FBFDFD; --ink:#16303E; --sub:#5A6E7A; --line:#DCE4E8;
+  --accent:#20708F; --accent-soft:#E3EEF3;
+  --flare:#D96038; --flare-soft:#FBEDE6;
+  --good:#2E7D5B; --good-soft:#E5F2EC;
+  --warn:#A97614; --warn-soft:#F9F1DE;
+  --bad:#B23B2E; --bad-soft:#F9E8E5;
+  --chip:#E9EEF1;
+  --shadow:0 1px 2px rgba(22,48,62,.06),0 10px 28px rgba(22,48,62,.06);
+  --serif:"Noto Serif SC",serif;
+  --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
+}
+[data-theme="dark"]{
+  --bg:#0C151C; --card:#14202A; --ink:#E4ECF1; --sub:#8FA3B0; --line:#243442;
+  --accent:#57A8CC; --accent-soft:#16303E;
+  --flare:#E6764C; --flare-soft:#33211A;
+  --good:#4EBE8C; --good-soft:#14291F;
+  --warn:#D9A23F; --warn-soft:#2B2312;
+  --bad:#DD6A57; --bad-soft:#2E1B17;
+  --chip:#1D2B36; --shadow:0 1px 3px rgba(0,0,0,.45);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0C151C; --card:#14202A; --ink:#E4ECF1; --sub:#8FA3B0; --line:#243442;
+    --accent:#57A8CC; --accent-soft:#16303E;
+    --flare:#E6764C; --flare-soft:#33211A;
+    --good:#4EBE8C; --good-soft:#14291F;
+    --warn:#D9A23F; --warn-soft:#2B2312;
+    --bad:#DD6A57; --bad-soft:#2E1B17;
+    --chip:#1D2B36; --shadow:0 1px 3px rgba(0,0,0,.45);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;line-height:1.68;font-size:16px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:920px;margin:0 auto;padding:0 16px 80px}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--flare);outline-offset:2px}
+
+/* citations */
+sup{line-height:0}
+sup a{font-family:var(--mono);font-size:.7em;color:var(--sub);padding:0 1px;border-bottom:1px dotted var(--sub)}
+sup a:hover{color:var(--flare);border-bottom-color:var(--flare);text-decoration:none}
+#tip{position:fixed;z-index:200;max-width:280px;background:var(--ink);color:var(--bg);font-size:12.5px;line-height:1.45;padding:7px 10px;border-radius:8px;pointer-events:none;opacity:0;transition:opacity .12s;box-shadow:0 6px 20px rgba(0,0,0,.25)}
+#tip.on{opacity:1}
+[id]{scroll-margin-top:76px}
+.src li:target{background:var(--warn-soft);border-radius:8px;padding:4px 8px;margin-left:-8px}
+
+/* hero：黄昏渐变，落日飞车主题 */
+.hero{background:linear-gradient(165deg,#141B33 0%,#3A2547 42%,#84373B 74%,#C05430 100%);color:#fff;border-radius:0 0 22px 22px;padding:44px 22px 30px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;inset:auto -70px -110px auto;width:340px;height:340px;background:radial-gradient(circle,rgba(255,196,140,.22),transparent 62%)}
+.hero .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.16em;opacity:.75;margin:0 0 10px;text-transform:uppercase}
+.hero h1{margin:0 0 8px;font-family:var(--serif);font-weight:900;font-size:clamp(25px,5vw,38px);line-height:1.28}
+.hero .sub{opacity:.92;font-size:15px;margin:0 0 22px}
+.route{display:flex;align-items:flex-start;gap:0;overflow-x:auto;padding:6px 0 2px;position:relative;z-index:1}
+.route .stop{flex:1;min-width:76px;text-align:center;position:relative;font-family:var(--mono);font-size:11px;line-height:1.5;opacity:.92}
+.route .stop::before{content:"";display:block;width:9px;height:9px;border-radius:50%;background:#fff;margin:0 auto 7px;box-shadow:0 0 0 3px rgba(255,255,255,.25)}
+.route .stop::after{content:"";position:absolute;top:4px;left:calc(50% + 8px);width:calc(100% - 16px);border-top:2px dashed rgba(255,255,255,.4)}
+.route .stop:last-child::after{display:none}
+.route .stop.hl::before{background:#FFB38A;box-shadow:0 0 0 3px rgba(255,179,138,.3)}
+.route .stop b{display:block;font-size:12px}
+.hero .meta{margin-top:18px;font-size:12.5px;opacity:.72}
+
+/* nav */
+nav{position:sticky;top:0;z-index:50;background:var(--card);border-bottom:1px solid var(--line);margin:0 -16px;padding:0 12px;overflow-x:auto;white-space:nowrap;box-shadow:var(--shadow)}
+nav .in{display:flex;gap:2px;align-items:center;max-width:920px;margin:0 auto}
+nav a{display:inline-block;padding:11px 9px;font-size:13.5px;color:var(--sub);border-bottom:2px solid transparent}
+nav a:hover{color:var(--flare);text-decoration:none}
+#themeBtn{margin-left:auto;background:none;border:1px solid var(--line);border-radius:8px;color:var(--sub);cursor:pointer;padding:4px 9px;font-size:13px;flex:none}
+
+/* sections */
+section{margin-top:44px}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;color:var(--flare);margin:0 0 4px}
+h2{font-size:23px;margin:0 0 4px;font-family:var(--serif);font-weight:900}
+.sec-sub{color:var(--sub);font-size:14px;margin:0 0 16px}
+h3{font-size:16.5px;margin:24px 0 10px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:var(--shadow)}
+.card + .card{margin-top:14px}
+.card ul{margin:4px 0;padding-left:20px;font-size:14.5px}
+.card li{margin:4px 0}
+
+/* findings */
+.findings{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:6px 20px}
+.finding{display:flex;gap:16px;padding:15px 0;border-top:1px solid var(--line)}
+.finding:first-child{border-top:none}
+.finding .fno{font-family:var(--mono);font-weight:700;font-size:19px;color:var(--flare);flex:none;width:28px;line-height:1.5}
+.finding b.k{display:block;font-size:15.5px;margin-bottom:2px}
+.finding p{margin:0;font-size:14px;color:var(--sub)}
+
+/* tables */
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--card);box-shadow:var(--shadow);margin:10px 0}
+table{border-collapse:collapse;width:100%;font-size:14.5px;min-width:600px}
+th{background:var(--chip);text-align:left;padding:9px 12px;font-size:12.5px;color:var(--sub);white-space:nowrap;font-family:var(--mono);font-weight:600}
+td{padding:10px 12px;border-top:1px solid var(--line);vertical-align:top}
+tr:hover td{background:color-mix(in srgb,var(--accent-soft) 40%,transparent)}
+td b{white-space:nowrap}
+td.num,th.num{text-align:center;font-family:var(--mono);white-space:nowrap}
+a.amz{font-family:var(--mono);font-size:12px;line-height:1.6;display:inline-block}
+a.amz::before{content:"🔍 ";font-size:10px}
+
+/* tags */
+.tag{display:inline-block;border-radius:6px;padding:1px 8px;font-size:12.5px;font-weight:600;white-space:nowrap}
+.tag.buy{background:var(--good-soft);color:var(--good)}
+.tag.maybe{background:var(--warn-soft);color:var(--warn)}
+.tag.skip{background:var(--bad-soft);color:var(--bad)}
+.tag.free{background:var(--accent-soft);color:var(--accent)}
+
+/* 车票卡（签名元素：落日飞车双票）+ 行前 checklist */
+.chk-toolbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:14px 0}
+.progress{flex:1;min-width:180px;height:10px;border-radius:99px;background:var(--chip);overflow:hidden}
+.progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--flare));transition:width .25s}
+#chkCount{font-family:var(--mono);font-size:13px;color:var(--sub);white-space:nowrap}
+#resetBtn{background:none;border:1px solid var(--line);color:var(--sub);border-radius:8px;padding:4px 10px;font-size:13px;cursor:pointer}
+.bags{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-top:6px}
+.bag{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);position:relative}
+.bag .head{padding:14px 18px 10px;border-bottom:1px dashed var(--line);position:relative}
+.bag .head::after{content:"";position:absolute;right:16px;top:16px;width:13px;height:13px;border-radius:50%;background:var(--bg);box-shadow:inset 0 0 0 3px var(--line)}
+.bag .no{font-family:var(--mono);font-size:11px;letter-spacing:.14em;font-weight:700;display:inline-block;border-radius:6px;padding:2px 9px;color:#FBFDFD}
+.bag.b1 .no{background:#C05430}.bag.b2 .no{background:#20708F}.bag.b3 .no{background:#2E7D5B}
+.bag h4{margin:7px 0 2px;font-size:17px;font-family:var(--serif);font-weight:700}
+.bag .spec{font-family:var(--mono);font-size:11.5px;color:var(--sub)}
+.bag .role{font-size:13px;color:var(--sub);margin:6px 0 0}
+.bag .body{padding:8px 16px 14px}
+.bag h5{margin:10px 0 2px;font-size:12px;font-family:var(--mono);letter-spacing:.1em;color:var(--flare)}
+.bag .body ul{margin:4px 0;padding-left:19px;font-size:14px}
+.bag .body li{margin:4px 0}
+.chk-item{display:flex;gap:9px;align-items:flex-start;padding:5px 4px;border-radius:8px;cursor:pointer;font-size:14.5px}
+.chk-item:hover{background:var(--accent-soft)}
+.chk-item input{margin-top:4px;accent-color:var(--flare);width:16px;height:16px;flex:none;cursor:pointer}
+.chk-item.done .t{color:var(--sub);text-decoration:line-through;text-decoration-color:color-mix(in srgb,var(--sub) 55%,transparent)}
+.chk-item .q{font-family:var(--mono);font-size:12.5px;color:var(--flare);white-space:nowrap;font-weight:700}
+.chk-item .d{display:block;font-size:12.5px;color:var(--sub)}
+
+/* day plan */
+.day{display:flex;gap:14px;padding:16px 0;border-top:1px solid var(--line)}
+.day:first-child{border-top:none;padding-top:4px}
+.day .dt{flex:none;width:74px;text-align:center}
+.day .dt .dd{font-family:var(--mono);font-weight:700;font-size:17px;color:var(--accent)}
+.day .dt .wk{font-size:12px;color:var(--sub)}
+.day .bd{flex:1;min-width:0}
+.day .bd h4{margin:0 0 2px;font-size:16px}
+.day .bd .w{font-size:13px;color:var(--sub);margin:2px 0 6px}
+.day .bd ul{margin:4px 0 0;padding-left:19px;font-size:14.5px}
+.day .bd li{margin:3px 0}
+
+/* callouts：全边框+底色 */
+.callout{border:1px solid color-mix(in srgb,var(--accent) 35%,var(--line));background:var(--accent-soft);border-radius:12px;padding:12px 16px;font-size:14.5px;margin:14px 0}
+.callout.warn{border-color:color-mix(in srgb,var(--warn) 35%,var(--line));background:var(--warn-soft)}
+.callout.bad{border-color:color-mix(in srgb,var(--bad) 35%,var(--line));background:var(--bad-soft)}
+.callout.good{border-color:color-mix(in srgb,var(--good) 35%,var(--line));background:var(--good-soft)}
+
+/* sources */
+.src ol{padding-left:24px;font-size:13.5px;color:var(--sub)}
+.src li{margin:5px 0;overflow-wrap:anywhere}
+.src h3{margin-top:18px}
+.src .flag{color:var(--bad);font-weight:600}
+.method{font-size:13.5px;color:var(--sub)}
+
+footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--line);color:var(--sub);font-size:13px}
+@media print{
+  nav,#themeBtn,#resetBtn,#tip{display:none}
+  .card,.bag,.tbl{box-shadow:none;break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="wrap" style="padding-bottom:0">
+    <p class="eyebrow">FAMILY FIELD NOTES · TOKYO &amp; HAKONE</p>
+    <h1>东京·箱根 4 日亲子攻略</h1>
+    <p class="sub">西雅图 → 东京 → 回国 · 一大一小（5 岁）· 2026 夏 · 落日飞车 + 孤独的美食家足汤咖啡 实现版</p>
+    <div class="route" aria-label="行程">
+      <span class="stop"><b>SEA ✈</b>直飞约 10.5h</span>
+      <span class="stop"><b>HND 到达</b>D0 银座落脚</span>
+      <span class="stop"><b>D1 东京</b>浅草·上野·夜巴士</span>
+      <span class="stop hl"><b>D2 箱根</b>环线+足汤咖啡</span>
+      <span class="stop"><b>D3 丰洲</b>teamLab+轻轨落日</span>
+      <span class="stop"><b>D4 银座</b>机动·购物</span>
+      <span class="stop"><b>✈ 回国</b>HND–上海 3h</span>
+    </div>
+    <p class="meta">基于小红书 16 条笔记（正文+评论全量）· YouTube 10 个视频（转录+评论）· 使馆/运营方官网逐字核对 · Reddit / 一亩三分地交叉验证 · 所有论点带编号来源，鼠标悬停上标可预览出处 · 汇编 2026-07-07</p>
+  </div>
+</div>
+
+<nav><div class="in">
+  <a href="#tldr">结论</a>
+  <a href="#visa">签证</a>
+  <a href="#action">必办</a>
+  <a href="#sunset">落日飞车</a>
+  <a href="#days">逐日</a>
+  <a href="#hakone">箱根</a>
+  <a href="#teamlab">teamLab</a>
+  <a href="#kids">带娃</a>
+  <a href="#heat">防暑</a>
+  <a href="#budget">预算</a>
+  <a href="#expect">预期</a>
+  <a href="#src">来源</a>
+  <button id="themeBtn" title="切换亮暗主题">🌓</button>
+</div></nav>
+
+<div class="wrap">
+
+<!-- ============ 00 骨架 ============ -->
+<section id="frame">
+  <p class="eyebrow">00 · THE SHAPE OF THE TRIP</p>
+  <h2>行程骨架与排期约束</h2>
+  <p class="sec-sub">先定骨架再买票：这趟行程有 4 个"哪天不能干什么"的硬约束，排错一天就撞上闭馆</p>
+  <div class="tbl"><table>
+    <tr><th>日</th><th>主题</th><th>一句话</th></tr>
+    <tr><td><b>D0</b></td><td>到达日</td><td>SEA 直飞 HND 约 10.5 小时（隔天下午到），落地进银座酒店，傍晚楼下轻逛<sup><a href="#s46">[46]</a><a href="#s13">[13]</a></sup></td></tr>
+    <tr><td><b>D1</b></td><td>东京经典 + 巴士版落日飞车</td><td>清晨浅草寺避暑避人，上午上野动物园（5 岁免票），黄昏 SKY BUS 夜线<sup><a href="#s42">[42]</a><a href="#s20">[20]</a><a href="#s32">[32]</a></sup></td></tr>
+    <tr><td><b>D2</b></td><td>箱根一日环线</td><td>全行程支点：浪漫特快 + 周游券顺时针环线，收尾 NARAYA CAFE 足汤<sup><a href="#s8">[8]</a><a href="#s21">[21]</a><a href="#s33">[33]</a></sup></td></tr>
+    <tr><td><b>D3</b></td><td>丰洲台场 + 轻轨版落日飞车</td><td>teamLab Planets 早场踩水消暑，傍晚百合海鸥线头排看彩虹桥落日<sup><a href="#s26">[26]</a><a href="#s2">[2]</a><a href="#s38">[38]</a></sup></td></tr>
+    <tr><td><b>D4</b></td><td>银座机动日</td><td>购物补货 + 东京塔下儿童乐园，收拾行李；体力好可换迪士尼<sup><a href="#s11">[11]</a></sup></td></tr>
+    <tr><td><b>D5</b></td><td>回国</td><td>HND 直飞上海 3h05 / 北京约 4h，直飞每天多班<sup><a href="#s46">[46]</a></sup></td></tr>
+  </table></div>
+
+  <div class="callout warn"><b>📅 排期硬约束（2026 夏，缺一不可）：</b>
+    ① <b>箱根日避开周三和 7/23</b>（NARAYA CAFE 定休：每周三 + 每月第 4 个周四，官网明示 7 月即 7/23）<sup><a href="#s33">[33]</a></sup>；
+    ② <b>SKY BUS 排平日</b>（官网公告：7 月周末新预约暂停，恢复日期未定）<sup><a href="#s31">[31]</a></sup>；
+    ③ <b>teamLab 避开 8/5</b>（2026 夏官方休馆日 7/9、8/5、9/3）<sup><a href="#s34">[34]</a></sup>；
+    ④ <b>避开 Obon 8 月中旬</b>（日本全国假期，票价住宿双高）<sup><a href="#s47">[47]</a></sup>。
+    <br>举例：若 7/20（一）从西雅图起飞、7/21（二）到达，则箱根日不能排 7/22（三）也不能排 7/23（四），落在 <b>7/24（五）</b>最顺；SKY BUS 放 7/22（三）黄昏正好是平日。
+  </div>
+</section>
+
+<!-- ============ 01 结论 ============ -->
+<section id="tldr">
+  <p class="eyebrow">01 · KEY FINDINGS</p>
+  <h2>六个最重要的结论</h2>
+  <p class="sec-sub">先看这里，细节在后面各节</p>
+  <div class="findings">
+    <div class="finding"><span class="fno">1</span><div><b class="k">「落日飞车」其实是 4 个不同产品，社区全混在一个标签里</b><p>爆款帖说的是 SKY BUS 敞篷巴士夜线（¥2,600），"16 元版"是百合海鸥线轻轨（¥330），还有人混入 SKY HOP BUS（¥4,800 随上随下）和 ¥8,000 的敞篷餐厅巴士。本攻略把轻轨版和巴士版都排进了行程，两个都值<sup><a href="#s1">[1]</a><a href="#s2">[2]</a><a href="#s3">[3]</a><a href="#s23">[23]</a><a href="#s24">[24]</a><a href="#s40">[40]</a></sup></p></div></div>
+    <div class="finding"><span class="fno">2</span><div><b class="k">签证费 7/1 刚涨了 5 倍：单次 $20 → $101/人，立即启动申请</b><p>使馆官方费用表逐字确认，一大一小两本中国护照约 $202；走 JAPAN eVISA 可全家一次在线办（需绿卡/H1B/I-20 等长期身份，B1/B2 不行）；无加急，官方口径 5 个工作日起，建议出发前 1 至 1.5 个月办<sup><a href="#s27">[27]</a><a href="#s28">[28]</a><a href="#s29">[29]</a><a href="#s44">[44]</a></sup></p></div></div>
+    <div class="finding"><span class="fno">3</span><div><b class="k">先查休息日再排日子</b><p>NARAYA 周三+第 4 个周四休（7 月 = 7/23）、SKY BUS 7 月周末停售新票、teamLab 8/5 休馆。三个约束叠加后，箱根日和巴士日的可选日子比想象少，先排这两天再填其他<sup><a href="#s31">[31]</a><a href="#s33">[33]</a><a href="#s34">[34]</a></sup></p></div></div>
+    <div class="finding"><span class="fno">4</span><div><b class="k">7 至 8 月是东京带娃最难的月份，防暑是行程主线</b><p>35°C 高湿是三路信源的压倒性主题，多篇亲子攻略直言"唯一不建议带娃的月份就是 7、8 月"。对策已织进逐日安排：清晨户外、正午室内或水里、黄昏再出门（落日飞车恰好是黄昏项目）<sup><a href="#s17">[17]</a><a href="#s14">[14]</a><a href="#s47">[47]</a><a href="#s12">[12]</a></sup></p></div></div>
+    <div class="finding"><span class="fno">5</span><div><b class="k">5 岁娃在日本近乎免费，但酒店要如实申报</b><p>未上小学的幼儿：地铁电车免费、百合海鸥线免费、上野动物园免费、雕刻之森免费；teamLab ¥1,500、SKY BUS 儿童价 ¥1,300。唯一例外是住宿：东京酒店按人头计费，5 岁也算 1 人，订房时要报<sup><a href="#s45">[45]</a><a href="#s38">[38]</a><a href="#s20">[20]</a><a href="#s34">[34]</a><a href="#s32">[32]</a><a href="#s11">[11]</a></sup></p></div></div>
+    <div class="finding"><span class="fno">6</span><div><b class="k">箱根一日游带 5 岁娃成立，但要"轻计划 + 早出发 + 顺时针"</b><p>论坛与攻略共识：早班浪漫特快出发一日足够，但别塞满；顺时针先到水上鸟居避开人流，雕刻之森是娃的主场（大人只能眼巴巴看娃玩），大风缆车会停运要有 Plan B<sup><a href="#s41">[41]</a><a href="#s21">[21]</a><a href="#s10">[10]</a><a href="#s8">[8]</a><a href="#s37">[37]</a></sup></p></div></div>
+  </div>
+</section>
+
+<!-- ============ 02 签证 ============ -->
+<section id="visa">
+  <p class="eyebrow">02 · PAPERWORK FIRST</p>
+  <h2>签证：中国护照 · 居美 · 带 5 岁娃</h2>
+  <p class="sec-sub">整趟行程唯一可能卡死出行的环节，最先办。以下均以官方页逐字核对，as of 2026-07-07</p>
+
+  <div class="card">
+    <h3 style="margin-top:0">谁有资格在美国办</h3>
+    <ul>
+      <li>日本 eVISA 资格按<b>居住国</b>判定：居住在美国的所有外国公民（含中国护照）都可在线申请<sup><a href="#s29">[29]</a></sup>。"中国公民必须经指定旅行社"那条只管<b>居住在中国</b>的人，不约束居美者<sup><a href="#s29">[29]</a></sup></li>
+      <li>领馆同样只受理<b>在美有长期居留身份者</b>：绿卡、有效长期签证（H1B 等）、I-20（F1）都行；<b>B1/B2、ESTA 短期身份直接不受理，包括线上申请</b><sup><a href="#s28">[28]</a><a href="#s27">[27]</a></sup></li>
+      <li>西雅图领馆管辖华盛顿/蒙大拿/爱达荷居民，且自己推荐走 eVISA<sup><a href="#s28">[28]</a><a href="#s15">[15]</a></sup></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">费用：7/1 起大涨，别按老攻略预算</h3>
+    <div class="tbl"><table style="min-width:480px">
+      <tr><th>类型</th><th class="num">6/30 前旧价</th><th class="num">7/1 起现价</th></tr>
+      <tr><td>单次入境（eVISA 只能办这种，旅游用它就够）</td><td class="num">$20</td><td class="num"><b>$101</b></td></tr>
+      <tr><td>两次/多次入境</td><td class="num">$40</td><td class="num"><b>$201</b></td></tr>
+    </table></div>
+    <p style="font-size:14px;color:var(--sub);margin:8px 0 0">使馆官方费用表逐字，全美各领馆一致<sup><a href="#s27">[27]</a></sup>。儿童与成人同价，一大一小合计约 <b>$202</b>。小红书 5 月攻略里的"$40 多次签"是涨价前办的，已过时<sup><a href="#s15">[15]</a></sup>；Reddit 上"只花 $6"的帖子是印度护照专属双边费率，与中国护照无关<sup><a href="#s27">[27]</a><a href="#s43">[43]</a></sup></p>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">怎么办：eVISA 全家一次提交（推荐）</h3>
+    <ul>
+      <li>一个 eVISA 会话里可<b>代家人申请</b>，大人和娃一起提交、各出一张电子签<sup><a href="#s30">[30]</a></sup></li>
+      <li>大人材料：护照、白底照片、在美身份证明（绿卡/签证+I-94/I-20）、<b>最近 1 个月银行流水</b>、往返机票行程单（含离日段，不用先出票）、<b>逐日具体行程表</b><sup><a href="#s28">[28]</a><a href="#s15">[15]</a><a href="#s44">[44]</a></sup></li>
+      <li>娃的额外材料：本人中国护照、<b>出生证明</b>（证亲子关系，非英/日文建议公证翻译）、本人在美身份证明；财力用家长流水覆盖全家<sup><a href="#s30">[30]</a><a href="#s44">[44]</a></sup></li>
+      <li>时间线：官方口径 5 个工作日起、<b>无加急</b><sup><a href="#s27">[27]</a></sup>；一亩三分地一手案例 7 天出签<sup><a href="#s44">[44]</a></sup>，西雅图纸签一手案例 3 天+回邮<sup><a href="#s15">[15]</a></sup>。稳妥按 <b>2 至 4 周</b>留量</li>
+    </ul>
+  </div>
+
+  <div class="callout bad"><b>🚨 三个高频翻车点：</b>
+    ① 行程表写"tourism in Tokyo"这种笼统句会被打回，要具体到每天去哪<sup><a href="#s28">[28]</a></sup>；
+    ② <b>eVISA 过关时必须现场联网打开 "Visa issuance notice"，截图/PDF/打印件一律不收</b>，落地前先把 eSIM 或漫游开好<sup><a href="#s29">[29]</a></sup>；
+    ③ 申请不完整会被直接取消、重新排队，材料一次传齐<sup><a href="#s29">[29]</a></sup>。
+  </div>
+</section>
+
+<!-- ============ 03 行前必办 ============ -->
+<section id="action">
+  <p class="eyebrow">03 · BEFORE YOU FLY</p>
+  <h2>行前必办清单</h2>
+  <p class="sec-sub">按时间敏感度排序，勾选状态存在本机浏览器里</p>
+  <div class="chk-toolbar">
+    <div class="progress" aria-hidden="true"><i id="bar"></i></div>
+    <span id="chkCount">0 / 0</span>
+    <button id="resetBtn">清空勾选</button>
+  </div>
+  <div class="card" style="padding:10px 14px">
+    <label class="chk-item"><input type="checkbox" data-id="visa"><span><span class="q">立即</span> <span class="t"><b>办签证</b>：eVISA 全家提交（单次 $101/人）</span><span class="d">无加急，5 工作日起；行程表要逐日具体；详见<a href="#visa">签证节</a></span></span></label>
+    <label class="chk-item"><input type="checkbox" data-id="flight1"><span><span class="q">立即</span> <span class="t"><b>订 SEA→东京机票</b>：优先羽田 HND</span><span class="d">DL167（12:00→次日 14:20）/ NH117（16:30→次日 19:00）每天直飞；羽田进城 30 分钟，成田要 1 小时以上，带娃差别巨大<sup><a href="#s46">[46]</a><a href="#s17">[17]</a></sup></span></span></label>
+    <label class="chk-item"><input type="checkbox" data-id="flight2"><span><span class="q">立即</span> <span class="t"><b>订东京→中国机票</b>（开口程两张单程即可）</span><span class="d">HND–上海 3h05、–北京约 4h，每天多班；夏季 $150–300+/人，Obon 前后更贵<sup><a href="#s46">[46]</a></sup></span></span></label>
+    <label class="chk-item"><input type="checkbox" data-id="teamlab"><span><span class="q">出票后</span> <span class="t"><b>买 teamLab Planets 定时票</b>（现场不售票）</span><span class="d">官网在线定时票，早场最先售罄，最早 8:30 开馆；大人 ¥3,600 起、娃 ¥1,500；避开 8/5 休馆<sup><a href="#s34">[34]</a><a href="#s26">[26]</a></sup></span></span></label>
+    <label class="chk-item"><input type="checkbox" data-id="romancecar"><span><span class="q">出票后</span> <span class="t"><b>订浪漫特快座位</b>（新宿→箱根汤本）</span><span class="d">全席指定、暑假可能满座，展望席只有 GSE 车型有、最抢手；在线购票比车站便宜 ¥50<sup><a href="#s35">[35]</a><a href="#s8">[8]</a></sup></span></span></label>
+    <label class="chk-item"><input type="checkbox" data-id="hotel"><span><span class="q">出票后</span> <span class="t"><b>订酒店</b>：银座/汐留正规酒店连住 5 晚</span><span class="d">按人头计费，5 岁娃也算 1 人要申报；两条带娃实测都住银座系（凯悦尚萃、Park Hotel Tokyo）体验好，浅草民宿有避雷案例<sup><a href="#s11">[11]</a><a href="#s13">[13]</a><a href="#s12">[12]</a></sup></span></span></label>
+    <label class="chk-item"><input type="checkbox" data-id="esim"><span><span class="q">行前 1 周</span> <span class="t"><b>开通 eSIM / 漫游</b></span><span class="d">硬需求不是可选项：eVISA 通知和 SKY BUS 电子票都要求现场联网出示<sup><a href="#s29">[29]</a><a href="#s3">[3]</a></sup></span></span></label>
+    <label class="chk-item"><input type="checkbox" data-id="skybus"><span><span class="q">行前 1 周</span> <span class="t"><b>查 SKY BUS 夜线平日票</b>（官网卡就到现场买）</span><span class="d">7 月周末新预约暂停；官网要注册绑卡、大量用户卡在支付，现场柜台交现金最省事，早上 8 点多开门<sup><a href="#s31">[31]</a><a href="#s3">[3]</a><a href="#s4">[4]</a></sup></span></span></label>
+    <label class="chk-item"><input type="checkbox" data-id="suica"><span><span class="q">行前 1 周</span> <span class="t"><b>大人 Suica 进 Apple Wallet</b>；娃不需要卡</span><span class="d">6 岁以下未上小学随大人免费过闸（每个付费大人最多带 2 名）<sup><a href="#s45">[45]</a></sup></span></span></label>
+    <label class="chk-item"><input type="checkbox" data-id="cash"><span><span class="q">行前 1 周</span> <span class="t"><b>备日元现金 ¥2–3 万</b></span><span class="d">SKY BUS 现场购票、黑蛋、小店、神社御守都用现金；付款放托盘不递手<sup><a href="#s4">[4]</a><a href="#s17">[17]</a></sup></span></span></label>
+    <label class="chk-item"><input type="checkbox" data-id="docs"><span><span class="q">出发前</span> <span class="t"><b>护照随身袋</b>：两本护照 + eVISA 登录方式</span><span class="d">日本法律要求外国人随身携带护照，车站附近有随机查验<sup><a href="#s17">[17]</a></sup></span></span></label>
+  </div>
+</section>
+
+<!-- ============ 04 落日飞车 ============ -->
+<section id="sunset">
+  <p class="eyebrow">04 · THE SUNSET RIDE, DECODED</p>
+  <h2>「落日飞车」完全拆解</h2>
+  <p class="sec-sub">小红书同一个话题标签下混着 4 个不同产品，爆款母帖连粉丝都在评论区问"到底是哪种车"<sup><a href="#s1">[1]</a></sup>。拆清楚以后：轻轨版和巴士版都排进本行程，一个 ¥330 一个 ¥2,600，体验不同不互替</p>
+
+  <div class="bags">
+    <div class="bag b1">
+      <div class="head">
+        <span class="no">RIDE A · D3 傍晚</span>
+        <h4>轻轨版：百合海鸥线头排</h4>
+        <p class="spec">¥330/大人 · 5 岁免费 · 无人驾驶 · 新桥→台场约 15 分</p>
+        <p class="role">"16 元跨海落日飞车"的本尊：全透明车头一排，跨彩虹桥时像开进新海诚的世界<sup><a href="#s2">[2]</a></sup></p>
+      </div>
+      <div class="body">
+        <h5>怎么坐</h5>
+        <ul>
+          <li>路线：新桥 ⇄ 台场 ⇄ 丰洲，<b>跨桥段在芝浦埠头站与台场海滨公园站之间</b><sup><a href="#s38">[38]</a></sup></li>
+          <li><b>坐车头第一排</b>（无人驾驶视角）：在始发站（新桥或丰洲）站台车头端排队才抢得到，老外也在抢<sup><a href="#s2">[2]</a></sup></li>
+          <li>7 月下旬东京日落 18:47–18:53，<b>约 18:15–18:30 上车</b>正好在桥上追到金色天空<sup><a href="#s38">[38]</a></sup></li>
+          <li>沿途：东京塔、彩虹桥、自由女神像、富士电视台、整个东京湾<sup><a href="#s2">[2]</a></sup></li>
+          <li>票：大人单程 ¥330（IC ¥325），玩全线可买一日券 ¥820；<b>5 岁娃免费</b><sup><a href="#s38">[38]</a></sup></li>
+        </ul>
+      </div>
+    </div>
+    <div class="bag b2">
+      <div class="head">
+        <span class="no">RIDE B · D1 黄昏（平日）</span>
+        <h4>巴士版：SKY BUS 夜线 N102</h4>
+        <p class="spec">¥2,600/大人 · 儿童(4–12) ¥1,300 · 约 50 分钟</p>
+        <p class="role">敞篷双层巴士上首都高跨彩虹桥，"像坐过山车过桥"，看点灯的东京塔<sup><a href="#s23">[23]</a><a href="#s32">[32]</a></sup></p>
+      </div>
+      <div class="body">
+        <h5>怎么买</h5>
+        <ul>
+          <li>发车点：<b>丸之内三菱大厦前 1 号站台</b>（东京站丸之内南口步行 3 分，Google 搜 "Apple 丸の内" 就在旁边）<sup><a href="#s32">[32]</a><a href="#s3">[3]</a><a href="#s4">[4]</a></sup></li>
+          <li>官网订票要注册+绑 Visa 卡，大量用户卡在"网站打不开/付不出去"；<b>现场柜台交现金最省事</b>，早上 8 点多开门就能买当天票<sup><a href="#s3">[3]</a><a href="#s4">[4]</a></sup></li>
+          <li>座位电脑自动分配不能挑；固定座位<b>不用抢座，发车前 15–20 分钟到</b>即可<sup><a href="#s32">[32]</a><a href="#s4">[4]</a><a href="#s23">[23]</a></sup></li>
+          <li>中途不停、上高速风大，<b>上车前先带娃上厕所</b>；雨天发免费雨衣照开<sup><a href="#s4">[4]</a><a href="#s32">[32]</a></sup></li>
+          <li>夏季白天线暴晒，<b>黄昏/夜线正好绕开正午高温</b>；桥上风大，给娃带件薄外套<sup><a href="#s23">[23]</a><a href="#s32">[32]</a></sup></li>
+          <li>⚠️ 2026 年 7 月<b>周末新预约暂停</b>（官网公告），排平日；白天想坐选 T3 东京塔·彩虹桥线（平日 ¥2,200/¥1,100）<sup><a href="#s31">[31]</a></sup>；实在订不到，Hato Bus B1601 敞篷夜景线是备胎（18:00 发车约 2h50m，大人 ¥3,900/儿童 ¥2,550，对 5 岁偏长）<sup><a href="#s39">[39]</a></sup></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <h3>别买错：同一个站台区域有 4 种"观光巴士"</h3>
+  <div class="tbl"><table>
+    <tr><th>产品</th><th class="num">价格（大人/儿童）</th><th>是什么</th><th>本行程</th></tr>
+    <tr><td><b>百合海鸥线</b></td><td class="num">¥330 / 免费</td><td>无人驾驶轻轨，跨彩虹桥，"16 元落日飞车"<sup><a href="#s2">[2]</a><a href="#s38">[38]</a></sup></td><td><span class="tag buy">D3 傍晚</span></td></tr>
+    <tr><td><b>SKY BUS</b>（1 号站台）</td><td class="num">¥2,600 / ¥1,300（夜线）</td><td>敞篷双层<b>不停靠环线</b>约 50 分钟，黄昏线=N102<sup><a href="#s32">[32]</a><a href="#s23">[23]</a></sup></td><td><span class="tag buy">D1 黄昏</span></td></tr>
+    <tr><td>SKY HOP BUS（2 号站台）</td><td class="num">¥4,800</td><td>随上随下观光巴士，红蓝绿 3 线一日通用，是另一家产品<sup><a href="#s24">[24]</a><a href="#s3">[3]</a></sup></td><td><span class="tag skip">不需要</span></td></tr>
+    <tr><td>敞篷餐厅巴士（WILLER）</td><td class="num">约 ¥8,000+</td><td>车上吃套餐边绕东京塔/台场，评论区把它的价格错安到 SKY BUS 头上<sup><a href="#s40">[40]</a><a href="#s1">[1]</a></sup></td><td><span class="tag maybe">土豪可选</span></td></tr>
+  </table></div>
+  <div class="callout"><b>💡 还有个支线：</b>没抢到涩谷 SKY 日落票的话，东急 Shibuya Street Ride 联票（约 ¥260 人民币口径）坐小型观光车 + 免排队换涩谷 SKY，是第 5 个被混进"落日飞车"话题的产品，和本行程不冲突，D4 机动日可选<sup><a href="#s5">[5]</a></sup>。</div>
+</section>
+
+<!-- ============ 05 逐日 ============ -->
+<section id="days">
+  <p class="eyebrow">05 · DAY BY DAY</p>
+  <h2>逐日行程</h2>
+  <p class="sec-sub">主线原则：清晨户外、正午室内、黄昏再出门。一大一小节奏 = 每天 1 个主锚点，别贪多<sup><a href="#s17">[17]</a><a href="#s41">[41]</a></sup></p>
+  <div class="card">
+    <div class="day"><div class="dt"><span class="dd">D0</span><span class="wk">到达日</span></div><div class="bd">
+      <h4>落地羽田 → 银座落脚</h4>
+      <p class="w">SEA 中午起飞，隔天下午到（跨日期变更线）</p>
+      <ul>
+        <li>DL167 到 HND 14:20，过关取行李后<b>京急/单轨 30–60 分钟进市区</b>；羽田母婴设施齐全<sup><a href="#s46">[46]</a><a href="#s45">[45]</a></sup></li>
+        <li>入住银座/汐留酒店，傍晚楼下便利店+药妆店把<b>防暑物资</b>先补齐（见<a href="#heat">防暑节</a>）</li>
+        <li>倒时差策略：北美飞东京=早睡早起红利，接下来几天"早起去排网红点，主打时间差"<sup><a href="#s13">[13]</a></sup></li>
+      </ul>
+    </div></div>
+    <div class="day"><div class="dt"><span class="dd">D1</span><span class="wk">平日</span></div><div class="bd">
+      <h4>浅草 → 上野 → 黄昏 SKY BUS</h4>
+      <p class="w">经典东京 + 巴士版落日飞车，全天动线在东侧</p>
+      <ul>
+        <li><b>7:00–8:30 浅草寺</b>：清晨人少凉快，和服体验开门就去，给娃也租一套"五颜六色穿娃身上真可爱"<sup><a href="#s42">[42]</a><a href="#s13">[13]</a></sup></li>
+        <li><b>9:30 上野动物园</b>：12 岁以下免费，园子不大不累、树荫多，看不怕热的南非企鹅；约 3 小时；园内单轨已停运别指望<sup><a href="#s20">[20]</a><a href="#s12">[12]</a></sup></li>
+        <li><b>正午撤退</b>：国立科学博物馆（挑互动展区，5 岁只看标本会无聊<sup><a href="#s19">[19]</a></sup>）或回酒店午睡</li>
+        <li><b>黄昏 SKY BUS N102 夜线</b>（约 19:00/19:30 发车，随日落调整）：提前上厕所、带薄外套<sup><a href="#s32">[32]</a></sup>；丸之内周边晚饭</li>
+      </ul>
+    </div></div>
+    <div class="day"><div class="dt"><span class="dd">D2</span><span class="wk">避周三/7·23</span></div><div class="bd">
+      <h4>箱根一日环线 + NARAYA 足汤咖啡</h4>
+      <p class="w">全行程支点，细排见<a href="#hakone">箱根节</a></p>
+      <ul>
+        <li>新宿 7:00–7:30 浪漫特快 → 箱根汤本 9 点前后<sup><a href="#s8">[8]</a><a href="#s35">[35]</a></sup></li>
+        <li>顺时针：巴士→元箱根港（水上鸟居）→ 海盗船 → 缆车大涌谷 → 强罗 → 雕刻之森 → <b>宫之下 NARAYA CAFE 足汤收尾</b> → 回新宿<sup><a href="#s21">[21]</a><a href="#s8">[8]</a><a href="#s33">[33]</a></sup></li>
+      </ul>
+    </div></div>
+    <div class="day"><div class="dt"><span class="dd">D3</span><span class="wk">避 8/5</span></div><div class="bd">
+      <h4>teamLab Planets → 丰洲 → 轻轨落日飞车</h4>
+      <p class="w">全天泡在丰洲台场一带，正午基本在室内和水里</p>
+      <ul>
+        <li><b>早场 teamLab Planets</b>（最早 8:30 开馆）：踩水 2–3 小时正好消暑，细节见 <a href="#teamlab">teamLab 节</a><sup><a href="#s26">[26]</a><a href="#s34">[34]</a></sup></li>
+        <li>午后：丰洲市场午饭 / 台场 DiverCity（室内）；丰洲公园有喷水区给娃放电<sup><a href="#s34">[34]</a><a href="#s18">[18]</a></sup></li>
+        <li><b>18:15–18:30 百合海鸥线头排</b>：台场侧上车往新桥方向，跨彩虹桥追落日；到新桥后银座晚饭步行可达<sup><a href="#s2">[2]</a><a href="#s38">[38]</a></sup></li>
+      </ul>
+    </div></div>
+    <div class="day"><div class="dt"><span class="dd">D4</span><span class="wk">机动</span></div><div class="bd">
+      <h4>银座补给 + 东京塔，或大项目二选一</h4>
+      <p class="w">留给状态：前三天累了就慢，状态好就上大项目</p>
+      <ul>
+        <li>默认版：银座"大创+GU+优衣库+OK 超市一栋楼"补货扫货<sup><a href="#s11">[11]</a></sup> + <b>东京塔下免费儿童乐园</b>（实测"娃玩到不想走"）<sup><a href="#s11">[11]</a></sup>，晚上收拾行李</li>
+        <li>大项目替换：迪士尼 Land/SEA（提早入园领快速通<sup><a href="#s12">[12]</a></sup>，园区餐饮物价不贵<sup><a href="#s11">[11]</a></sup>，注意暑热人海）；或 KidZania 第一场（第二场 16:00–21:00 对 5 岁偏晚，园内禁拍）<sup><a href="#s18">[18]</a></sup></li>
+      </ul>
+    </div></div>
+    <div class="day"><div class="dt"><span class="dd">D5</span><span class="wk">回国</span></div><div class="bd">
+      <h4>羽田 → 中国</h4>
+      <p class="w">HND–上海 3h05 / –北京约 4h，直飞每天多班<sup><a href="#s46">[46]</a></sup></p>
+      <ul>
+        <li>羽田国际线值机后有儿童游戏区；给娃留出发前放电时间，机上正好睡</li>
+      </ul>
+    </div></div>
+  </div>
+</section>
+
+<!-- ============ 06 箱根 ============ -->
+<section id="hakone">
+  <p class="eyebrow">06 · THE HAKONE LOOP</p>
+  <h2>箱根一日：环线 + 孤独的美食家足汤咖啡</h2>
+  <p class="sec-sub">五郎在《孤独的美食家》箱根篇里坐过的 NARAYA CAFE 还开着，就在登山电车宫之下站旁。把它排成环线收尾的歇脚点，泡着足汤等回程，是这一天最舒服的设计<sup><a href="#s6">[6]</a><a href="#s33">[33]</a></sup></p>
+
+  <h3>时刻骨架（顺时针）</h3>
+  <div class="tbl"><table>
+    <tr><th class="num">时间</th><th>动作</th><th>带娃备注</th></tr>
+    <tr><td class="num">7:00–7:30</td><td>新宿 → 浪漫特快（约 75–90 分钟）</td><td>全席指定提前订，暑假会满座；展望席最抢手<sup><a href="#s35">[35]</a><a href="#s8">[8]</a></sup></td></tr>
+    <tr><td class="num">9:00</td><td>箱根汤本 → 登山巴士到元箱根港</td><td>约 30–40 分钟山路，容易晕车的娃坐前排<sup><a href="#s8">[8]</a></sup></td></tr>
+    <tr><td class="num">9:40</td><td>箱根神社 · 水上鸟居</td><td>早到排队短；拍完就走，别耗<sup><a href="#s21">[21]</a><a href="#s8">[8]</a></sup></td></tr>
+    <tr><td class="num">10:30</td><td>海盗船游芦之湖（约 30 分钟到桃源台）</td><td><b>加钱买特别船室：有冷气、可以先上船</b>，夏天带娃这钱花得值<sup><a href="#s21">[21]</a></sup></td></tr>
+    <tr><td class="num">11:30</td><td>空中缆车 → 大涌谷</td><td>看活火山冒烟；黑蛋 4 颗 ¥500，还有冰淇淋；午饭便利店兜底（站内食堂 2026 夏装修中）<sup><a href="#s21">[21]</a><a href="#s22">[22]</a><a href="#s37">[37]</a></sup></td></tr>
+    <tr><td class="num">13:30</td><td>缆车 → 早云山 → 登山缆车 → 强罗</td><td>"坐齐 8 种交通工具"本身就是娃的项目<sup><a href="#s21">[21]</a><a href="#s9">[9]</a></sup></td></tr>
+    <tr><td class="num">14:00</td><td><b>雕刻之森美术馆</b>（约 2 小时）</td><td>箱根带娃共识第一名："很多装置大人玩不了，眼巴巴看小孩玩"；有毕加索馆和馆内足汤；网上购票省 ¥200；5 岁未就学免费（以官网为准）<sup><a href="#s8">[8]</a><a href="#s10">[10]</a><a href="#s21">[21]</a></sup></td></tr>
+    <tr><td class="num">16:15</td><td>登山电车 2 站 → 宫之下 <b>NARAYA CAFE</b></td><td>足汤 + 葫芦最中「ならやん」，黑芝麻馅是五郎同款；店门口有木质儿童游具<sup><a href="#s6">[6]</a><a href="#s7">[7]</a><a href="#s33">[33]</a></sup></td></tr>
+    <tr><td class="num">17:30</td><td>登山电车 → 箱根汤本 → 浪漫特快回新宿</td><td>回程车票早上就该一起订好</td></tr>
+  </table></div>
+
+  <div class="bags">
+    <div class="bag b3">
+      <div class="head">
+        <span class="no">STOP · 宫之下站旁</span>
+        <h4>NARAYA CAFE 情报卡</h4>
+        <p class="spec">10:30–18:00 · 周三休 + 每月第 4 个周四休</p>
+        <p class="role">《孤独的美食家》箱根篇同款，2026 年 7 月仍在营业（官网挂着 7 月展讯）<sup><a href="#s33">[33]</a><a href="#s6">[6]</a></sup></p>
+      </div>
+      <div class="body">
+        <ul>
+          <li><b>2026 年 7 月的第 4 个周四是 7/23</b>，官网特别标注当天休息<sup><a href="#s33">[33]</a></sup></li>
+          <li>足汤对消费顾客免费；泉源是旧奈良屋旅馆的温泉，<b>静水不流动</b>，介意的话泡脚前有心理预期<sup><a href="#s33">[33]</a><a href="#s7">[7]</a></sup></li>
+          <li>招牌「ならやん」：葫芦形最中自己夹馅，绿茶/黑芝麻常驻（五郎选了黑芝麻），套餐配抹茶约 ¥850<sup><a href="#s6">[6]</a><a href="#s33">[33]</a></sup></li>
+          <li>登山电车宫之下站出来就是（约 50 米），周游券覆盖这段<sup><a href="#s7">[7]</a><a href="#s33">[33]</a></sup></li>
+          <li>注意：雕刻之森馆内也有一个足汤，两处不是一回事，NARAYA 要单独下车<sup><a href="#s10">[10]</a><a href="#s21">[21]</a></sup></li>
+        </ul>
+      </div>
+    </div>
+    <div class="bag b2">
+      <div class="head">
+        <span class="no">PASS · 交通账本</span>
+        <h4>箱根周游券怎么买最省</h4>
+        <p class="spec">新宿出发 2 日券：大人 ¥7,100 · 小儿 ¥1,600</p>
+        <p class="role">含新宿往返 + 箱根 8 种交通无限坐（登山电车/两种缆车/海盗船/巴士）<sup><a href="#s36">[36]</a><a href="#s9">[9]</a></sup></p>
+      </div>
+      <div class="body">
+        <ul>
+          <li>一日游也买 2 日券（没有 1 日版）；浪漫特快<b>特急券另付</b> ¥1,150/程（在线价）<sup><a href="#s36">[36]</a><a href="#s35">[35]</a></sup></li>
+          <li><b>5 岁娃大概率连儿童券都不用买</b>：未上小学幼儿随大人免费坐电车/巴士；只有浪漫特快单独占座时才买儿童特急券+乘车券<sup><a href="#s45">[45]</a><a href="#s35">[35]</a></sup></li>
+          <li>2025-10 起小儿券从 ¥1,100 涨到 ¥1,600，网上旧攻略数字已过时<sup><a href="#s36">[36]</a></sup></li>
+          <li>购买：官网数字券 / Klook / 新宿小田急站；不用护照<sup><a href="#s36">[36]</a><a href="#s21">[21]</a></sup></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout warn"><b>⚠️ 箱根日三个风险：</b>
+    ① <b>大风缆车说停就停</b>（有乘客当天下午就被停运截住），末班 16:45；停运有代行巴士、周游券可坐，但要多留 1 小时余量<sup><a href="#s21">[21]</a><a href="#s37">[37]</a></sup>；
+    ② 大涌谷有火山气体，哮喘/呼吸道敏感的娃别在园地久留<sup><a href="#s37">[37]</a></sup>；
+    ③ 箱根整体餐食口碑分裂（"温泉旅馆早晚餐都难吃"的差评不少），<b>别把这天当美食日</b>，大涌谷便利店食物娃反而吃得香<sup><a href="#s22">[22]</a></sup>。行李全留东京酒店，箱根寄存柜稀缺，轻装往返<sup><a href="#s8">[8]</a></sup>。
+  </div>
+</section>
+
+<!-- ============ 07 teamLab ============ -->
+<section id="teamlab">
+  <p class="eyebrow">07 · WATER, LIGHT, BAREFOOT</p>
+  <h2>teamLab Planets 带 5 岁娃 SOP</h2>
+  <p class="sec-sub">两个 teamLab 里选 Planets（丰洲）不选 Borderless（麻布台）：踩水区对夏季带娃是降维打击，北美家庭实测"娃根本不想出来"<sup><a href="#s13">[13]</a><a href="#s16">[16]</a><a href="#s26">[26]</a></sup></p>
+  <div class="card">
+    <ul>
+      <li><b>展期到 2027 年底</b>，2025 年扩建后面积翻倍（新增运动森林/捕捉收集森林），5 岁正是最佳适龄段<sup><a href="#s34">[34]</a><a href="#s26">[26]</a></sup></li>
+      <li><b>定时票只在线上卖</b>：大人 ¥3,600 起（动态定价）、儿童 4–12 岁 ¥1,500、3 岁以下免费；早场最先售罄，最早 8:30 开馆（订了 9:00 可留意邮件换早场）<sup><a href="#s34">[34]</a><a href="#s26">[26]</a></sup></li>
+      <li><b>交通就是行程彩蛋</b>：百合海鸥线新丰洲站出站即到，D3 看完正好接轻轨落日飞车<sup><a href="#s26">[26]</a><a href="#s34">[34]</a></sup></li>
+      <li>水区水深到成人小腿肚，<b>正好是 5 岁娃的膝盖/短裤线</b>：给娃穿短裤别穿裙（镜面地板），带一套换洗衣物；出水发新毛巾<sup><a href="#s25">[25]</a><a href="#s26">[26]</a></sup></li>
+      <li>储物柜免费管够、可反复取用；全程赤脚，软地板房容易摔、黑暗房间牵好娃<sup><a href="#s26">[26]</a></sup></li>
+      <li>预算 2–3 小时；馆内冷气强，湿身的娃要有薄外套<sup><a href="#s26">[26]</a><a href="#s16">[16]</a></sup></li>
+      <li>2026 夏休馆日：7/9、8/5、9/3，订票时避开；13 岁以下须成人陪同<sup><a href="#s34">[34]</a></sup></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ 08 带娃 ============ -->
+<section id="kids">
+  <p class="eyebrow">08 · SOLO PARENT LOGISTICS</p>
+  <h2>一大一小后勤</h2>
+  <p class="sec-sub">一个大人带一个娃，动线和体力都没有备份，后勤按"最省事"配置</p>
+
+  <h3>5 岁儿童费用速查</h3>
+  <div class="tbl"><table>
+    <tr><th>项目</th><th class="num">5 岁价格</th><th>规则</th></tr>
+    <tr><td>地铁/电车/巴士</td><td class="num"><span class="tag free">免费</span></td><td>未上小学幼儿随付费大人免费（每大人限 2 名），不需要 IC 卡<sup><a href="#s45">[45]</a></sup></td></tr>
+    <tr><td>百合海鸥线</td><td class="num"><span class="tag free">免费</span></td><td>同上，1–5 岁幼儿免费<sup><a href="#s38">[38]</a></sup></td></tr>
+    <tr><td>上野动物园</td><td class="num"><span class="tag free">免费</span></td><td>12 岁以下免票<sup><a href="#s20">[20]</a></sup></td></tr>
+    <tr><td>雕刻之森美术馆</td><td class="num"><span class="tag free">免费</span></td><td>未就学儿童免费（以官网为准）；大人网购票省 ¥200<sup><a href="#s21">[21]</a></sup></td></tr>
+    <tr><td>teamLab Planets</td><td class="num">¥1,500</td><td>儿童票 4–12 岁；3 岁以下才免费<sup><a href="#s34">[34]</a></sup></td></tr>
+    <tr><td>SKY BUS 夜线</td><td class="num">¥1,300</td><td>4–12 岁儿童价；3 岁以下坐大人膝上<sup><a href="#s32">[32]</a><a href="#s4">[4]</a></sup></td></tr>
+    <tr><td>海盗船/箱根缆车</td><td class="num"><span class="tag free">基本免费</span></td><td>未就学幼儿随行免费；占座/特别船室另计<sup><a href="#s45">[45]</a><a href="#s21">[21]</a></sup></td></tr>
+    <tr><td>浪漫特快</td><td class="num">占座才收</td><td>全席指定：娃单独占座买小儿特急券+乘车券（各半价）<sup><a href="#s35">[35]</a></sup></td></tr>
+    <tr><td>酒店</td><td class="num"><b>算 1 人</b></td><td>东京酒店按人头计费，订房时如实申报儿童数<sup><a href="#s11">[11]</a></sup></td></tr>
+  </table></div>
+
+  <h3>住宿与动线</h3>
+  <div class="card">
+    <ul>
+      <li><b>银座/汐留连住 5 晚不换酒店</b>：两条带娃实测（银座凯悦尚萃、Park Hotel Tokyo）都反馈位置好、房间够大；每换一次酒店等于烧掉半天<sup><a href="#s11">[11]</a><a href="#s13">[13]</a><a href="#s17">[17]</a></sup></li>
+      <li>浅草民宿有带娃避雷案例（"不太好、不推荐"）；想安静可看目黑，中心但不吵<sup><a href="#s12">[12]</a><a href="#s17">[17]</a></sup></li>
+      <li>暑假是旺季，银座档酒店 ¥3 万/晚上下正常；比价可试闲鱼代订渠道（自担风险）<sup><a href="#s11">[11]</a></sup></li>
+      <li>5 岁不用推车，但长步行日给娃留体力 buffer；上野动物园"园子小不会走太累"是它入选的原因之一<sup><a href="#s20">[20]</a></sup></li>
+      <li>餐厅：热门店要预定或开门就去，多数可 walk in；提前查 kids-friendly（有实测连 omakase 都有儿童餐）；找不到合适的就意面/便利店兜底<sup><a href="#s13">[13]</a><a href="#s17">[17]</a></sup></li>
+    </ul>
+  </div>
+
+  <h3>规矩三条（评论区高赞）</h3>
+  <div class="card">
+    <ul>
+      <li>电车上安静是硬文化：说话小声、娃别打闹，站台按线排队<sup><a href="#s17">[17]</a></sup></li>
+      <li>自动扶梯东京靠左站；不给小费；付款把钱放托盘<sup><a href="#s17">[17]</a></sup></li>
+      <li>两本护照随身带（法律要求，有随机查验）<sup><a href="#s17">[17]</a></sup></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ 09 防暑 ============ -->
+<section id="heat">
+  <p class="eyebrow">09 · BEAT THE HEAT</p>
+  <h2>夏季防暑装备</h2>
+  <p class="sec-sub">7 至 8 月东京常态 35°C 高湿，日本官方按公共卫生事件对待中暑<sup><a href="#s47">[47]</a><a href="#s17">[17]</a></sup>。清单分两半：美国先备齐，日本药妆店再补细软</p>
+
+  <h3>出发前在美国买（亚麻直达）</h3>
+  <div class="tbl"><table>
+    <tr><th>物品</th><th>为什么</th><th>亚麻搜索</th></tr>
+    <tr><td><b>儿童电解质冲剂</b></td><td>补水+补盐一步到位，比现找运动饮料稳<sup><a href="#s47">[47]</a></sup></td><td><a class="amz" href="https://www.amazon.com/s?k=pedialyte+electrolyte+powder+packs+kids" target="_blank" rel="noopener">pedialyte electrolyte powder packs kids</a></td></tr>
+    <tr><td><b>挂脖风扇</b></td><td>排队和步行段的续命神器，机上也能用</td><td><a class="amz" href="https://www.amazon.com/s?k=neck+fan+portable+rechargeable" target="_blank" rel="noopener">neck fan portable rechargeable</a></td></tr>
+    <tr><td><b>儿童防晒棒</b></td><td>棒状不怕托运漏液，娃自己也会涂</td><td><a class="amz" href="https://www.amazon.com/s?k=kids+sunscreen+stick+spf+50" target="_blank" rel="noopener">kids sunscreen stick spf 50</a></td></tr>
+    <tr><td><b>冰感运动毛巾</b></td><td>浸水一甩就凉，箱根排队和 SKY BUS 露天层用</td><td><a class="amz" href="https://www.amazon.com/s?k=cooling+towel+kids" target="_blank" rel="noopener">cooling towel kids</a></td></tr>
+    <tr><td><b>儿童保温水壶</b></td><td>景点和车站都有免费直饮水可续<sup><a href="#s45">[45]</a></sup></td><td><a class="amz" href="https://www.amazon.com/s?k=kids+insulated+water+bottle+straw" target="_blank" rel="noopener">kids insulated water bottle straw</a></td></tr>
+    <tr><td><b>儿童防晒帽</b></td><td>宽檐透气款，SKY BUS 露天层风大选带绳的</td><td><a class="amz" href="https://www.amazon.com/s?k=kids+upf+50+sun+hat+wide+brim+chin+strap" target="_blank" rel="noopener">kids upf 50 sun hat wide brim chin strap</a></td></tr>
+  </table></div>
+
+  <h3>到日本药妆店补（D0 傍晚银座就能办）</h3>
+  <div class="tbl"><table>
+    <tr><th>物品</th><th>日文名（照着找）</th><th>用途</th></tr>
+    <tr><td>碧柔冷感湿巾</td><td>ビオレ 冷シート</td><td>擦一下体感降温，防暑清单第一名<sup><a href="#s14">[14]</a></sup></td></tr>
+    <tr><td>盐分糖</td><td>塩分チャージタブレッツ</td><td>出汗多时补盐，娃当糖吃<sup><a href="#s14">[14]</a></sup></td></tr>
+    <tr><td>宝矿力/OS-1</td><td>ポカリスエット / OS-1</td><td>热中症对策饮料，便利店都有<sup><a href="#s14">[14]</a></sup></td></tr>
+    <tr><td>防蚊喷雾</td><td>スキンベープ（Skin Vape）</td><td>箱根山里和公园傍晚有蚊<sup><a href="#s14">[14]</a></sup></td></tr>
+    <tr><td>止痒贴</td><td>ムヒパッチ</td><td>被咬后娃不抓破的关键<sup><a href="#s14">[14]</a></sup></td></tr>
+  </table></div>
+  <div class="callout good"><b>💡 行为版防暑（比装备更重要）：</b>每天正午 11:30–15:00 必须在室内或水里（teamLab、博物馆、商场、酒店午睡），户外都放在 9 点前和 17 点后；这套节奏已直接织进<a href="#days">逐日安排</a><sup><a href="#s47">[47]</a><a href="#s42">[42]</a><a href="#s17">[17]</a></sup>。teamLab 和海盗船特别船室这种"凉快的付费项"在夏天优先级自动上调<sup><a href="#s21">[21]</a></sup>。</div>
+</section>
+
+<!-- ============ 10 预算 ============ -->
+<section id="budget">
+  <p class="eyebrow">10 · THE LEDGER</p>
+  <h2>一大一小预算概算</h2>
+  <p class="sec-sub">2026-07 快照价，机票为区间非锁价；按 ¥150/$1 粗算</p>
+  <div class="tbl"><table>
+    <tr><th>项目</th><th class="num">估算（USD）</th><th>依据</th></tr>
+    <tr><td>机票 SEA→HND（2 人单程）</td><td class="num">$1,200–1,800</td><td>旺季直飞经济 $600–900/人，儿童占座票价接近成人<sup><a href="#s46">[46]</a></sup></td></tr>
+    <tr><td>机票 HND→中国（2 人单程）</td><td class="num">$300–600</td><td>$150–300+/人，东航/国航/廉航偏低<sup><a href="#s46">[46]</a></sup></td></tr>
+    <tr><td>签证（2 人单次）</td><td class="num">$202</td><td>7/1 起 $101/人，儿童同价<sup><a href="#s27">[27]</a></sup></td></tr>
+    <tr><td>酒店银座 5 晚（2 人 1 房）</td><td class="num">$900–1,500</td><td>暑期旺季 ¥2.5–4.5 万/晚档<sup><a href="#s11">[11]</a></sup></td></tr>
+    <tr><td>箱根日交通（周游券+浪漫特快）</td><td class="num">约 $75</td><td>大人券 ¥7,100 + 特急券 ¥1,150×2；娃不占座免费<sup><a href="#s36">[36]</a><a href="#s35">[35]</a></sup></td></tr>
+    <tr><td>门票（teamLab+SKY BUS+雕刻之森+杂项）</td><td class="num">约 $80–100</td><td>¥3,600+1,500 / ¥2,600+1,300 / ¥1,800+0 等<sup><a href="#s34">[34]</a><a href="#s32">[32]</a><a href="#s21">[21]</a></sup></td></tr>
+    <tr><td>吃 + 市内交通 + 零花（5 天）</td><td class="num">$400–700</td><td>参考带娃家庭实测日均；市内地铁娃免费<sup><a href="#s11">[11]</a><a href="#s45">[45]</a></sup></td></tr>
+    <tr><td><b>合计</b></td><td class="num"><b>约 $3,200–5,000</b></td><td>浮动主项是机票和酒店档位</td></tr>
+  </table></div>
+</section>
+
+<!-- ============ 11 预期管理 ============ -->
+<section id="expect">
+  <p class="eyebrow">11 · PUSHBACK</p>
+  <h2>预期管理：反对意见都在这</h2>
+  <p class="sec-sub">评论区和论坛里跟主流唱反调的声音，出发前先听一遍</p>
+  <div class="card">
+    <ul>
+      <li><b>"7、8 月根本不该带娃来日本。"</b>多篇亲子攻略的原话是"日本全年都适合家庭，唯一例外是 7 月和 8 月"<sup><a href="#s47">[47]</a><a href="#s17">[17]</a></sup>。行程窗口已定的前提下，本攻略把它转成防暑纪律；但要有心理预期：正午街上确实是煎锅。</li>
+      <li><b>"箱根一天太赶。"</b>实测者自己也说"一天不住有点赶，但也够了"<sup><a href="#s10">[10]</a></sup>。给一大一小的版本已经砍掉了成川美术馆和强罗公园；如果当天娃状态差，优先砍大涌谷（缆车段最耗时），神社+海盗船+雕刻之森+NARAYA 是保底四件套。</li>
+      <li><b>"SKY BUS 官网烂到买不了票。"</b>评论区大量"网站打不开/要注册/绑卡付不出去"<sup><a href="#s3">[3]</a></sup>。这不是你的问题，直接现场现金买<sup><a href="#s4">[4]</a></sup>；7 月周末停售新票也可能临时变化，行前查一眼官网公告<sup><a href="#s31">[31]</a></sup>。</li>
+      <li><b>"大涌谷就是普通鸡蛋。"</b>高赞攻略作者原话"一般般，鸡蛋就是普通鸡蛋"<sup><a href="#s8">[8]</a></sup>。当仪式感项目消费（¥500 四颗），别当美食预期；站内食堂 2026 夏装修中<sup><a href="#s37">[37]</a></sup>。</li>
+      <li><b>"箱根东西难吃。"</b>粤语区评论多人附议，连温泉旅馆的会席都被点名<sup><a href="#s22">[22]</a></sup>。一日游正好绕开住宿餐；午饭大涌谷便利店，晚饭回东京吃。</li>
+      <li><b>"teamLab 水区有异味/太黑吓娃。"</b>2025 实测者辟谣异味（只有淡氯味、随时有人打扫）<sup><a href="#s26">[26]</a></sup>；但软地板房摔人、暗房难走是真的，牵好娃就行<sup><a href="#s26">[26]</a></sup>。</li>
+      <li><b>"迪士尼必去。"</b>两个带娃家庭去了都说好<sup><a href="#s11">[11]</a><a href="#s12">[12]</a></sup>，但一大一小+酷暑+排队的组合下，不拥挤的替代（Yomiuriland、姆明谷）体验反而更好是 YouTube 家庭的结论<sup><a href="#s18">[18]</a></sup>。所以它在本攻略里是 D4 可选项不是默认项。</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ 12 来源 ============ -->
+<section id="src" class="src">
+  <p class="eyebrow">12 · SOURCES</p>
+  <h2>数据来源</h2>
+  <p class="method">方法：三通道并行采集（小红书 16 条笔记正文+评论全量、YouTube 10 个视频转录+评论、Web/官方/论坛），评论权重不低于正文；每条来源按"是否东京箱根+是否带学龄前娃+时效"打分，不吻合来源仅允许支撑普适信息并显式标注；关键价格与休息日由主笔者直接回查官方页面与原始 JSON/转录逐字核对（NARAYA 官网、使馆费用表、SKY BUS 官网、teamLab 票务页、转录文件）；对草稿结论另跑了一轮验证（垂直论坛一亩三分地、官方页复查），修正了两处通道间冲突（"16 元落日飞车"的产品归属、签证费三个数字的时间线）。汇编 2026-07-07，时效性价格以官方页为准。</p>
+
+  <h3>小红书（正文+评论全量抓取）</h3>
+  <ol>
+    <li id="s1">在东京花的最值的一笔钱。。。 · 女侠已退休 · 2025-06-26 · 1.8 万赞 · <a href="https://www.xiaohongshu.com/explore/685d505a000000000b01ecf8" target="_blank" rel="noopener">xiaohongshu.com</a>（爆款母帖，产品指向含糊，评论区粉丝也在问"是哪种车"）</li>
+    <li id="s2">人生建议，来东京一定要花16r坐跨海落日飞车 · 婧婧子Jessica · 2025-08-29 · <a href="https://www.xiaohongshu.com/explore/68b192e6000000001d017623" target="_blank" rel="noopener">xiaohongshu.com</a>（"16 元版"=百合海鸥线的定锤来源）</li>
+    <li id="s3">东京落日飞车SkyBus 手把手教你官网订 · 唧唧歪歪的月半子 · 2024-11-23 · 5050 藏 · <a href="https://www.xiaohongshu.com/explore/6741a560000000000702a042" target="_blank" rel="noopener">xiaohongshu.com</a></li>
+    <li id="s4">东京落日Bus，现场买票攻略 · 两岸新喽 · 2025-09-07 · <a href="https://www.xiaohongshu.com/explore/68be2c59000000001d029993" target="_blank" rel="noopener">xiaohongshu.com</a>（现场现金购票+儿童票政策）</li>
+    <li id="s5">没抢到涩谷sky日落票的姐妹冲这个 · 沪上狗子 · 2025-07-26 · <a href="https://www.xiaohongshu.com/explore/6884edd800000000150232e7" target="_blank" rel="noopener">xiaohongshu.com</a></li>
+    <li id="s6">日剧《孤独的美食家》同款咖啡店，别错过足汤温泉+招牌卖萌甜点 · 小墨与阿猴 · 2018-03-09 · <a href="https://www.xiaohongshu.com/explore/5aa324ad4b88453eee2f6b00" target="_blank" rel="noopener">xiaohongshu.com</a>（本攻略缘起帖；营业信息已按 2026 官网更新）</li>
+    <li id="s7">偶遇箱根一家泡脚赏景的cafe · 豆瓣鱼腥草 · 2024-12-12 · <a href="https://www.xiaohongshu.com/explore/675bbdab00000000020142e6" target="_blank" rel="noopener">xiaohongshu.com</a>（足汤为静水的实测确认）</li>
+    <li id="s8">东京往返箱根一日游攻略 · 呼风唤雨之魔法师小年糕 · 2026-04-22 · 1904 藏 · <a href="https://www.xiaohongshu.com/explore/69e871fb000000002102fbfe" target="_blank" rel="noopener">xiaohongshu.com</a>（精确时刻表；评论区两次确认箱根寄存柜稀缺）</li>
+    <li id="s9">箱根一日游攻略 · 旅行的大钊 · 2025-06-20 · 8550 藏 · <a href="https://www.xiaohongshu.com/explore/6855dddd0000000017032d17" target="_blank" rel="noopener">xiaohongshu.com</a></li>
+    <li id="s10">怎么没人告诉我…箱根这么适合遛娃啊 · 柚子Aneela · 2025-03-13 · <a href="https://www.xiaohongshu.com/explore/67d2b2e8000000001203f11c" target="_blank" rel="noopener">xiaohongshu.com</a>（带娃维度完全吻合；雕刻之森馆内足汤位置出自评论）</li>
+    <li id="s11">刚从东京回 5天4晚亲子游保姆级攻略 · 南瓜晨 · 2026-05-08 · <a href="https://www.xiaohongshu.com/explore/69fde87f000000002202a36a" target="_blank" rel="noopener">xiaohongshu.com</a>（带 6 岁娃；酒店按人头收费确认出自评论区作者回复）</li>
+    <li id="s12">东京亲子游，看四岁小朋友二刷东京怎么玩 · 夏天的糖葫芦 · 2025-09-17 · <a href="https://www.xiaohongshu.com/explore/68ca823900000000120172c3" target="_blank" rel="noopener">xiaohongshu.com</a>（浅草民宿避雷出自评论区）</li>
+    <li id="s13">北美牛马带小娃东京4日回血行程 · 鹿CC · 2026-05-11 · <a href="https://www.xiaohongshu.com/explore/6a02653a000000001002d000" target="_blank" rel="noopener">xiaohongshu.com</a>（与本行程最同构：北美出发+小娃+4 日）</li>
+    <li id="s14">抄作业！防暑自救攻略！东京大阪真的太热了 · SEVEN种草机IN东京 · 2024-07-31 · <a href="https://www.xiaohongshu.com/explore/66a9faff000000002701204c" target="_blank" rel="noopener">xiaohongshu.com</a>（成人向清单，儿童针对性另行补强）</li>
+    <li id="s15">西雅图日签 5年多次签全流程干货 · knowhere · 2026-06-05 · <a href="https://www.xiaohongshu.com/explore/6a235447000000000803e94c" target="_blank" rel="noopener">xiaohongshu.com</a>（一手流程与 3 天时效；其 $40 费用为 7/1 涨价前旧价，已按官方费用表更正）</li>
+    <li id="s16">東京親子必去 帶娃逛teamLab攻略避坑 · Viya.L · 2025-10-01 · <a href="https://www.xiaohongshu.com/explore/68dccffe00000000040010e0" target="_blank" rel="noopener">xiaohongshu.com</a>（Borderless 馆带娃实测，用于两馆对比）</li>
+  </ol>
+
+  <h3>YouTube（转录+评论）</h3>
+  <ol start="17">
+    <li id="s17">Tokyo Travel Guide with Kids: 20 Huge Mistakes Parents Make · Nomadic Xperience · 2025-02 · 4.4 万播放 · <a href="https://www.youtube.com/watch?v=sI-mbJnCFN4" target="_blank" rel="noopener">youtube.com</a></li>
+    <li id="s18">TOKYO ITINERARY your kids will love! · life with sayaka · 2025-07 · <a href="https://www.youtube.com/watch?v=NIAAbLWnAPU" target="_blank" rel="noopener">youtube.com</a>（注意：该家庭自驾，郊区点位不可直接照搬）</li>
+    <li id="s19">東京親子之旅 14 days Family Trip · 牛媽衝衝衝 · 2024-03 · 5.2 万播放 · <a href="https://www.youtube.com/watch?v=AYAQSq6KhJA" target="_blank" rel="noopener">youtube.com</a>（无字幕轨，取元数据+评论）</li>
+    <li id="s20">東京必去親子景點特輯！上野動物園12歲以下免費 · I'm 拼命小姐 PinPin · 2024-01 · 4.6 万播放 · <a href="https://www.youtube.com/watch?v=EPFvGnlPpNw" target="_blank" rel="noopener">youtube.com</a>（园内单轨停运信息出自评论区）</li>
+    <li id="s21">箱根一日遊完全攻略！周遊券交通全解析 EP03 · Yang An is Here · 2025-10 · <a href="https://www.youtube.com/watch?v=QNtpJTZeu3o" target="_blank" rel="noopener">youtube.com</a>（箱根交通主力信源；特别船室、末班缆车 16:45、大风停运均有转录原文）</li>
+    <li id="s22">東京近郊 箱根2日1夜全攻略 · Kiki &amp; May · 2024-11 · 20.5 万播放 · <a href="https://www.youtube.com/watch?v=AMY42u1fez8" target="_blank" rel="noopener">youtube.com</a>（箱根餐食差评与便利店兜底出自高赞评论）</li>
+    <li id="s23">[4K] SKY BUS TOKYO Open-Top Double-Decker · Tokyo Up &amp; Down Walks · 2022-06 · <a href="https://www.youtube.com/watch?v=O8DixJxRJq0" target="_blank" rel="noopener">youtube.com</a>（评论区集中呈现 SKY BUS 与 SKY HOP BUS 的混淆）</li>
+    <li id="s24">Hop On Hop Off Bus Tour Tokyo · My Travel Agent David · 2025-07 · <a href="https://www.youtube.com/watch?v=_HkFpm9Pg1s" target="_blank" rel="noopener">youtube.com</a></li>
+    <li id="s25">Should You Take Your Kids to TeamLab Planets? · Adam and Linds · 2023-01 · <a href="https://www.youtube.com/watch?v=khqu3oUVpJ8" target="_blank" rel="noopener">youtube.com</a>（幼童水深实测："今天她站不住会全湿"）</li>
+    <li id="s26">Tips for TEAMLAB PLANETS 2025 Including the New Expansion · Cakes with Faces · 2025-08 · 4.6 万播放 · <a href="https://www.youtube.com/watch?v=aJR9KUpK9ww" target="_blank" rel="noopener">youtube.com</a>（扩建后现状主力信源；8:30 早场信息出自高赞评论）</li>
+  </ol>
+
+  <h3>官方与运营方（价格/休息日以此为准）</h3>
+  <ol start="27">
+    <li id="s27">在美日本大使馆 Visa and Travel Information：签证费用表（单次 $20→$101、多次 $40→$201，2026/7/1 生效；印度护照 $6 双边费率）· 页面更新 2026-06-24 · <a href="https://www.us.emb-japan.go.jp/itpr_en/travel_and_visa.html" target="_blank" rel="noopener">us.emb-japan.go.jp</a></li>
+    <li id="s28">日本驻西雅图总领馆签证页：辖区、长期居留身份要求、邮寄流程、5 工作日、推荐 eVISA · <a href="https://www.seattle.us.emb-japan.go.jp/itpr_en/VISA_Jurisdiction.html" target="_blank" rel="noopener">seattle.us.emb-japan.go.jp</a></li>
+    <li id="s29">MOFA JAPAN eVISA 官方页（居住国资格清单逐字；notice 须在线出示）· 更新 2026-05-15 · <a href="https://www.mofa.go.jp/j_info/visit/visa/visaonline.html" target="_blank" rel="noopener">mofa.go.jp</a></li>
+    <li id="s30">MOFA eVISA FAQ + 官方申请演示（单次观光签、全程在线、可代他人/家庭申请）· <a href="https://www.mofa.go.jp/j_info/visit/visa/page22e_000999.html" target="_blank" rel="noopener">mofa.go.jp</a></li>
+    <li id="s31">SKY BUS 官方预订站（T3 东京塔·彩虹桥线价格与"7 月土日新规预约暂停"公告，公告日 2026-06-12）· <a href="https://book.skybus.jp/top/all" target="_blank" rel="noopener">book.skybus.jp</a></li>
+    <li id="s32">SKY BUS 官方 N102 東京トワイライト/ナイトコース（¥2,600/¥1,300、约 50 分、丸之内 1 号站台、7 月约 19:00/19:30 发车、座位自动分配、雨天发雨衣）· <a href="https://www.skybus.jp/sp/course?id=1750745746-069957" target="_blank" rel="noopener">skybus.jp</a></li>
+    <li id="s33">NARAYA CAFE 官网（10:30–18:00；水曜日・第4木曜日定休，"7月は23日"；ならやん在售；2026 年 7 月两档展讯在挂）· <a href="https://naraya-cafe.com" target="_blank" rel="noopener">naraya-cafe.com</a>（主笔者 2026-07-07 直接抓取核对）</li>
+    <li id="s34">teamLab Planets 官方（展期至 2027 年底、2026 夏休馆日 7/9・8/5・9/3、票价大人 ¥3,600 起/儿童 ¥1,500/3 岁以下免费、线上定时票）· <a href="https://www.teamlab.art/e/planets/" target="_blank" rel="noopener">teamlab.art</a> + <a href="https://teamlabplanets.dmm.com/en" target="_blank" rel="noopener">teamlabplanets.dmm.com</a>（票价经主笔者直接核对）</li>
+    <li id="s35">小田急浪漫特快官方（全席指定；新宿→箱根汤本在线 ¥2,420；小儿半价；在线购票省 ¥50）· <a href="https://www.odakyu.jp/romancecar/" target="_blank" rel="noopener">odakyu.jp</a></li>
+    <li id="s36">箱根周游券官方 hakonenavi（新宿 2 日券大人 ¥7,100/小儿 ¥1,600，2025-10 调价后现价；覆盖 8 种交通）· <a href="https://www.hakonenavi.jp/hakone-freepass/" target="_blank" rel="noopener">hakonenavi.jp</a></li>
+    <li id="s37">神奈川县大涌谷官方运行情报（空中缆车无火山限制正常运行，更新 2026-05-27；火山气体健康提示；大涌谷站食堂 2026-05 起装修）· <a href="https://www.pref.kanagawa.jp/docs/j8g/cnt/f532566/" target="_blank" rel="noopener">pref.kanagawa.jp</a></li>
+    <li id="s38">百合海鸥线官方（新桥→台场 ¥330/一日券 ¥820；幼儿随行免费；芝浦埠头 ⇄ 台场海滨公园为跨桥段）· <a href="https://www.yurikamome.co.jp/" target="_blank" rel="noopener">yurikamome.co.jp</a>；7 月下旬东京日落 18:47–18:53（天文数据）</li>
+    <li id="s39">Hato Bus 官方（备选敞篷夜景线 B1601：18:00 发车约 2h50m，大人 ¥3,900/儿童 ¥2,550）· <a href="https://www.hatobus.com/" target="_blank" rel="noopener">hatobus.com</a></li>
+    <li id="s40">WILLER 東京レストランバス（"¥8,000 敞篷餐厅巴士"的本尊，银座おのでら监修车上套餐）· <a href="https://travel.willer.co.jp/restaurantbus/tokyo/" target="_blank" rel="noopener">willer.co.jp</a></li>
+  </ol>
+
+  <h3>论坛与其他（round-2 验证轮）</h3>
+  <ol start="41">
+    <li id="s41">r/JapanTravelTips "Hakone W/ Kids"（"early start + a light plan, Hakone is lovely with kids that age"）· <a href="https://www.reddit.com/r/JapanTravelTips/comments/1pc78hb/" target="_blank" rel="noopener">reddit.com</a></li>
+    <li id="s42">r/JapanTravel 带娃逐日帖（7:00 浅草寺→9:00 上野的早起避暑动线）· <a href="https://www.reddit.com/r/JapanTravel/comments/1o9fak8/" target="_blank" rel="noopener">reddit.com</a></li>
+    <li id="s43">r/travel "Japan e-visa Indian on H1B in US"（居美长期签证者 eVISA 可行的旁证；其 $6 为印度专属费率）· <a href="https://www.reddit.com/r/travel/comments/19528za/" target="_blank" rel="noopener">reddit.com</a></li>
+    <li id="s44">一亩三分地：中国籍居美申请日本 eVISA 一手帖（7 天出签；材料=护照+驾照+1 个月流水+机票行程+逐日计划+照片+绿卡或美签）· <a href="https://www.1point3acres.com/bbs/" target="_blank" rel="noopener">1point3acres.com</a></li>
+    <li id="s45">LIVE JAPAN "Japan With Kids"（6 岁以下不占座免费、每大人限 2 名；机场母婴设施）· <a href="https://livejapan.com/en/article-a0002691/" target="_blank" rel="noopener">livejapan.com</a></li>
+    <li id="s46">Google Flights / momondo / 航司官网 SEA–TYO 与 TYO–中国 航班与价格快照（as-of 2026-07，非锁价）· <a href="https://www.google.com/travel/flights" target="_blank" rel="noopener">google.com/travel/flights</a></li>
+    <li id="s47">Unseen Japan "Surviving Summer" / Bon Traveler 亲子月份建议（"唯一例外是 7 月和 8 月"）· <a href="https://unseen-japan.com/" target="_blank" rel="noopener">unseen-japan.com</a></li>
+  </ol>
+
+  <h3>已过滤的不吻合来源（证明筛选发生过）</h3>
+  <ol start="48">
+    <li>「我在名古屋找到了孤独的美食家同款咖啡馆」等 3 条名古屋/高松五郎打卡帖：城市不符，仅用于确认"同款店"检索语义，未采信任何事实。</li>
+    <li>KKday「东京落日飞车预订攻略」：旅行社营销号帖，价格与官方页冲突，弃用。</li>
+    <li>「东京5天4晚」镰仓段与「4岁二刷」富士山包车段：目的地超出本行程范围，仅采信其东京市内与住宿部分。</li>
+  </ol>
+</section>
+
+<footer>
+  <p>汇编 2026-07-07 · 价格与休息日为当日官方页快照，出行前请以官方页复核 · 本页为 <a href="../">北美 Research</a> 收藏之一 · 引用编号可悬停预览、点击跳转</p>
+</footer>
+
+</div>
+
+<div id="tip" role="tooltip" aria-hidden="true"></div>
+
+<script>
+(function(){
+  // ---------- theme ----------
+  var btn=document.getElementById('themeBtn');
+  var saved=localStorage.getItem('tk4-theme');
+  if(saved)document.documentElement.setAttribute('data-theme',saved);
+  btn.addEventListener('click',function(){
+    var cur=document.documentElement.getAttribute('data-theme');
+    var prefersDark=window.matchMedia('(prefers-color-scheme: dark)').matches;
+    var next=(cur? cur==='dark' : prefersDark)?'light':'dark';
+    document.documentElement.setAttribute('data-theme',next);
+    localStorage.setItem('tk4-theme',next);
+  });
+
+  // ---------- citation tooltips (body-level, escapes overflow containers) ----------
+  var tip=document.getElementById('tip');
+  var srcMap={};
+  document.querySelectorAll('.src li[id]').forEach(function(li){
+    var t=li.textContent.replace(/\s+/g,' ').trim();
+    var cut=t.indexOf(' · ');
+    srcMap[li.id]=(cut>0?t.slice(0,cut):t).slice(0,90);
+  });
+  function showTip(a){
+    var id=a.getAttribute('href').slice(1);
+    var txt=srcMap[id];
+    if(!txt)return;
+    tip.textContent='['+id.slice(1)+'] '+txt;
+    tip.classList.add('on');
+    var r=a.getBoundingClientRect();
+    tip.style.left='0px';tip.style.top='0px';
+    var tw=tip.offsetWidth,th=tip.offsetHeight;
+    var x=Math.min(Math.max(8,r.left+r.width/2-tw/2),window.innerWidth-tw-8);
+    var y=r.top-th-8; if(y<8)y=r.bottom+8;
+    tip.style.left=x+'px';tip.style.top=y+'px';
+  }
+  function hideTip(){tip.classList.remove('on')}
+  document.querySelectorAll('a[href^="#s"]').forEach(function(a){
+    if(!/^#s\d+$/.test(a.getAttribute('href')))return;
+    a.addEventListener('mouseenter',function(){showTip(a)});
+    a.addEventListener('mouseleave',hideTip);
+    a.addEventListener('focus',function(){showTip(a)});
+    a.addEventListener('blur',hideTip);
+  });
+  window.addEventListener('scroll',hideTip,{passive:true});
+
+  // links inside checklist labels shouldn't toggle the checkbox
+  document.querySelectorAll('.chk-item a').forEach(function(a){
+    a.addEventListener('click',function(e){e.stopPropagation()});
+  });
+
+  // ---------- checklist persistence ----------
+  var KEY='tk4-prep-v1';
+  var state={};
+  try{state=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
+  var boxes=[].slice.call(document.querySelectorAll('.chk-item input'));
+  function save(){localStorage.setItem(KEY,JSON.stringify(state))}
+  function refresh(){
+    var done=0;
+    boxes.forEach(function(b){
+      var on=!!state[b.dataset.id];
+      b.checked=on;
+      b.closest('.chk-item').classList.toggle('done',on);
+      if(on)done++;
+    });
+    document.getElementById('chkCount').textContent=done+' / '+boxes.length;
+    document.getElementById('bar').style.width=(boxes.length?100*done/boxes.length:0)+'%';
+  }
+  boxes.forEach(function(b){
+    b.addEventListener('change',function(){state[b.dataset.id]=b.checked;save();refresh();});
+  });
+  document.getElementById('resetBtn').addEventListener('click',function(){
+    if(confirm('清空所有勾选？')){state={};save();refresh();}
+  });
+  refresh();
+})();
+</script>
+</body>
+</html>
