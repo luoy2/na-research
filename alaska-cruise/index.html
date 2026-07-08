@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@700;900&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#F0F4F5; --card:#FFFFFF; --ink:#16303E; --sub:#5A6E7A; --line:#DCE4E8;
+  --bg:#F0F4F5; --card:#FBFDFD; --ink:#16303E; --sub:#5A6E7A; --line:#DCE4E8;
   --accent:#20708F; --accent-soft:#E3EEF3;
   --flare:#D96038; --flare-soft:#FBEDE6;
   --good:#2E7D5B; --good-soft:#E5F2EC;
@@ -92,11 +92,13 @@ h3{font-size:16.5px;margin:24px 0 10px}
 .card ul{margin:4px 0;padding-left:20px;font-size:14.5px}
 .card li{margin:4px 0}
 
-/* tldr */
-.tldr{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:12px}
-.tldr .card{padding:15px 16px}
-.tldr b.k{display:block;font-size:15px;margin-bottom:4px}
-.tldr p{margin:0;font-size:14px;color:var(--sub)}
+/* findings：带序号的结论列表（序号=重要性排序） */
+.findings{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:6px 20px}
+.finding{display:flex;gap:16px;padding:15px 0;border-top:1px solid var(--line)}
+.finding:first-child{border-top:none}
+.finding .fno{font-family:var(--mono);font-weight:700;font-size:19px;color:var(--flare);flex:none;width:28px;line-height:1.5}
+.finding b.k{display:block;font-size:15.5px;margin-bottom:2px}
+.finding p{margin:0;font-size:14px;color:var(--sub)}
 
 /* tables */
 .tbl{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--card);box-shadow:var(--shadow);margin:10px 0}
@@ -106,6 +108,8 @@ td{padding:10px 12px;border-top:1px solid var(--line);vertical-align:top}
 tr:hover td{background:color-mix(in srgb,var(--accent-soft) 40%,transparent)}
 td b{white-space:nowrap}
 td.num,th.num{text-align:center;font-family:var(--mono);white-space:nowrap}
+a.amz{font-family:var(--mono);font-size:12px;line-height:1.6;display:inline-block}
+a.amz::before{content:"🔍 ";font-size:10px}
 
 /* tags */
 .tag{display:inline-block;border-radius:6px;padding:1px 8px;font-size:12.5px;font-weight:600;white-space:nowrap}
@@ -124,16 +128,15 @@ td.num,th.num{text-align:center;font-family:var(--mono);white-space:nowrap}
 #chkCount{font-family:var(--mono);font-size:13px;color:var(--sub);white-space:nowrap}
 #resetBtn{background:none;border:1px solid var(--line);color:var(--sub);border-radius:8px;padding:4px 10px;font-size:13px;cursor:pointer}
 .bags{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-top:6px}
-.bag{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);position:relative;overflow:hidden}
-.bag::before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:var(--flare)}
-.bag.b1::before{background:#D96038}.bag.b2::before{background:#20708F}.bag.b3::before{background:#2E7D5B}
-.bag .head{padding:14px 16px 10px 20px;border-bottom:1px dashed var(--line);position:relative}
+.bag{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);position:relative}
+.bag .head{padding:14px 18px 10px;border-bottom:1px dashed var(--line);position:relative}
 .bag .head::after{content:"";position:absolute;right:16px;top:16px;width:13px;height:13px;border-radius:50%;background:var(--bg);box-shadow:inset 0 0 0 3px var(--line)}
-.bag .no{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--sub)}
-.bag h4{margin:2px 0;font-size:17px;font-family:var(--serif);font-weight:700}
+.bag .no{font-family:var(--mono);font-size:11px;letter-spacing:.14em;font-weight:700;display:inline-block;border-radius:6px;padding:2px 9px;color:#FBFDFD}
+.bag.b1 .no{background:#C05430}.bag.b2 .no{background:#20708F}.bag.b3 .no{background:#2E7D5B}
+.bag h4{margin:7px 0 2px;font-size:17px;font-family:var(--serif);font-weight:700}
 .bag .spec{font-family:var(--mono);font-size:11.5px;color:var(--sub)}
 .bag .role{font-size:13px;color:var(--sub);margin:6px 0 0}
-.bag .body{padding:8px 14px 14px 18px}
+.bag .body{padding:8px 16px 14px}
 .bag h5{margin:10px 0 2px;font-size:12px;font-family:var(--mono);letter-spacing:.1em;color:var(--flare)}
 .chk-item{display:flex;gap:9px;align-items:flex-start;padding:5px 4px;border-radius:8px;cursor:pointer;font-size:14.5px}
 .chk-item:hover{background:var(--accent-soft)}
@@ -154,11 +157,11 @@ td.num,th.num{text-align:center;font-family:var(--mono);white-space:nowrap}
 .day .bd ul{margin:4px 0 0;padding-left:19px;font-size:14.5px}
 .day .bd li{margin:3px 0}
 
-/* callouts */
-.callout{border-left:4px solid var(--accent);background:var(--accent-soft);border-radius:0 10px 10px 0;padding:12px 15px;font-size:14.5px;margin:14px 0}
-.callout.warn{border-color:var(--warn);background:var(--warn-soft)}
-.callout.bad{border-color:var(--bad);background:var(--bad-soft)}
-.callout.good{border-color:var(--good);background:var(--good-soft)}
+/* callouts：全边框+底色，不用侧色条 */
+.callout{border:1px solid color-mix(in srgb,var(--accent) 35%,var(--line));background:var(--accent-soft);border-radius:12px;padding:12px 16px;font-size:14.5px;margin:14px 0}
+.callout.warn{border-color:color-mix(in srgb,var(--warn) 35%,var(--line));background:var(--warn-soft)}
+.callout.bad{border-color:color-mix(in srgb,var(--bad) 35%,var(--line));background:var(--bad-soft)}
+.callout.good{border-color:color-mix(in srgb,var(--good) 35%,var(--line));background:var(--good-soft)}
 
 /* sources */
 .src ol{padding-left:24px;font-size:13.5px;color:var(--sub)}
@@ -236,12 +239,12 @@ footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--line);color:v
   <p class="eyebrow">01 · KEY FINDINGS</p>
   <h2>五个最重要的结论</h2>
   <p class="sec-sub">先看这里，细节在后面各节</p>
-  <div class="tldr">
-    <div class="card"><b class="k">🧅 打包核心 = 防风 + 防水 + 分层 + 好走</b><p>不是"厚"。不带厚羽绒和滑雪裤；带帽防水雨衣是全场最重要单品。三路信源完全一致<sup><a href="#s12">[12]</a><a href="#s13">[13]</a><a href="#s16">[16]</a><a href="#s17">[17]</a></sup></p></div>
-    <div class="card"><b class="k">🤢 晕船药必带</b><p>西雅图往返绕温哥华岛走<b>外海</b>（不是温哥华出发的内海），前两天明显晃，多篇实测"晃到站不起来"<sup><a href="#s2">[2]</a><a href="#s6">[6]</a><a href="#s15">[15]</a></sup></p></div>
-    <div class="card"><b class="k">💸 必买：餐饮包 + Thermal Suite</b><p>特色餐饮包直接回本（娃还免费）；Thermal Suite 是阿拉斯加航线公认第一付费项。Vibe 不值，Laser Tag 已经拆了<sup><a href="#s7">[7]</a><a href="#s22">[22]</a><a href="#s25">[25]</a><a href="#s31">[31]</a><a href="#s32">[32]</a></sup></p></div>
-    <div class="card"><b class="k">🛳 阳台房用法：冰川日别去挤船头</b><p>Glacier Bay 当天船会在冰川前 360° 旋转，两舷阳台都能看到，房里还能听 ranger 讲解广播<sup><a href="#s2">[2]</a><a href="#s4">[4]</a><a href="#s22">[22]</a></sup></p></div>
-    <div class="card"><b class="k">📅 2024 年底刚改装，老攻略会骗你</b><p>Laser Tag / 保龄球 / Los Lobos 已拆；Observation Lounge 缩小约 40%（抢座更凶）；新增免费成人区 Spice H2O 和 Palomar 餐厅<sup><a href="#s25">[25]</a><a href="#s26">[26]</a></sup></p></div>
+  <div class="findings">
+    <div class="finding"><span class="fno">1</span><div><b class="k">打包核心 = 防风 + 防水 + 分层 + 好走，不是"厚"</b><p>不带厚羽绒和滑雪裤；带帽防水雨衣是全场最重要单品。三路信源完全一致<sup><a href="#s12">[12]</a><a href="#s13">[13]</a><a href="#s16">[16]</a><a href="#s17">[17]</a></sup></p></div></div>
+    <div class="finding"><span class="fno">2</span><div><b class="k">晕船药必带</b><p>西雅图往返绕温哥华岛走<b>外海</b>（不是温哥华出发的内海），前两天明显晃，多篇实测"晃到站不起来"<sup><a href="#s2">[2]</a><a href="#s6">[6]</a><a href="#s15">[15]</a></sup></p></div></div>
+    <div class="finding"><span class="fno">3</span><div><b class="k">必买：餐饮包 + Thermal Suite</b><p>特色餐饮包直接回本（娃还免费）；Thermal Suite 是阿拉斯加航线公认第一付费项。Vibe 不值，Laser Tag 已经拆了<sup><a href="#s7">[7]</a><a href="#s22">[22]</a><a href="#s25">[25]</a><a href="#s31">[31]</a><a href="#s32">[32]</a></sup></p></div></div>
+    <div class="finding"><span class="fno">4</span><div><b class="k">阳台房用法：冰川日别去挤船头</b><p>Glacier Bay 当天船会在冰川前 360° 旋转，两舷阳台都能看到，房里还能听 ranger 讲解广播<sup><a href="#s2">[2]</a><a href="#s4">[4]</a><a href="#s22">[22]</a></sup></p></div></div>
+    <div class="finding"><span class="fno">5</span><div><b class="k">2024 年底刚改装，老攻略会骗你</b><p>Laser Tag / 保龄球 / Los Lobos 已拆；Observation Lounge 缩小约 40%（抢座更凶）；新增免费成人区 Spice H2O 和 Palomar 餐厅<sup><a href="#s25">[25]</a><a href="#s26">[26]</a></sup></p></div></div>
   </div>
 </section>
 
@@ -249,16 +252,16 @@ footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--line);color:v
 <section id="action">
   <p class="eyebrow">02 · BEFORE YOU SAIL</p>
   <h2>行前必办（时间敏感）</h2>
-  <p class="sec-sub">NCL 的线上 pre-reserve 在开船前几天关闭——越早办越好</p>
+  <p class="sec-sub">NCL 的线上 pre-reserve 在开船前几天关闭，越早办越好</p>
   <div class="tbl"><table>
     <tr><th>#</th><th>事项</th><th>说明</th></tr>
     <tr><td>1</td><td><b>买特色餐饮包</b></td><td>NCL 官网 My Account → Dining。à la carte 单点 $40–60/人/顿，套餐价远低于单点；<b>12 岁以下娃在付费餐厅免费点儿童套餐</b><sup><a href="#s5">[5]</a><a href="#s7">[7]</a></sup>。阳台房档位约 $60/人/3 家（小红书实测）<sup><a href="#s7">[7]</a></sup></td></tr>
     <tr><td>2</td><td><b>订餐厅位子</b></td><td>优先级：<b>Teppanyaki</b>（带娃首选，看表演，量大）→ <b>Onda by Scarpetta</b>（口碑最稳，位子少）→ Le Bistro / Palomar<sup><a href="#s7">[7]</a><a href="#s20">[20]</a><a href="#s26">[26]</a></sup></td></tr>
     <tr><td>3</td><td><b>Thermal Suite 通票决策</b></td><td>约 $339/人/7 天，<b>限 200 张会售罄</b>，18+ 成人专属（带娃轮流去）；省钱变体：只买 1 人、或靠港日 day pass ≈$79<sup><a href="#s31">[31]</a></sup></td></tr>
     <tr><td>4</td><td><b>酒水包按习惯决定</b></td><td>两大人合计每天 ≥3–4 杯酒才值（无限量、单杯 ≤$15）；不怎么喝就只买餐饮包<sup><a href="#s24">[24]</a></sup></td></tr>
-    <tr><td>5</td><td><b>Excursion 立即查票</b></td><td><b>White Pass 火车常提前 1 个月+售罄</b><sup><a href="#s1">[1]</a></sup>——直订打 <b>1-800-343-7373</b>（成人 $155 / 儿童 $77.50，网上查不到余票）<sup><a href="#s51">[51]</a></sup>；Juneau 观鲸自订便宜但<b>注意 Harv &amp; Marv 拼团不收 13 岁以下</b><sup><a href="#s57">[57]</a></sup>；<b>Ketchikan 的团必须选 "Ward Cove pickup"</b><sup><a href="#s34">[34]</a></sup>。详见 <a href="#live">§8</a></td></tr>
+    <tr><td>5</td><td><b>Excursion 立即查票</b></td><td><b>White Pass 火车常提前 1 个月+售罄</b><sup><a href="#s1">[1]</a></sup>，直订打 <b>1-800-343-7373</b>（成人 $155 / 儿童 $77.50，网上查不到余票）<sup><a href="#s51">[51]</a></sup>；Juneau 观鲸自订便宜但<b>注意 Harv &amp; Marv 拼团不收 13 岁以下</b><sup><a href="#s57">[57]</a></sup>；<b>Ketchikan 的团必须选 "Ward Cove pickup"</b><sup><a href="#s34">[34]</a></sup>。详见 <a href="#live">§8</a></td></tr>
     <tr><td>6</td><td><b>WiFi 提前买更便宜</b></td><td>提前购约 $17/天起 vs 船上 $29.99/天<sup><a href="#s43">[43]</a></sup>；Juneau / Skagway / Ketchikan 港口有手机信号，海上日没有<sup><a href="#s22">[22]</a></sup></td></tr>
-    <tr><td>7</td><td><b>证件核对</b></td><td>船停加拿大 Victoria——<b>非美籍/绿卡通常需要加拿大签证（即使不下船）</b><sup><a href="#s2">[2]</a><a href="#s4">[4]</a><a href="#s67">[67]</a></sup>；细则见 <a href="#live">实查速报 §8</a></td></tr>
+    <tr><td>7</td><td><b>证件核对</b></td><td>船停加拿大 Victoria，<b>非美籍/绿卡通常需要加拿大签证（即使不下船）</b><sup><a href="#s2">[2]</a><a href="#s4">[4]</a><a href="#s67">[67]</a></sup>；细则见 <a href="#live">实查速报 §8</a></td></tr>
     <tr><td>8</td><td><b>提前 21 天线上 check-in</b></td><td>拿早登船时段；已完成的忽略此条<sup><a href="#s22">[22]</a></sup></td></tr>
   </table></div>
   <div class="callout"><b>💡 Onboard Credit 怎么花：</b>OBC 只能在船上消费（pre-cruise 网购刷卡不吃 OBC）。建议留给：Thermal Suite（上船 Day 1 买，如还有货）、水包、Late Night Fun Zone 托管、娃的 Galaxy Pavilion。</div>
@@ -272,53 +275,53 @@ footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--line);color:v
 
   <h3>🔭 装备类</h3>
   <div class="tbl"><table>
-    <tr><th>买什么</th><th class="num">数量</th><th>推荐规格</th><th class="num">参考价</th><th>放进</th><th>为什么 / 注意</th></tr>
-    <tr><td><b>望远镜（大人）</b></td><td class="num">×2</td><td>8×42 屋脊棱镜，防水充氮</td><td class="num">$100–250</td><td><span class="tag bagg">登机箱</span></td><td>头号后悔项，选购详见 <a href="#bino">§5</a><sup><a href="#s16">[16]</a><a href="#s21">[21]</a></sup></td></tr>
-    <tr><td><b>望远镜（娃）</b></td><td class="num">×1</td><td>8×21 真光学儿童款，橡胶包边</td><td class="num">$20–40</td><td><span class="tag bagg">登机箱</span></td><td>防止抢大人的（真的会抢）<sup><a href="#s16">[16]</a></sup>；别买玩具级</td></tr>
-    <tr><td>磁吸挂钩</td><td class="num">×8</td><td>强磁承重 ≥5 lb</td><td class="num">$10–15</td><td><span class="tag bagg">登机箱</span></td><td>舱壁是钢的，挂湿雨衣/背包——Encore 实测"唯二真正用上的买品"<sup><a href="#s22">[22]</a></sup></td></tr>
-    <tr><td>非 surge 插线板 / USB hub</td><td class="num">×1</td><td>无防浪涌！多 USB-C/A 口</td><td class="num">$15–25</td><td><span class="tag bagg">登机箱</span></td><td>舱内插座仅 1–2 个；surge protector 是安检头号没收品<sup><a href="#s18">[18]</a><a href="#s28">[28]</a></sup></td></tr>
-    <tr><td>可充电暖手宝</td><td class="num">×2</td><td>5000mAh 充电宝二合一款更划算</td><td class="num">$15–25/个</td><td><span class="tag bagg">登机箱</span></td><td>"Alaska 绝不会不带的东西"，冰川日全家抢<sup><a href="#s17">[17]</a></sup></td></tr>
-    <tr><td>充电宝</td><td class="num">×2</td><td>10000mAh，自带线款</td><td class="num">$20–30/个</td><td><span class="tag bagg">手提包</span></td><td>港口日手机当相机+地图一整天<sup><a href="#s16">[16]</a></sup></td></tr>
-    <tr><td>防水手机袋 + 挂绳</td><td class="num">×2</td><td>可触屏</td><td class="num">$10</td><td><span class="tag bagg">托运箱</span></td><td>雨天护机；火车过弯抓稳手机<sup><a href="#s21">[21]</a><a href="#s37">[37]</a></sup></td></tr>
-    <tr><td>折叠防水 daypack + 雨罩</td><td class="num">×1</td><td>20L 左右</td><td class="num">$20–35</td><td><span class="tag bagg">托运箱</span></td><td>港口日装雨衣/水/零食/娃备用衣<sup><a href="#s21">[21]</a></sup></td></tr>
-    <tr><td>压缩收纳袋</td><td class="num">1 套</td><td>手卷排气式即可</td><td class="num">$15–20</td><td><span class="tag bagg">托运箱</span></td><td>阿拉斯加衣服蓬，压缩后一箱装下全家<sup><a href="#s16">[16]</a></sup></td></tr>
-    <tr><td>保温杯 / 水瓶</td><td class="num">×3</td><td><b>空瓶登船</b></td><td class="num">已有可不买</td><td><span class="tag bagg">手提包</span></td><td>NCL 禁带任何饮料（含瓶装水）<sup><a href="#s28">[28]</a></sup>；甲板热饮不限量<sup><a href="#s4">[4]</a></sup></td></tr>
+    <tr><th>买什么</th><th class="num">数量</th><th>推荐规格</th><th>亚麻搜索</th><th class="num">参考价</th><th>放进</th><th>为什么 / 注意</th></tr>
+    <tr><td><b>望远镜（大人）</b></td><td class="num">×2</td><td>8×42 屋脊棱镜，防水充氮</td><td><a class="amz" href="https://www.amazon.com/s?k=8x42+binoculars+waterproof" target="_blank" rel="noopener">8x42 binoculars waterproof</a></td><td class="num">$100–250</td><td><span class="tag bagg">登机箱</span></td><td>头号后悔项，选购详见 <a href="#bino">§5</a><sup><a href="#s16">[16]</a><a href="#s21">[21]</a></sup></td></tr>
+    <tr><td><b>望远镜（娃）</b></td><td class="num">×1</td><td>8×21 真光学儿童款，橡胶包边</td><td><a class="amz" href="https://www.amazon.com/s?k=kids+binoculars+8x21" target="_blank" rel="noopener">kids binoculars 8x21</a></td><td class="num">$20–40</td><td><span class="tag bagg">登机箱</span></td><td>防止抢大人的（真的会抢）<sup><a href="#s16">[16]</a></sup>；别买玩具级</td></tr>
+    <tr><td>磁吸挂钩</td><td class="num">×8</td><td>强磁承重 ≥5 lb</td><td><a class="amz" href="https://www.amazon.com/s?k=magnetic+hooks+heavy+duty" target="_blank" rel="noopener">magnetic hooks heavy duty</a></td><td class="num">$10–15</td><td><span class="tag bagg">登机箱</span></td><td>舱壁是钢的，挂湿雨衣和背包（Encore 实测"唯二真正用上的买品"）<sup><a href="#s22">[22]</a></sup></td></tr>
+    <tr><td>非 surge 插线板 / USB hub</td><td class="num">×1</td><td>无防浪涌！多 USB-C/A 口</td><td><a class="amz" href="https://www.amazon.com/s?k=cruise+power+strip+non+surge+usb" target="_blank" rel="noopener">cruise power strip non surge usb</a></td><td class="num">$15–25</td><td><span class="tag bagg">登机箱</span></td><td>舱内插座仅 1–2 个；surge protector 是安检头号没收品<sup><a href="#s18">[18]</a><a href="#s28">[28]</a></sup></td></tr>
+    <tr><td>可充电暖手宝</td><td class="num">×2</td><td>5000mAh 充电宝二合一款更划算</td><td><a class="amz" href="https://www.amazon.com/s?k=rechargeable+hand+warmers" target="_blank" rel="noopener">rechargeable hand warmers</a></td><td class="num">$15–25/个</td><td><span class="tag bagg">登机箱</span></td><td>"Alaska 绝不会不带的东西"，冰川日全家抢<sup><a href="#s17">[17]</a></sup></td></tr>
+    <tr><td>充电宝</td><td class="num">×2</td><td>10000mAh，自带线款</td><td><a class="amz" href="https://www.amazon.com/s?k=portable+charger+built+in+cables" target="_blank" rel="noopener">portable charger built in cables</a></td><td class="num">$20–30/个</td><td><span class="tag bagg">手提包</span></td><td>港口日手机当相机+地图一整天<sup><a href="#s16">[16]</a></sup></td></tr>
+    <tr><td>防水手机袋 + 挂绳</td><td class="num">×2</td><td>可触屏</td><td><a class="amz" href="https://www.amazon.com/s?k=waterproof+phone+pouch+lanyard" target="_blank" rel="noopener">waterproof phone pouch lanyard</a></td><td class="num">$10</td><td><span class="tag bagg">托运箱</span></td><td>雨天护机；火车过弯抓稳手机<sup><a href="#s21">[21]</a><a href="#s37">[37]</a></sup></td></tr>
+    <tr><td>折叠防水 daypack + 雨罩</td><td class="num">×1</td><td>20L 左右</td><td><a class="amz" href="https://www.amazon.com/s?k=packable+daypack+water+resistant" target="_blank" rel="noopener">packable daypack water resistant</a></td><td class="num">$20–35</td><td><span class="tag bagg">托运箱</span></td><td>港口日装雨衣/水/零食/娃备用衣<sup><a href="#s21">[21]</a></sup></td></tr>
+    <tr><td>压缩收纳袋</td><td class="num">1 套</td><td>手卷排气式即可</td><td><a class="amz" href="https://www.amazon.com/s?k=compression+packing+bags+travel" target="_blank" rel="noopener">compression packing bags travel</a></td><td class="num">$15–20</td><td><span class="tag bagg">托运箱</span></td><td>阿拉斯加衣服蓬，压缩后一箱装下全家<sup><a href="#s16">[16]</a></sup></td></tr>
+    <tr><td>保温杯 / 水瓶</td><td class="num">×3</td><td><b>空瓶登船</b></td><td><a class="amz" href="https://www.amazon.com/s?k=insulated+water+bottle" target="_blank" rel="noopener">insulated water bottle</a></td><td class="num">已有可不买</td><td><span class="tag bagg">手提包</span></td><td>NCL 禁带任何饮料（含瓶装水）<sup><a href="#s28">[28]</a></sup>；甲板热饮不限量<sup><a href="#s4">[4]</a></sup></td></tr>
   </table></div>
 
   <h3>🧥 衣物类（家里没有才买）</h3>
   <div class="tbl"><table>
-    <tr><th>买什么</th><th class="num">数量</th><th>推荐规格</th><th class="num">参考价</th><th>放进</th><th>为什么 / 注意</th></tr>
-    <tr><td><b>带帽防水雨衣</b></td><td class="num">×3</td><td>标注 waterproof（非 water-resistant），可收纳</td><td class="num">$40–90/件</td><td><span class="tag bagg">托运箱</span></td><td>全场最重要单品<sup><a href="#s16">[16]</a><a href="#s17">[17]</a><a href="#s18">[18]</a></sup>；"waterproof" 标签无监管，便宜款只是喷涂层<sup><a href="#s18">[18]</a></sup></td></tr>
-    <tr><td>娃的雨裤</td><td class="num">×1</td><td>透气 seam-sealed，别买硬塑料</td><td class="num">$20–30</td><td><span class="tag bagg">托运箱</span></td><td>娃蹲地上玩必湿；不下雨时当防风裤<sup><a href="#s21">[21]</a><a href="#s18">[18]</a></sup></td></tr>
-    <tr><td>防水运动鞋</td><td class="num">按需</td><td>轻量防水（如 Merrell），非重型登山靴</td><td class="num">$70–120</td><td>穿脚上</td><td>"鞋是 Alaska 最重要的"<sup><a href="#s23">[23]</a><a href="#s18">[18]</a></sup></td></tr>
-    <tr><td>羊毛袜</td><td class="num">4 双/人</td><td>Merino 或合成排汗，<b>不要棉</b></td><td class="num">$30/6双</td><td><span class="tag bagg">托运箱</span></td><td>湿了也暖、干得快；无牌平价款表现一样好<sup><a href="#s18">[18]</a><a href="#s17">[17]</a></sup></td></tr>
-    <tr><td>beanie + 触屏手套 + 围脖</td><td class="num">×3 套</td><td>羊毛帽；围脖比围巾好用</td><td class="num">$10–20/件</td><td><span class="tag bagg">托运箱</span></td><td>冰川日"能让你在甲板多站 20 分钟"<sup><a href="#s12">[12]</a><a href="#s18">[18]</a></sup></td></tr>
-    <tr><td>薄款可压缩 puffer</td><td class="num">按需</td><td>可塞进真空袋的轻羽绒</td><td class="num">$50–100</td><td><span class="tag bagg">托运箱</span></td><td>中层保暖；<b>不要买厚 parka</b><sup><a href="#s16">[16]</a><a href="#s17">[17]</a></sup></td></tr>
+    <tr><th>买什么</th><th class="num">数量</th><th>推荐规格</th><th>亚麻搜索</th><th class="num">参考价</th><th>放进</th><th>为什么 / 注意</th></tr>
+    <tr><td><b>带帽防水雨衣</b></td><td class="num">×3</td><td>标注 waterproof（非 water-resistant），可收纳</td><td><a class="amz" href="https://www.amazon.com/s?k=rain+jacket+waterproof+hooded+packable" target="_blank" rel="noopener">rain jacket waterproof hooded packable</a>（前面加 womens / mens / kids）</td><td class="num">$40–90/件</td><td><span class="tag bagg">托运箱</span></td><td>全场最重要单品<sup><a href="#s16">[16]</a><a href="#s17">[17]</a><a href="#s18">[18]</a></sup>；"waterproof" 标签无监管，便宜款只是喷涂层<sup><a href="#s18">[18]</a></sup></td></tr>
+    <tr><td>娃的雨裤</td><td class="num">×1</td><td>透气 seam-sealed，别买硬塑料</td><td><a class="amz" href="https://www.amazon.com/s?k=kids+rain+pants+waterproof" target="_blank" rel="noopener">kids rain pants waterproof</a></td><td class="num">$20–30</td><td><span class="tag bagg">托运箱</span></td><td>娃蹲地上玩必湿；不下雨时当防风裤<sup><a href="#s21">[21]</a><a href="#s18">[18]</a></sup></td></tr>
+    <tr><td>防水运动鞋</td><td class="num">按需</td><td>轻量防水（如 Merrell），非重型登山靴</td><td><a class="amz" href="https://www.amazon.com/s?k=waterproof+walking+shoes" target="_blank" rel="noopener">waterproof walking shoes</a></td><td class="num">$70–120</td><td>穿脚上</td><td>"鞋是 Alaska 最重要的"<sup><a href="#s23">[23]</a><a href="#s18">[18]</a></sup></td></tr>
+    <tr><td>羊毛袜</td><td class="num">4 双/人</td><td>Merino 或合成排汗，<b>不要棉</b></td><td><a class="amz" href="https://www.amazon.com/s?k=merino+wool+hiking+socks" target="_blank" rel="noopener">merino wool hiking socks</a></td><td class="num">$30/6双</td><td><span class="tag bagg">托运箱</span></td><td>湿了也暖、干得快；无牌平价款表现一样好<sup><a href="#s18">[18]</a><a href="#s17">[17]</a></sup></td></tr>
+    <tr><td>beanie + 触屏手套 + 围脖</td><td class="num">×3 套</td><td>羊毛帽；围脖比围巾好用</td><td><a class="amz" href="https://www.amazon.com/s?k=winter+beanie+touchscreen+gloves+neck+gaiter+set" target="_blank" rel="noopener">beanie touchscreen gloves neck gaiter set</a></td><td class="num">$10–20/件</td><td><span class="tag bagg">托运箱</span></td><td>冰川日"能让你在甲板多站 20 分钟"<sup><a href="#s12">[12]</a><a href="#s18">[18]</a></sup></td></tr>
+    <tr><td>薄款可压缩 puffer</td><td class="num">按需</td><td>可塞进真空袋的轻羽绒</td><td><a class="amz" href="https://www.amazon.com/s?k=packable+puffer+jacket+lightweight" target="_blank" rel="noopener">packable puffer jacket lightweight</a></td><td class="num">$50–100</td><td><span class="tag bagg">托运箱</span></td><td>中层保暖；<b>不要买厚 parka</b><sup><a href="#s16">[16]</a><a href="#s17">[17]</a></sup></td></tr>
   </table></div>
 
   <h3>💊 药品护理类</h3>
   <div class="tbl"><table>
-    <tr><th>买什么</th><th class="num">数量</th><th>推荐规格</th><th class="num">参考价</th><th>放进</th><th>为什么 / 注意</th></tr>
-    <tr><td><b>儿童晕船药</b></td><td class="num">×1 盒</td><td>Children's Dramamine 咀嚼片（2 岁+）</td><td class="num">$8</td><td><span class="tag bagg">手提包</span></td><td>Bonine 仅 12+ 不适用 5 岁<sup><a href="#s16">[16]</a><a href="#s18">[18]</a></sup>；观鲸小船前提前吃</td></tr>
-    <tr><td>大人晕船药</td><td class="num">×1 盒</td><td>Bonine/meclizine（不犯困款）</td><td class="num">$8</td><td><span class="tag bagg">手提包</span></td><td>症状出现前就吃<sup><a href="#s18">[18]</a></sup>；备选姜糖<sup><a href="#s21">[21]</a></sup></td></tr>
-    <tr><td>儿童防晕手环</td><td class="num">×1 对</td><td>压力式（Sea-Band Kids）</td><td class="num">$8</td><td><span class="tag bagg">手提包</span></td><td>非药物备份<sup><a href="#s18">[18]</a></sup></td></tr>
-    <tr><td>防蚊喷雾</td><td class="num">×1</td><td>Picaridin 或柠檬桉油</td><td class="num">$8–12</td><td><span class="tag bagg">托运箱</span></td><td>7 月蚊子多，管港口日森林徒步<sup><a href="#s18">[18]</a><a href="#s21">[21]</a><a href="#s23">[23]</a></sup></td></tr>
-    <tr><td>防晒 SPF30-50 + 润唇膏</td><td class="num">×2 + ×3</td><td>润唇膏选 barrier balm 型</td><td class="num">$20</td><td><span class="tag bagg">托运箱</span></td><td>冰川反光强，阴天也晒黑；风吹很干<sup><a href="#s10">[10]</a><a href="#s17">[17]</a></sup></td></tr>
-    <tr><td>儿童退烧药 + 创可贴 + moleskin</td><td class="num">各 1</td><td>—</td><td class="num">$15</td><td><span class="tag bagg">手提包</span></td><td>船上药房贵且不全<sup><a href="#s16">[16]</a></sup></td></tr>
+    <tr><th>买什么</th><th class="num">数量</th><th>推荐规格</th><th>亚麻搜索</th><th class="num">参考价</th><th>放进</th><th>为什么 / 注意</th></tr>
+    <tr><td><b>儿童晕船药</b></td><td class="num">×1 盒</td><td>Children's Dramamine 咀嚼片（2 岁+）</td><td><a class="amz" href="https://www.amazon.com/s?k=children%27s+dramamine+chewable" target="_blank" rel="noopener">childrens dramamine chewable</a></td><td class="num">$8</td><td><span class="tag bagg">手提包</span></td><td>Bonine 仅 12+ 不适用 5 岁<sup><a href="#s16">[16]</a><a href="#s18">[18]</a></sup>；观鲸小船前提前吃</td></tr>
+    <tr><td>大人晕船药</td><td class="num">×1 盒</td><td>Bonine/meclizine（不犯困款）</td><td><a class="amz" href="https://www.amazon.com/s?k=bonine+motion+sickness" target="_blank" rel="noopener">bonine motion sickness</a></td><td class="num">$8</td><td><span class="tag bagg">手提包</span></td><td>症状出现前就吃<sup><a href="#s18">[18]</a></sup>；备选姜糖<sup><a href="#s21">[21]</a></sup></td></tr>
+    <tr><td>儿童防晕手环</td><td class="num">×1 对</td><td>压力式（Sea-Band Kids）</td><td><a class="amz" href="https://www.amazon.com/s?k=sea+band+kids" target="_blank" rel="noopener">sea band kids</a></td><td class="num">$8</td><td><span class="tag bagg">手提包</span></td><td>非药物备份<sup><a href="#s18">[18]</a></sup></td></tr>
+    <tr><td>防蚊喷雾</td><td class="num">×1</td><td>Picaridin 或柠檬桉油</td><td><a class="amz" href="https://www.amazon.com/s?k=picaridin+insect+repellent" target="_blank" rel="noopener">picaridin insect repellent</a></td><td class="num">$8–12</td><td><span class="tag bagg">托运箱</span></td><td>7 月蚊子多，管港口日森林徒步<sup><a href="#s18">[18]</a><a href="#s21">[21]</a><a href="#s23">[23]</a></sup></td></tr>
+    <tr><td>防晒 SPF30-50 + 润唇膏</td><td class="num">×2 + ×3</td><td>润唇膏选 barrier balm 型</td><td><a class="amz" href="https://www.amazon.com/s?k=travel+sunscreen+spf+50" target="_blank" rel="noopener">travel sunscreen spf 50</a> / <a class="amz" href="https://www.amazon.com/s?k=spf+lip+balm" target="_blank" rel="noopener">spf lip balm</a></td><td class="num">$20</td><td><span class="tag bagg">托运箱</span></td><td>冰川反光强，阴天也晒黑；风吹很干<sup><a href="#s10">[10]</a><a href="#s17">[17]</a></sup></td></tr>
+    <tr><td>儿童退烧药 + 创可贴 + moleskin</td><td class="num">各 1</td><td>—</td><td><a class="amz" href="https://www.amazon.com/s?k=childrens+tylenol" target="_blank" rel="noopener">childrens tylenol</a> / <a class="amz" href="https://www.amazon.com/s?k=moleskin+blister+pads" target="_blank" rel="noopener">moleskin blister pads</a></td><td class="num">$15</td><td><span class="tag bagg">手提包</span></td><td>船上药房贵且不全<sup><a href="#s16">[16]</a></sup></td></tr>
   </table></div>
 
   <h3>🧻 小物类</h3>
   <div class="tbl"><table>
-    <tr><th>买什么</th><th class="num">数量</th><th>推荐规格</th><th class="num">参考价</th><th>放进</th><th>为什么 / 注意</th></tr>
-    <tr><td><b>湿纸巾</b></td><td class="num">小包 ×6</td><td>手口湿巾 + 消毒湿巾各半</td><td class="num">$10</td><td><span class="tag bagg">三包各放</span></td><td>手提包 2 + 登机箱 1 + 托运箱 3；excursion/火车/大巴上没有洗手处</td></tr>
-    <tr><td>免洗洗手液</td><td class="num">×2</td><td>旅行装</td><td class="num">$5</td><td><span class="tag bagg">手提包</span></td><td>buffet 前、下船回船</td></tr>
-    <tr><td>Gallon Ziploc</td><td class="num">×10</td><td>—</td><td class="num">$5</td><td><span class="tag bagg">托运箱</span></td><td>湿衣 / 零食 / 防雨<sup><a href="#s21">[21]</a></sup></td></tr>
-    <tr><td>遮光眼罩 + 窗帘夹</td><td class="num">娃 1 + 夹 4</td><td>儿童尺寸眼罩</td><td class="num">$10</td><td><span class="tag bagg">托运箱</span></td><td>日照 18h、晚 10 点天还亮<sup><a href="#s17">[17]</a><a href="#s40">[40]</a></sup></td></tr>
-    <tr><td>磁力片 Magna-Tiles</td><td class="num">1 小盒</td><td>—</td><td class="num">已有可不买</td><td><span class="tag bagg">登机箱</span></td><td>贴钢舱壁，公认哄娃神器<sup><a href="#s39">[39]</a></sup></td></tr>
-    <tr><td>Downy 除皱喷雾</td><td class="num">×1</td><td>Travel 装</td><td class="num">$5</td><td><span class="tag bagg">托运箱</span></td><td>船上禁熨斗<sup><a href="#s16">[16]</a><a href="#s28">[28]</a></sup></td></tr>
-    <tr><td>塑料行李牌套</td><td class="num">×4</td><td>邮轮通用款</td><td class="num">$8</td><td>出发前套好</td><td>西雅图下雨纸牌会烂<sup><a href="#s16">[16]</a></sup></td></tr>
-    <tr><td>一次性雨披</td><td class="num">×3</td><td>应急备份</td><td class="num">$8</td><td><span class="tag bagg">手提包×1</span></td><td>正式 poncho 之外的兜底<sup><a href="#s18">[18]</a></sup></td></tr>
-    <tr><td>National Park 护照本</td><td class="num">×1</td><td>可选</td><td class="num">$13</td><td><span class="tag bagg">托运箱</span></td><td>Glacier Bay ranger 登船日盖章<sup><a href="#s21">[21]</a></sup></td></tr>
+    <tr><th>买什么</th><th class="num">数量</th><th>推荐规格</th><th>亚麻搜索</th><th class="num">参考价</th><th>放进</th><th>为什么 / 注意</th></tr>
+    <tr><td><b>湿纸巾</b></td><td class="num">小包 ×6</td><td>手口湿巾 + 消毒湿巾各半</td><td><a class="amz" href="https://www.amazon.com/s?k=baby+wipes+travel+pack" target="_blank" rel="noopener">baby wipes travel pack</a> / <a class="amz" href="https://www.amazon.com/s?k=disinfecting+wipes+travel+size" target="_blank" rel="noopener">disinfecting wipes travel size</a></td><td class="num">$10</td><td><span class="tag bagg">三包各放</span></td><td>手提包 2 + 登机箱 1 + 托运箱 3；excursion/火车/大巴上没有洗手处</td></tr>
+    <tr><td>免洗洗手液</td><td class="num">×2</td><td>旅行装</td><td><a class="amz" href="https://www.amazon.com/s?k=travel+hand+sanitizer" target="_blank" rel="noopener">travel hand sanitizer</a></td><td class="num">$5</td><td><span class="tag bagg">手提包</span></td><td>buffet 前、下船回船</td></tr>
+    <tr><td>Gallon Ziploc</td><td class="num">×10</td><td>—</td><td><a class="amz" href="https://www.amazon.com/s?k=ziploc+gallon+storage+bags" target="_blank" rel="noopener">ziploc gallon storage bags</a></td><td class="num">$5</td><td><span class="tag bagg">托运箱</span></td><td>湿衣 / 零食 / 防雨<sup><a href="#s21">[21]</a></sup></td></tr>
+    <tr><td>遮光眼罩 + 窗帘夹</td><td class="num">娃 1 + 夹 4</td><td>儿童尺寸眼罩</td><td><a class="amz" href="https://www.amazon.com/s?k=kids+sleep+mask" target="_blank" rel="noopener">kids sleep mask</a> / <a class="amz" href="https://www.amazon.com/s?k=curtain+clips+light+blocking" target="_blank" rel="noopener">curtain clips light blocking</a></td><td class="num">$10</td><td><span class="tag bagg">托运箱</span></td><td>日照 18h、晚 10 点天还亮<sup><a href="#s17">[17]</a><a href="#s40">[40]</a></sup></td></tr>
+    <tr><td>磁力片 Magna-Tiles</td><td class="num">1 小盒</td><td>—</td><td><a class="amz" href="https://www.amazon.com/s?k=magnetic+tiles" target="_blank" rel="noopener">magnetic tiles</a></td><td class="num">已有可不买</td><td><span class="tag bagg">登机箱</span></td><td>贴钢舱壁，公认哄娃神器<sup><a href="#s39">[39]</a></sup></td></tr>
+    <tr><td>Downy 除皱喷雾</td><td class="num">×1</td><td>Travel 装</td><td><a class="amz" href="https://www.amazon.com/s?k=downy+wrinkle+release+travel+size" target="_blank" rel="noopener">downy wrinkle release travel size</a></td><td class="num">$5</td><td><span class="tag bagg">托运箱</span></td><td>船上禁熨斗<sup><a href="#s16">[16]</a><a href="#s28">[28]</a></sup></td></tr>
+    <tr><td>塑料行李牌套</td><td class="num">×4</td><td>邮轮通用款</td><td><a class="amz" href="https://www.amazon.com/s?k=cruise+luggage+tag+holders" target="_blank" rel="noopener">cruise luggage tag holders</a></td><td class="num">$8</td><td>出发前套好</td><td>西雅图下雨纸牌会烂<sup><a href="#s16">[16]</a></sup></td></tr>
+    <tr><td>一次性雨披</td><td class="num">×3</td><td>应急备份</td><td><a class="amz" href="https://www.amazon.com/s?k=disposable+rain+ponchos" target="_blank" rel="noopener">disposable rain ponchos</a></td><td class="num">$8</td><td><span class="tag bagg">手提包×1</span></td><td>正式 poncho 之外的兜底<sup><a href="#s18">[18]</a></sup></td></tr>
+    <tr><td>National Park 护照本</td><td class="num">×1</td><td>可选</td><td><a class="amz" href="https://www.amazon.com/s?k=national+park+passport+book" target="_blank" rel="noopener">national park passport book</a></td><td class="num">$13</td><td><span class="tag bagg">托运箱</span></td><td>Glacier Bay ranger 登船日盖章<sup><a href="#s21">[21]</a></sup></td></tr>
   </table></div>
 </section>
 
@@ -326,9 +329,9 @@ footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--line);color:v
 <section id="bags">
   <p class="eyebrow">04 · LUGGAGE MANIFEST</p>
   <h2>行李分装：1 手提包 + 1 登机箱 + 1 托运箱</h2>
-  <p class="sec-sub">2 大 1 小 · 7 天。能压进三件的关键杠杆：<b>Club Balcony 送 1 袋免费送洗</b><sup><a href="#s20">[20]</a></sup>——衣服按 5 天量带，第 4 天送洗。天气基线：白天 9–18°C、随时下雨、冰川日甲板按冬天穿<sup><a href="#s40">[40]</a><a href="#s41">[41]</a></sup></p>
+  <p class="sec-sub">2 大 1 小 · 7 天。能压进三件的关键杠杆：<b>Club Balcony 送 1 袋免费送洗</b><sup><a href="#s20">[20]</a></sup>，衣服按 5 天量带，第 4 天送洗。天气基线：白天 9–18°C、随时下雨、冰川日甲板按冬天穿<sup><a href="#s40">[40]</a><a href="#s41">[41]</a></sup></p>
 
-  <div class="callout"><b>📐 三包分工逻辑</b>（三包打包法<sup><a href="#s21">[21]</a></sup>）：<b>手提包</b>=贵重+药+娃的应急，全程不离身；<b>登机箱</b>=第一天下午到晚上的一切（托运行李晚上才到舱<sup><a href="#s16">[16]</a></sup>）+ 贵重装备；<b>托运箱</b>=衣物大部队，8AM 就可交给 Pier 66 码头然后去逛街<sup><a href="#s65">[65]</a></sup>。NCL 限额每人 2 件托运各 ≤50 磅<sup><a href="#s66">[66]</a></sup>——我们只用 1 件，余量充足。</div>
+  <div class="callout"><b>📐 三包分工逻辑</b>（三包打包法<sup><a href="#s21">[21]</a></sup>）：<b>手提包</b>=贵重+药+娃的应急，全程不离身；<b>登机箱</b>=第一天下午到晚上的一切（托运行李晚上才到舱<sup><a href="#s16">[16]</a></sup>）+ 贵重装备；<b>托运箱</b>=衣物大部队，8AM 就可交给 Pier 66 码头然后去逛街<sup><a href="#s65">[65]</a></sup>。NCL 限额每人 2 件托运各 ≤50 磅<sup><a href="#s66">[66]</a></sup>，我们只用 1 件，余量充足。</div>
 
   <h3>👕 衣物总量表（三人配平，已含送洗杠杆）</h3>
   <div class="tbl"><table>
@@ -352,7 +355,7 @@ footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--line);color:v
     <tr><td>墨镜（大人偏光）</td><td class="num">1</td><td class="num">1</td><td class="num">1</td><td><span class="tag bagg">手提包</span></td><td>冰川反光<sup><a href="#s21">[21]</a></sup></td></tr>
   </table></div>
 
-  <div class="callout good"><b>👟 登船日穿在身上（不占行李）：</b>防水运动鞋 + 速干长裤 + 排汗 T + 抓绒（舱内和甲板风大），雨衣拿手上或系腰间——最重的穿身上省箱子空间<sup><a href="#s17">[17]</a></sup>。</div>
+  <div class="callout good"><b>👟 登船日穿在身上（不占行李）：</b>防水运动鞋 + 速干长裤 + 排汗 T + 抓绒（舱内和甲板风大），雨衣拿手上或系腰间，最重的穿身上省箱子空间<sup><a href="#s17">[17]</a></sup>。</div>
 
   <h3>🧳 三件行李逐件清单（可勾选，自动保存在本机）</h3>
   <div class="chk-toolbar">
@@ -396,7 +399,7 @@ footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--line);color:v
         <div class="no">BAG 02 · CARRY-ON</div>
         <h4>登机箱（20–22 寸）</h4>
         <div class="spec">自己拉上船 · 第一天下午到晚上全靠它</div>
-        <p class="role">托运行李下午 3 点后才到舱<sup><a href="#s22">[22]</a></sup>——泳衣、望远镜、贵重装备都在这。</p>
+        <p class="role">托运行李下午 3 点后才到舱<sup><a href="#s22">[22]</a></sup>，泳衣、望远镜、贵重装备都在这。</p>
       </div>
       <div class="body">
         <h5>第一天要用的</h5>
@@ -452,12 +455,12 @@ footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--line);color:v
 <section id="bino">
   <p class="eyebrow">05 · OPTICS</p>
   <h2>望远镜怎么买</h2>
-  <p class="sec-sub">三路信源的头号后悔项是"只带了一副"<sup><a href="#s16">[16]</a></sup>——看鲸鱼喷水、山坡上的熊、冰川上的海豹全靠它<sup><a href="#s18">[18]</a><a href="#s4">[4]</a></sup></p>
+  <p class="sec-sub">三路信源的头号后悔项是"只带了一副"<sup><a href="#s16">[16]</a></sup>，看鲸鱼喷水、山坡上的熊、冰川上的海豹全靠它<sup><a href="#s18">[18]</a><a href="#s4">[4]</a></sup></p>
 
   <h3>参数怎么选（8×42 是甜点位）</h3>
   <div class="tbl"><table>
     <tr><th>参数</th><th>推荐</th><th>为什么</th></tr>
-    <tr><td><b>倍数</b></td><td><b>8×</b>（不要 10× 以上）</td><td>船在晃、手在抖——8× 视野更宽更稳，10× 在甲板上反而看不清；高倍还加重晕船感<sup><a href="#s21">[21]</a></sup></td></tr>
+    <tr><td><b>倍数</b></td><td><b>8×</b>（不要 10× 以上）</td><td>船在晃、手在抖，8× 视野更宽更稳，10× 在甲板上反而看不清；高倍还加重晕船感<sup><a href="#s21">[21]</a></sup></td></tr>
     <tr><td><b>物镜口径</b></td><td><b>42mm</b>（主力）；32mm（轻便副机）</td><td>42mm 集光多，阿拉斯加常年阴天雾天差别明显；对比 travel size 只贵约 $10 但看远处鲸鱼/海獭"明显更好"<sup><a href="#s16">[16]</a></sup></td></tr>
     <tr><td><b>防水防雾</b></td><td>必须：waterproof + 充氮（nitrogen purged）</td><td>雨林气候 + 甲板水雾，不充氮的镜片内部会起雾</td></tr>
     <tr><td><b>棱镜结构</b></td><td>屋脊棱镜（roof prism）</td><td>直筒轻便耐用，主流中端全是这种</td></tr>
@@ -468,18 +471,18 @@ footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--line);color:v
   <h3>给这家三口的配置建议</h3>
   <div class="tbl"><table>
     <tr><th>给谁</th><th>规格</th><th class="num">参考价位</th><th>代表型号（参考）</th></tr>
-    <tr><td><b>大人主力</b></td><td>8×42 全尺寸，防水充氮</td><td class="num">$100–150</td><td>Nikon Prostaff P3 8×42 / Celestron Nature DX 8×42</td></tr>
-    <tr><td><b>大人第二副</b></td><td>8×42 同款再来一副，或 8×32 轻便款</td><td class="num">$80–150</td><td>同上；轻便选 Nikon Prostaff P7 8×30</td></tr>
-    <tr><td><b>娃（5 岁）</b></td><td>8×21 真光学儿童款，橡胶包边防摔</td><td class="num">$20–40</td><td>Occer/SkyGenius 8×21 类紧凑款</td></tr>
-    <tr><td>升级位（可选）</td><td>防抖（image-stabilized）</td><td class="num">$450+</td><td>Canon 10×30 IS——"克服手抖+船晃，还减轻晕船感"（资深评论推荐）<sup><a href="#s23">[23]</a></sup></td></tr>
+    <tr><td><b>大人主力</b></td><td>8×42 全尺寸，防水充氮</td><td class="num">$100–150</td><td><a class="amz" href="https://www.amazon.com/s?k=nikon+prostaff+p3+8x42" target="_blank" rel="noopener">nikon prostaff p3 8x42</a> / <a class="amz" href="https://www.amazon.com/s?k=celestron+nature+dx+8x42" target="_blank" rel="noopener">celestron nature dx 8x42</a></td></tr>
+    <tr><td><b>大人第二副</b></td><td>8×42 同款再来一副，或 8×32 轻便款</td><td class="num">$80–150</td><td>同上；轻便选 <a class="amz" href="https://www.amazon.com/s?k=nikon+prostaff+p7+8x30" target="_blank" rel="noopener">nikon prostaff p7 8x30</a></td></tr>
+    <tr><td><b>娃（5 岁）</b></td><td>8×21 真光学儿童款，橡胶包边防摔</td><td class="num">$20–40</td><td><a class="amz" href="https://www.amazon.com/s?k=kids+binoculars+8x21+compact" target="_blank" rel="noopener">kids binoculars 8x21 compact</a></td></tr>
+    <tr><td>升级位（可选）</td><td>防抖（image-stabilized）</td><td class="num">$450+</td><td><a class="amz" href="https://www.amazon.com/s?k=canon+10x30+is+ii+binoculars" target="_blank" rel="noopener">canon 10x30 is ii</a>："克服手抖+船晃，还减轻晕船感"（资深评论推荐）<sup><a href="#s23">[23]</a></sup></td></tr>
   </table></div>
 
   <div class="callout warn"><b>⚠️ 五个注意事项：</b>
-    ① <b>每人一副</b>，不共用——鲸鱼出现的 10 秒钟没人愿意"轮流看"<sup><a href="#s16">[16]</a></sup>；
+    ① <b>每人一副</b>，不共用，鲸鱼出现的 10 秒钟没人愿意"轮流看"<sup><a href="#s16">[16]</a></sup>；
     ② 给娃买<b>真光学</b>不买玩具望远镜（玩具的看不清=娃直接放弃）；
     ③ 挂绳/胸带装好，船舷边掉海里就没了；
     ④ 上船前在家<b>调好瞳距、练习对焦</b>（尤其教会娃）；
-    ⑤ 型号是参考，参数（8×、防水充氮、≥15mm eye relief）才是硬标准——价格以购买时商家为准。
+    ⑤ 型号是参考，参数（8×、防水充氮、≥15mm eye relief）才是硬标准，价格以购买时商家为准。
   </div>
 </section>
 
@@ -523,7 +526,7 @@ footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--line);color:v
         <h4>Juneau 朱诺 <span class="tag cold">14:30 – 22:00</span></h4>
         <p class="w">👕 防水层+保暖（观鲸船上体感可骤降 10°C+）· 🔭 望远镜</p>
         <ul>
-          <li>经典组合：下午场<b>观鲸 + Mendenhall 冰川</b>（自订比船订便宜很多<sup><a href="#s1">[1]</a><a href="#s5">[5]</a></sup>；带 5 岁娃可订的运营商见 <a href="#live">§8.2</a>——Harv &amp; Marv 拼团不收 13 岁以下<sup><a href="#s57">[57]</a></sup>）</li>
+          <li>经典组合：下午场<b>观鲸 + Mendenhall 冰川</b>（自订比船订便宜很多<sup><a href="#s1">[1]</a><a href="#s5">[5]</a></sup>；带 5 岁娃可订的运营商见 <a href="#live">§8.2</a>，Harv &amp; Marv 拼团不收 13 岁以下<sup><a href="#s57">[57]</a></sup>）</li>
           <li>市内交通：Uber/Lyft 可用但<b>不提供儿童安全座椅</b><sup><a href="#s8">[8]</a></sup>；公交 8 路 $2 但下车要走 2.4km，带娃不推荐<sup><a href="#s11">[11]</a></sup></li>
           <li>晚上回码头吃帝王蟹（约 $85/lb）<sup><a href="#s1">[1]</a></sup>；船 22:00 才走，阳台看峡湾日落</li>
         </ul>
@@ -538,7 +541,7 @@ footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--line);color:v
         <ul>
           <li><b>White Pass 观景火车</b>：上山坐<b>左侧</b>视野好；多去开放车厢/车尾拍照（无玻璃反光）<sup><a href="#s22">[22]</a><a href="#s37">[37]</a></sup></li>
           <li>只到 Summit 的班次<b>不需要护照</b>；去 Yukon 的版本需要<sup><a href="#s36">[36]</a><a href="#s23">[23]</a></sup></li>
-          <li>火车常因天气取消——留 plan B：淘金团 / Klondike 淘金博物馆 / 红洋葱剧院<sup><a href="#s6">[6]</a><a href="#s4">[4]</a></sup></li>
+          <li>火车常因天气取消，留 plan B：淘金团 / Klondike 淘金博物馆 / 红洋葱剧院<sup><a href="#s6">[6]</a><a href="#s4">[4]</a></sup></li>
           <li>镇子本身 1–2 小时逛完<sup><a href="#s4">[4]</a></sup></li>
         </ul>
       </div>
@@ -617,8 +620,8 @@ footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--line);color:v
     <tr><td>酒水包（Free at Sea）<span class="tag maybe">按饮酒量</span></td><td>约 $519/舱/7天（全包档）</td><td>两大人每天合计 ≥3–4 杯才值；无限量、单杯 ≤$15、免红酒 corkage<sup><a href="#s24">[24]</a><a href="#s29">[29]</a></sup>；"免费 excursion credit"只是 $50/程且只给第一乘客<sup><a href="#s20">[20]</a></sup></td></tr>
     <tr><td>WiFi<span class="tag maybe">要办公才买</span></td><td>提前购 ≈$17/天起<sup><a href="#s43">[43]</a></sup></td><td>船上网慢（实测"小红书都刷不出来"<sup><a href="#s6">[6]</a></sup>）；三个阿拉斯加港口有手机信号<sup><a href="#s22">[22]</a></sup></td></tr>
     <tr><td>水包</td><td>≈$29 / 12×1L<sup><a href="#s22">[22]</a></sup></td><td>excursion 带水方便；省钱靠空瓶接水</td></tr>
-    <tr><td>Go-kart 卡丁车</td><td>$15/次；套票 $199<sup><a href="#s27">[27]</a></sup></td><td><b>单座最低身高 140cm——5 岁娃只能坐双座当乘客</b><sup><a href="#s20">[20]</a></sup>；暑期排队可达 2 小时<sup><a href="#s20">[20]</a></sup>；大人想开 Day 1 就订</td></tr>
-    <tr><td>Galaxy Pavilion（VR 街机）</td><td>$9/项起，有套票<sup><a href="#s27">[27]</a></sup></td><td>室内、维护好、不挤——<b>下雨天带娃的备用弹药</b><sup><a href="#s20">[20]</a></sup>，用 OBC 花</td></tr>
+    <tr><td>Go-kart 卡丁车</td><td>$15/次；套票 $199<sup><a href="#s27">[27]</a></sup></td><td><b>单座最低身高 140cm，5 岁娃只能坐双座当乘客</b><sup><a href="#s20">[20]</a></sup>；暑期排队可达 2 小时<sup><a href="#s20">[20]</a></sup>；大人想开 Day 1 就订</td></tr>
+    <tr><td>Galaxy Pavilion（VR 街机）</td><td>$9/项起，有套票<sup><a href="#s27">[27]</a></sup></td><td>室内、维护好、不挤，<b>下雨天带娃的备用弹药</b><sup><a href="#s20">[20]</a></sup>，用 OBC 花</td></tr>
     <tr><td>Late Night Fun Zone 夜间托管</td><td>$10/小时/娃（22:00 后）<sup><a href="#s50">[50]</a></sup></td><td>想两口子安静吃一顿 Onda 时用</td></tr>
   </table></div>
 
@@ -626,24 +629,24 @@ footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--line);color:v
   <div class="tbl"><table>
     <tr><th>项目</th><th>原因</th></tr>
     <tr><td><b>Vibe Beach Club</b>（$229–299/人）<span class="tag skip">不值</span></td><td>卖点是户外躺椅晒太阳，阿拉斯加冷风大用不上<sup><a href="#s32">[32]</a><a href="#s47">[47]</a></sup>；且改装后新增的 <b>Spice H2O（18+ 户外热水浴缸区）是免费的</b>，替代了它<sup><a href="#s25">[25]</a></sup></td></tr>
-    <tr><td><b>Laser Tag</b><span class="tag skip">已拆除</span></td><td>2024 年 11–12 月 drydock 永久拆除（原址改成 Spice H2O）——凡是推荐 laser tag 的攻略都过时了<sup><a href="#s25">[25]</a><a href="#s26">[26]</a></sup>。保龄球馆同期拆除<sup><a href="#s26">[26]</a></sup></td></tr>
+    <tr><td><b>Laser Tag</b><span class="tag skip">已拆除</span></td><td>2024 年 11–12 月 drydock 永久拆除（原址改成 Spice H2O）。凡是推荐 laser tag 的攻略都过时了<sup><a href="#s25">[25]</a><a href="#s26">[26]</a></sup>。保龄球馆同期拆除<sup><a href="#s26">[26]</a></sup></td></tr>
     <tr><td>Photo Package</td><td>$150 起步只为几张数字图，口碑差<sup><a href="#s26">[26]</a></sup></td></tr>
   </table></div>
 
   <h3>🆓 免费但别错过（Encore 特有）</h3>
   <div class="card">
     <ul>
-      <li><b>Observation Lounge（Deck 15）</b>：全船最好的免费观景厅——改装后缩小约 40%，抢座更凶，去早点<sup><a href="#s26">[26]</a><a href="#s19">[19]</a></sup></li>
+      <li><b>Observation Lounge（Deck 15）</b>：全船最好的免费观景厅，改装后缩小约 40%，抢座更凶，去早点<sup><a href="#s26">[26]</a><a href="#s19">[19]</a></sup></li>
       <li><b>The Choir of Man</b>：三路信源一致 must-see，开场前有免费啤酒<sup><a href="#s1">[1]</a><a href="#s5">[5]</a><a href="#s19">[19]</a><a href="#s22">[22]</a></sup>；Beatles tribute 提前 30 分钟占座<sup><a href="#s22">[22]</a></sup></li>
       <li><b>The Local</b>：24 小时免费餐厅（烤鸡翅/汉堡），本船小红书实测一周去了 3 次<sup><a href="#s1">[1]</a><a href="#s19">[19]</a></sup></li>
-      <li><b>Manhattan Room</b>（船尾大窗主餐厅）挤的时候，下楼去 <b>Savor / Taste——菜单一模一样不用等</b><sup><a href="#s22">[22]</a></sup>；主餐厅可点 Cagney's 同款牛排约半价<sup><a href="#s26">[26]</a></sup></li>
+      <li><b>Manhattan Room</b>（船尾大窗主餐厅）挤的时候，下楼去 <b>Savor / Taste，菜单一模一样不用等</b><sup><a href="#s22">[22]</a></sup>；主餐厅可点 Cagney's 同款牛排约半价<sup><a href="#s26">[26]</a></sup></li>
       <li>16 楼 buffet 每天有热汤粉面和炒饭，"拯救中国胃"<sup><a href="#s6">[6]</a></sup>；主餐厅<b>午餐也开</b>（多数邮轮没有）<sup><a href="#s19">[19]</a></sup></li>
       <li>Glacier Bay 当天船头 bow 免费开放<sup><a href="#s45">[45]</a></sup>；American Diner 现已免费<sup><a href="#s19">[19]</a></sup>；Silent Disco、District Brew House live music<sup><a href="#s19">[19]</a><a href="#s22">[22]</a></sup></li>
-      <li>水滑梯 Aqua Racer / Ocean Loops + Kids Aqua Park 免费——但阿拉斯加冷天大概率不开<sup><a href="#s45">[45]</a></sup></li>
+      <li>水滑梯 Aqua Racer / Ocean Loops + Kids Aqua Park 免费，但阿拉斯加冷天大概率不开<sup><a href="#s45">[45]</a></sup></li>
     </ul>
   </div>
 
-  <div class="callout good"><b>🎁 Club Balcony 舱型自带福利（订了这个舱型的别浪费）：</b>1 袋免费送洗衣物（第 4–5 天用，衣服可按 5 天量带——Encore 没有自助洗衣房）、到舱红酒 1 瓶 + 零食、双洗手盆、特色餐厅优先预订权<sup><a href="#s20">[20]</a></sup>。</div>
+  <div class="callout good"><b>🎁 Club Balcony 舱型自带福利（订了这个舱型的别浪费）：</b>1 袋免费送洗衣物（第 4–5 天用，衣服可按 5 天量带，Encore 没有自助洗衣房）、到舱红酒 1 瓶 + 零食、双洗手盆、特色餐厅优先预订权<sup><a href="#s20">[20]</a></sup>。</div>
 </section>
 
 <!-- ============ 8 实查速报 ============ -->
@@ -655,38 +658,38 @@ footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--line);color:v
   <div class="callout bad"><b>🚨 高风险 ①：加拿大签证（船停 Victoria，海路入境）</b><br>
     · <b>美国公民</b>：有效美国护照即可，不需签证不需 eTA<sup><a href="#s67">[67]</a></sup><br>
     · <b>美国绿卡</b>：原国籍护照 + 有效绿卡即可（2022/4/26 起 LPR 全交通方式豁免 eTA）<sup><a href="#s68">[68]</a></sup><br>
-    · <b>中国护照（非绿卡）持美签</b>：<b>必须提前办加拿大访客签证 TRV</b>——eTA 只适用飞机入境、海路无效；canada.ca 原文明确"乘 boat 含 cruise ship 来加拿大需要 visitor visa，<b>即使不下船</b>"<sup><a href="#s67">[67]</a><a href="#s68">[68]</a></sup>；NCL 会在登船时查验，<b>没有 TRV 会被拒绝登船</b><sup><a href="#s69">[69]</a><a href="#s70">[70]</a></sup>。办证需数周，同行有中国护照的现在就办。
+    · <b>中国护照（非绿卡）持美签</b>：<b>必须提前办加拿大访客签证 TRV</b>，eTA 只适用飞机入境、海路无效；canada.ca 原文明确"乘 boat 含 cruise ship 来加拿大需要 visitor visa，<b>即使不下船</b>"<sup><a href="#s67">[67]</a><a href="#s68">[68]</a></sup>；NCL 会在登船时查验，<b>没有 TRV 会被拒绝登船</b><sup><a href="#s69">[69]</a><a href="#s70">[70]</a></sup>。办证需数周，同行有中国护照的现在就办。
   </div>
 
   <div class="callout warn"><b>⚠️ 高风险 ②：Butchart Gardens 自助去时间不可行</b><br>
-    7/18 恰是周六 = Butchart 烟花夜（约 22:00 放，7 月周六特有）<sup><a href="#s62">[62]</a></sup>——但 Ogden Point 码头到 Butchart <b>单程约 1 小时 15 分</b>（22km，Butchart 官方 cruise 页明确）<sup><a href="#s61">[61]</a></sup>，20:00 靠港 + 全员 ~23:30 上船 → <b>自己打车去来不及</b>。想去只能买 NCL 船方团 "Butchart Gardens Evening"（代号 VIC_03，巴士直发、掐着船期回）<sup><a href="#s63">[63]</a></sup>。带娃最实际：<b>步行 Inner Harbour 看夜景</b>（下文 §8.4）。
+    7/18 恰是周六 = Butchart 烟花夜（约 22:00 放，7 月周六特有）<sup><a href="#s62">[62]</a></sup>，但 Ogden Point 码头到 Butchart <b>单程约 1 小时 15 分</b>（22km，Butchart 官方 cruise 页明确）<sup><a href="#s61">[61]</a></sup>，20:00 靠港 + 全员 ~23:30 上船 → <b>自己打车去来不及</b>。想去只能买 NCL 船方团 "Butchart Gardens Evening"（代号 VIC_03，巴士直发、掐着船期回）<sup><a href="#s63">[63]</a></sup>。带娃最实际：<b>步行 Inner Harbour 看夜景</b>（下文 §8.4）。
   </div>
 
-  <h3>8.1 White Pass 火车（Skagway 7/15）——现在就打电话订</h3>
+  <h3>8.1 White Pass 火车（Skagway 7/15）：现在就打电话订</h3>
   <div class="card">
     <ul>
       <li><b>首选 Summit Excursion</b>：2.5–2.75 小时往返、爬升 ~3000 英尺、<b>不需护照</b>（到美加边界折返不入境）；官网直订成人 <b>$155</b>、儿童 3–12 岁 <b>$77.50</b>（5 岁按儿童价）、0–2 岁免费<sup><a href="#s51">[51]</a></sup></li>
-      <li><b>班次时间不在网页上列出、也查不到实时余票</b>——打 <b>1-800-343-7373</b>（周一至五 7AM–3PM 阿拉斯加时间）或 info@wpyr.com 订并选时段；7 月热门常提前售罄<sup><a href="#s51">[51]</a></sup></li>
+      <li><b>班次时间不在网页上列出、也查不到实时余票</b>，打 <b>1-800-343-7373</b>（周一至五 7AM–3PM 阿拉斯加时间）或 info@wpyr.com 订并选时段；7 月热门常提前售罄<sup><a href="#s51">[51]</a></sup></li>
       <li>Plan B 走 NCL 船方（保证匹配船期、dockside 上车，但贵近 $80/人：成人 ~$229 / 儿童 ~$149）：代号 SGY_04（Summit 火车版）；SGY_40 是进 Yukon 版<b>需护照</b><sup><a href="#s52">[52]</a><a href="#s53">[53]</a></sup></li>
       <li>自订的话从码头步行 5–15 分钟到 Railroad Depot（231 Second Ave）；20:15 离港，末班活动留足 buffer<sup><a href="#s51">[51]</a></sup></li>
     </ul>
   </div>
 
-  <h3>8.2 Juneau 下午观鲸 + Mendenhall（7/14）——注意 5 岁娃的年龄坑</h3>
+  <h3>8.2 Juneau 下午观鲸 + Mendenhall（7/14）：注意 5 岁娃的年龄坑</h3>
   <div class="card">
     <ul>
       <li>14:30 到港 → ~15:00 出发的 4.5h 组合团约 19:30 回，22:00 离港来得及；<b>下午场名额比上午少，尽早订</b></li>
-      <li><b>⚠️ 坑：口碑最好的小船 Harv &amp; Marv 拼团不收 13 岁以下</b>（只接私人包船 $890+/整船 1–6 人）——5 岁娃上不了他们的散客团<sup><a href="#s57">[57]</a></sup></li>
+      <li><b>⚠️ 坑：口碑最好的小船 Harv &amp; Marv 拼团不收 13 岁以下</b>（只接私人包船 $890+/整船 1–6 人），5 岁娃上不了他们的散客团<sup><a href="#s57">[57]</a></sup></li>
       <li>无年龄限制的替代：<b>Juneau Tours</b>（观鲸+Mendenhall combo ~$199，市区 Mt. Roberts Tramway 集合）<sup><a href="#s54">[54]</a></sup>；<b>Alaska Shore Excursions</b>（4.5h 码头接送，成人 $239 / 儿童 2–11 岁 $199）<sup><a href="#s55">[55]</a></sup>；<b>Alaska Shore Tours</b>（成人 $224 / 儿童 $172）<sup><a href="#s56">[56]</a></sup></li>
-      <li>独立去 Mendenhall（不跟团）：Blue Glacier Express shuttle 价格与 visitor center 是否需 timed pass <b>2026 未完全确认</b>——出发前查 recreation.gov；跟团则团方全包不用操心</li>
+      <li>独立去 Mendenhall（不跟团）：Blue Glacier Express shuttle 价格与 visitor center 是否需 timed pass <b>2026 未完全确认</b>，出发前查 recreation.gov；跟团则团方全包不用操心</li>
     </ul>
   </div>
 
-  <h3>8.3 Ketchikan Ward Cove（7/17 半天）——Lumberjack Show 就在码头旁</h3>
+  <h3>8.3 Ketchikan Ward Cove（7/17 半天）：Lumberjack Show 就在码头旁</h3>
   <div class="card">
     <ul>
       <li>免费 shuttle <b>2026 确认运行</b>：Ward Cove ↔ downtown Berth 4，船到即发、约每 30 分钟一班、单程 20–30 分钟<sup><a href="#s58">[58]</a></sup></li>
-      <li><b>🌟 带娃半天首选：Great Alaskan Lumberjack Show 在 Ward Cove 新开了第二场地，离船仅 1 个街区</b>（2026 官网确认 "Now open"，含斧头投掷互动）——完全不用进城<sup><a href="#s59">[59]</a></sup></li>
+      <li><b>🌟 带娃半天首选：Great Alaskan Lumberjack Show 在 Ward Cove 新开了第二场地，离船仅 1 个街区</b>（2026 官网确认 "Now open"，含斧头投掷互动），完全不用进城<sup><a href="#s59">[59]</a></sup></li>
       <li>雨林 + 图腾团（Ward Cove 出发，~3h，$147）等 33 个 "Ward Cove 出发" 团可选<sup><a href="#s60">[60]</a></sup></li>
       <li>省钱自助：shuttle 进城后 KGB 巴士 $2（exact change）去图腾公园；Creek Street 从 Berth 4 步行 ~20 分钟；<b>无 Uber/Lyft</b>，taxi Ward Cove↔downtown 约 $30–40<sup><a href="#s58">[58]</a></sup></li>
       <li>13:15 离港 → downtown 末班回程 shuttle 约在上船前 1 小时，宁可早回<sup><a href="#s34">[34]</a></sup></li>
@@ -698,7 +701,7 @@ footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--line);color:v
     <ul>
       <li>实际可玩窗口约 2.5–3 小时（扣除下船与回船）；全船大多数人不下<sup><a href="#s6">[6]</a></sup>，带娃留船休息完全合理</li>
       <li><b>下船方案：步行或 shuttle（$10 单程）到 Inner Harbour</b>，看点灯的 Parliament 大楼 + Empress Hotel + "Canada sign" 打卡，1.5–2 小时来回<sup><a href="#s48">[48]</a><a href="#s61">[61]</a></sup></li>
-      <li>Butchart Gardens：见顶部高风险 ② ——自助不可行，想看烟花夜只能船方团 VIC_03<sup><a href="#s63">[63]</a></sup>。门票参考：成人 CAD $44.25 / 儿童 5–12 岁仅 CAD $5<sup><a href="#s62">[62]</a></sup></li>
+      <li>Butchart Gardens：见顶部高风险 ②：自助不可行，想看烟花夜只能船方团 VIC_03<sup><a href="#s63">[63]</a></sup>。门票参考：成人 CAD $44.25 / 儿童 5–12 岁仅 CAD $5<sup><a href="#s62">[62]</a></sup></li>
     </ul>
   </div>
 
@@ -724,12 +727,12 @@ footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--line);color:v
     <tr><td>Glacier Bay（7/16）</td><td>甲板 + 冰川风显著更冷</td><td>按冬天穿去甲板</td></tr>
     <tr><td>Ketchikan（7/17）</td><td>16–18°C / 10–13°C</td><td><b>日降雨概率 50–70%</b>，全美最湿城市之一</td></tr>
   </table></div>
-  <p class="method">来源：NWS 气候常值<sup><a href="#s40">[40]</a></sup>；2026 初夏 NWS Juneau 通报显示今夏东南阿拉斯加可能偏凉偏湿——行前再确认。</p>
+  <p class="method">来源：NWS 气候常值<sup><a href="#s40">[40]</a></sup>；2026 初夏 NWS Juneau 通报显示今夏东南阿拉斯加可能偏凉偏湿，行前再确认。</p>
 
   <h3>8.7 Pier 66 登船 logistics（7/12）</h3>
   <div class="card">
     <ul>
-      <li>地址：Bell Street Cruise Terminal at Pier 66, <b>2225 Alaskan Way</b>——市中心，步行可达 Pike Place Market<sup><a href="#s65">[65]</a></sup></li>
+      <li>地址：Bell Street Cruise Terminal at Pier 66, <b>2225 Alaskan Way</b>，市中心，步行可达 Pike Place Market<sup><a href="#s65">[65]</a></sup></li>
       <li>按 online check-in 选定的到达时段来；没选就"中午后到、离港前至少 2 小时"（最晚 14:00 前）<sup><a href="#s66">[66]</a></sup></li>
       <li><b>玩法：最早 8:00AM 可先把托运行李交给码头</b>，去逛 Pike Place，14:00 前回来登船<sup><a href="#s65">[65]</a></sup></li>
       <li>停车：正对面 Bell Street Pier Garage $33/天（7 天约 $230），skybridge 直连；机场打车 $30–40、约 20–40 分钟<sup><a href="#s65">[65]</a></sup></li>
@@ -742,17 +745,17 @@ footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--line);color:v
 <section id="expect">
   <p class="eyebrow">09 · REALITY CHECK</p>
   <h2>预期管理：评论区里的反向声音</h2>
-  <p class="sec-sub">调研时评论区权重 &gt; 正文——这些是跟"种草文"唱反调但被反复验证的点</p>
+  <p class="sec-sub">调研时评论区权重 &gt; 正文：这些是跟"种草文"唱反调但被反复验证的点</p>
   <div class="card">
     <ul>
       <li><b>船会很挤</b>：4,500 人的加勒比设计船，坏天气全员挤室内；buffet 饭点难找座（提前半小时或开餐 1 小时后去）；排队高峰在 Ketchikan shuttle 和 Victoria 下船<sup><a href="#s3">[3]</a><a href="#s20">[20]</a><a href="#s46">[46]</a></sup></li>
-      <li><b>Glacier Bay 有"鸡肋"派</b>：高赞笔记评论区有"冰川大部分溶掉了、很失望"的声音<sup><a href="#s4">[4]</a></sup>，多数人仍认为是全程最大亮点——预期放在"壮阔风景+野生动物"而非"铺天盖地大冰川"</li>
+      <li><b>Glacier Bay 有"鸡肋"派</b>：高赞笔记评论区有"冰川大部分溶掉了、很失望"的声音<sup><a href="#s4">[4]</a></sup>，多数人仍认为是全程最大亮点，预期放在"壮阔风景+野生动物"而非"铺天盖地大冰川"</li>
       <li><b>餐饮口碑"一般"且分歧极大</b>：同一家 Q Texas Smokehouse 有人评全船最好<sup><a href="#s22">[22]</a></sup>有人评最差<sup><a href="#s39">[39]</a></sup>；对饭菜期待放低，主力放在体验型餐厅</li>
-      <li><b>Splash Academy 在阿拉斯加航次口碑一般</b>：开放时间有限（有的天只开中午）、<b>靠港日不提供托管</b>、名额靠抢（开门前 30 分钟排队）<sup><a href="#s39">[39]</a><a href="#s30">[30]</a></sup>；也有 7 岁/11 岁娃"很爱"的正面反例——别把行程押在托管上</li>
+      <li><b>Splash Academy 在阿拉斯加航次口碑一般</b>：开放时间有限（有的天只开中午）、<b>靠港日不提供托管</b>、名额靠抢（开门前 30 分钟排队）<sup><a href="#s39">[39]</a><a href="#s30">[30]</a></sup>；也有 7 岁/11 岁娃"很爱"的正面反例，别把行程押在托管上</li>
       <li><b>雨伞有争议</b>：两个大频道意见相反（"风大 locals 不打伞"<sup><a href="#s17">[17]</a></sup> vs "轻雾雨方便"<sup><a href="#s16">[16]</a></sup>）→ 折中：背包塞一把超轻伞，主力靠带帽雨衣 + 棒球帽</li>
       <li><b>WiFi 很差</b>：买了包也"刷不出小红书"<sup><a href="#s6">[6]</a></sup>；心态放在数字排毒，港口用手机流量</li>
-      <li><b>White Pass 火车常因天气取消</b>（实测当天上午 2 班全取消）<sup><a href="#s6">[6]</a></sup>——一定留 plan B</li>
-      <li><b>好天气反例也存在</b>：5 月实测"防水裤/鞋/伞全没用上"<sup><a href="#s16">[16]</a></sup>、6 月"除第一天全程阳光明媚"<sup><a href="#s6">[6]</a></sup>——出发前看各港口预报动态调整，不必全副武装</li>
+      <li><b>White Pass 火车常因天气取消</b>（实测当天上午 2 班全取消）<sup><a href="#s6">[6]</a></sup>，一定留 plan B</li>
+      <li><b>好天气反例也存在</b>：5 月实测"防水裤/鞋/伞全没用上"<sup><a href="#s16">[16]</a></sup>、6 月"除第一天全程阳光明媚"<sup><a href="#s6">[6]</a></sup>，出发前看各港口预报动态调整，不必全副武装</li>
     </ul>
   </div>
 </section>
@@ -761,7 +764,7 @@ footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--line);color:v
 <section id="src" class="src">
   <p class="eyebrow">10 · SOURCES</p>
   <h2>数据来源</h2>
-  <p class="method"><b>方法</b>：3 个并行调研通道（小红书 TikHub API 抓正文+评论全量 / YouTube 全文转录+评论区 / Perplexity+Tavily+Reddit+官方网站），人工对关键论点回查原始数据逐条验证。小红书笔记按"船与航线是否吻合"分级——<b>航线不符的已标注并降权</b>（正是为了过滤"游轮号对不上"的帖子）；评论区信息权重高于正文。价格为来源发布时点价，出发前以 NCL 官网为准。<b>鼠标悬停正文的 [n] 上标可预览来源，点击跳转到本节。</b></p>
+  <p class="method"><b>方法</b>：3 个并行调研通道（小红书 TikHub API 抓正文+评论全量 / YouTube 全文转录+评论区 / Perplexity+Tavily+Reddit+官方网站），人工对关键论点回查原始数据逐条验证。小红书笔记按"船与航线是否吻合"分级：<b>航线不符的已标注并降权</b>（正是为了过滤"游轮号对不上"的帖子）；评论区信息权重高于正文。价格为来源发布时点价，出发前以 NCL 官网为准。<b>鼠标悬停正文的 [n] 上标可预览来源，点击跳转到本节。</b></p>
 
   <h3>小红书（15 条深抓，正文 + 评论全量）</h3>
   <p class="method">✅ = NCL Encore 西雅图往返本船本航线；◐ = 其他船但同港口/天气；<span class="flag">⚠️ = 航线不符，已过滤仅通用参考</span></p>
@@ -779,8 +782,8 @@ footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--line);color:v
     <li id="s11">◐ 彬《阿拉斯加邮轮踩坑》Juneau→Mendenhall 交通实测（评论 74 条，公主号） · <a href="https://www.xiaohongshu.com/explore/6a3d2d0d000000000e021800" target="_blank" rel="noopener">xiaohongshu.com/explore/6a3d2d0d…</a></li>
     <li id="s12">◐ 小涛《阿拉斯加邮轮最容易穿错的 5 件衣服》 · <a href="https://www.xiaohongshu.com/explore/6996a67f000000001a01ec70" target="_blank" rel="noopener">xiaohongshu.com/explore/6996a67f…</a></li>
     <li id="s13">◐ Wellgo亲子邮轮《坐邮轮去阿拉斯加怎么穿》分场景穿搭 · <a href="https://www.xiaohongshu.com/explore/69a21b240000000015023e2b" target="_blank" rel="noopener">xiaohongshu.com/explore/69a21b24…</a></li>
-    <li id="s14"><span class="flag">⚠️ 航线不符</span> Professor猪猪《托管娃+吃住全包》——评论确认是 Celebrity（停 Icy Strait/Hubbard 非本航线），仅签证/通用带娃信息参考 · <a href="https://www.xiaohongshu.com/explore/68623189000000000b01d65e" target="_blank" rel="noopener">xiaohongshu.com/explore/68623189…</a></li>
-    <li id="s15"><span class="flag">⚠️ 航线选择向</span> 王小Ki《阿拉斯加 cruise 行程选择》（藏 586）——解释"西雅图往返为何晃/停港短"的背景 · <a href="https://www.xiaohongshu.com/explore/69864191000000000a02f997" target="_blank" rel="noopener">xiaohongshu.com/explore/69864191…</a></li>
+    <li id="s14"><span class="flag">⚠️ 航线不符</span> Professor猪猪《托管娃+吃住全包》，评论确认是 Celebrity（停 Icy Strait/Hubbard 非本航线），仅签证/通用带娃信息参考 · <a href="https://www.xiaohongshu.com/explore/68623189000000000b01d65e" target="_blank" rel="noopener">xiaohongshu.com/explore/68623189…</a></li>
+    <li id="s15"><span class="flag">⚠️ 航线选择向</span> 王小Ki《阿拉斯加 cruise 行程选择》（藏 586），解释"西雅图往返为何晃/停港短"的背景 · <a href="https://www.xiaohongshu.com/explore/69864191000000000a02f997" target="_blank" rel="noopener">xiaohongshu.com/explore/69864191…</a></li>
   </ol>
 
   <h3>YouTube（9 个视频全文转录 + 5 个评论区）</h3>
