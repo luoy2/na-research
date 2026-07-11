@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>马尼拉 2 日单人慢玩攻略 · 不太累版 · 2026.7</title>
+<meta name="description" content="单人男性 · Makati 落脚 · 2 天 · 不太累：文化慢逛 + 华埠美食 + 高端 SPA + 马尼拉湾日落。含单人男性专属安全清单、赌场夜生活彩蛋，小红书/YouTube/Reddit/官方交叉验证，全部引用标注来源。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F6F3EE; --card:#FDFBF8; --ink:#2B2420; --sub:#7C6E63; --line:#E7DFD4;
+  --accent:#BE6E17; --accent-soft:#F6E7D2;
+  --flare:#BF3A6B; --flare-soft:#F8E3EB;
+  --good:#2E7D5B; --good-soft:#E4F1EB;
+  --warn:#A9761A; --warn-soft:#F7EFDB;
+  --bad:#B23B2E; --bad-soft:#F8E6E2;
+  --chip:#EFE7DB;
+  --shadow:0 1px 2px rgba(43,36,32,.06),0 10px 28px rgba(43,36,32,.07);
+  --serif:"Noto Serif SC",serif;
+  --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
+}
+[data-theme="dark"]{
+  --bg:#151019; --card:#1F1826; --ink:#EEE5DC; --sub:#A99B92; --line:#322838;
+  --accent:#E7A24E; --accent-soft:#2C2016;
+  --flare:#EA6C99; --flare-soft:#2F1924;
+  --good:#4EBE8C; --good-soft:#14291F;
+  --warn:#D9A23F; --warn-soft:#2B2312;
+  --bad:#DD6A57; --bad-soft:#2E1B17;
+  --chip:#281F30; --shadow:0 1px 3px rgba(0,0,0,.5);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#151019; --card:#1F1826; --ink:#EEE5DC; --sub:#A99B92; --line:#322838;
+    --accent:#E7A24E; --accent-soft:#2C2016;
+    --flare:#EA6C99; --flare-soft:#2F1924;
+    --good:#4EBE8C; --good-soft:#14291F;
+    --warn:#D9A23F; --warn-soft:#2B2312;
+    --bad:#DD6A57; --bad-soft:#2E1B17;
+    --chip:#281F30; --shadow:0 1px 3px rgba(0,0,0,.5);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;line-height:1.68;font-size:16px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:920px;margin:0 auto;padding:0 16px 80px}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--flare);outline-offset:2px}
+
+/* citations */
+sup{line-height:0}
+sup a{font-family:var(--mono);font-size:.7em;color:var(--sub);padding:0 1px;border-bottom:1px dotted var(--sub)}
+sup a:hover{color:var(--flare);border-bottom-color:var(--flare);text-decoration:none}
+#tip{position:fixed;z-index:200;max-width:280px;background:var(--ink);color:var(--bg);font-size:12.5px;line-height:1.45;padding:7px 10px;border-radius:8px;pointer-events:none;opacity:0;transition:opacity .12s;box-shadow:0 6px 20px rgba(0,0,0,.25)}
+#tip.on{opacity:1}
+[id]{scroll-margin-top:76px}
+.src li:target{background:var(--warn-soft);border-radius:8px;padding:4px 8px;margin-left:-8px}
+
+/* hero：马尼拉湾日落 */
+.hero{background:linear-gradient(168deg,#241A46 0%,#5B2C63 34%,#A83F62 60%,#D96E3A 84%,#EDA23F 100%);color:#fff;border-radius:0 0 22px 22px;padding:46px 22px 30px;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;right:26px;top:38px;width:96px;height:96px;border-radius:50%;background:radial-gradient(circle at 50% 45%,#FFE9B0,#FFC24C 46%,rgba(255,166,60,.35) 70%,transparent 78%);filter:blur(.3px)}
+.hero::after{content:"";position:absolute;left:0;right:0;bottom:78px;height:1px;background:linear-gradient(90deg,transparent,rgba(255,220,170,.55),transparent)}
+.hero .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.16em;opacity:.82;margin:0 0 10px;text-transform:uppercase}
+.hero h1{margin:0 0 8px;font-family:var(--serif);font-weight:900;font-size:clamp(25px,5.2vw,38px);line-height:1.28;position:relative}
+.hero .sub{opacity:.94;font-size:15px;margin:0 0 22px;max-width:52ch}
+.route{display:flex;align-items:flex-start;gap:0;overflow-x:auto;padding:6px 0 2px;position:relative;z-index:1}
+.route .stop{flex:1;min-width:70px;text-align:center;position:relative;font-family:var(--mono);font-size:11px;line-height:1.5;opacity:.94}
+.route .stop::before{content:"";display:block;width:9px;height:9px;border-radius:50%;background:#fff;margin:0 auto 7px;box-shadow:0 0 0 3px rgba(255,255,255,.22)}
+.route .stop::after{content:"";position:absolute;top:4px;left:calc(50% + 8px);width:calc(100% - 16px);border-top:2px dashed rgba(255,255,255,.42)}
+.route .stop:last-child::after{display:none}
+.route .stop.hl::before{background:#FFD27A;box-shadow:0 0 0 3px rgba(255,210,122,.4)}
+.route .stop b{display:block;font-size:12px}
+.hero .meta{margin-top:18px;font-size:12.5px;opacity:.74}
+.hero .daytag{display:inline-block;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;opacity:.7;margin-bottom:3px}
+
+/* nav */
+nav{position:sticky;top:0;z-index:50;background:var(--card);border-bottom:1px solid var(--line);margin:0 -16px;padding:0 12px;overflow-x:auto;white-space:nowrap;box-shadow:var(--shadow)}
+nav .in{display:flex;gap:2px;align-items:center;max-width:920px;margin:0 auto}
+nav a{display:inline-block;padding:11px 9px;font-size:13.5px;color:var(--sub);border-bottom:2px solid transparent}
+nav a:hover{color:var(--flare);text-decoration:none}
+#themeBtn{margin-left:auto;background:none;border:1px solid var(--line);border-radius:8px;color:var(--sub);cursor:pointer;padding:4px 9px;font-size:13px;flex:none}
+
+/* sections */
+section{margin-top:44px}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;color:var(--flare);margin:0 0 4px}
+h2{font-size:23px;margin:0 0 4px;font-family:var(--serif);font-weight:900}
+.sec-sub{color:var(--sub);font-size:14px;margin:0 0 16px}
+h3{font-size:16.5px;margin:24px 0 10px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:var(--shadow)}
+.card + .card{margin-top:14px}
+.card ul{margin:4px 0;padding-left:20px;font-size:14.5px}
+.card li{margin:4px 0}
+
+/* findings：序号=重要性排序 */
+.findings{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:6px 20px}
+.finding{display:flex;gap:16px;padding:15px 0;border-top:1px solid var(--line)}
+.finding:first-child{border-top:none}
+.finding .fno{font-family:var(--mono);font-weight:700;font-size:19px;color:var(--flare);flex:none;width:28px;line-height:1.5}
+.finding b.k{display:block;font-size:15.5px;margin-bottom:2px}
+.finding p{margin:0;font-size:14px;color:var(--sub)}
+
+/* tables */
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--card);box-shadow:var(--shadow);margin:10px 0}
+table{border-collapse:collapse;width:100%;font-size:14.5px;min-width:600px}
+th{background:var(--chip);text-align:left;padding:9px 12px;font-size:12.5px;color:var(--sub);white-space:nowrap;font-family:var(--mono);font-weight:600}
+td{padding:10px 12px;border-top:1px solid var(--line);vertical-align:top}
+tr:hover td{background:color-mix(in srgb,var(--accent-soft) 40%,transparent)}
+td b{white-space:nowrap}
+td.num,th.num{text-align:center;font-family:var(--mono);white-space:nowrap}
+
+/* tags */
+.tag{display:inline-block;border-radius:6px;padding:1px 8px;font-size:12.5px;font-weight:600;white-space:nowrap}
+.tag.buy{background:var(--good-soft);color:var(--good)}
+.tag.maybe{background:var(--warn-soft);color:var(--warn)}
+.tag.skip{background:var(--bad-soft);color:var(--bad)}
+.tag.free{background:var(--accent-soft);color:var(--accent)}
+
+/* day plan */
+.day{display:flex;gap:14px;padding:18px 0;border-top:1px solid var(--line)}
+.day:first-child{border-top:none;padding-top:4px}
+.day .dt{flex:none;width:66px;text-align:center}
+.day .dt .dd{font-family:var(--mono);font-weight:700;font-size:15px;color:#fff;background:var(--accent);border-radius:9px;padding:6px 0;display:block}
+.day .dt .wk{font-size:11.5px;color:var(--sub);margin-top:5px;display:block}
+.day .bd{flex:1;min-width:0}
+.day .bd .slot{margin:0 0 12px}
+.day .bd .slot:last-child{margin-bottom:0}
+.day .bd h4{margin:0 0 3px;font-size:15.5px;display:flex;align-items:baseline;gap:8px}
+.day .bd h4 .tm{font-family:var(--mono);font-size:11.5px;color:var(--flare);letter-spacing:.06em;flex:none}
+.day .bd ul{margin:3px 0 0;padding-left:19px;font-size:14.5px}
+.day .bd li{margin:3px 0}
+
+/* callouts：全边框+底色，不用侧色条 */
+.callout{border:1px solid color-mix(in srgb,var(--accent) 35%,var(--line));background:var(--accent-soft);border-radius:12px;padding:12px 16px;font-size:14.5px;margin:14px 0}
+.callout.warn{border-color:color-mix(in srgb,var(--warn) 38%,var(--line));background:var(--warn-soft)}
+.callout.bad{border-color:color-mix(in srgb,var(--bad) 38%,var(--line));background:var(--bad-soft)}
+.callout.good{border-color:color-mix(in srgb,var(--good) 38%,var(--line));background:var(--good-soft)}
+.callout b{color:var(--ink)}
+
+/* ===== 安全清单（签名元素）===== */
+.chk-toolbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:14px 0}
+.progress{flex:1;min-width:180px;height:10px;border-radius:99px;background:var(--chip);overflow:hidden}
+.progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--flare));transition:width .25s}
+#chkCount{font-family:var(--mono);font-size:13px;color:var(--sub);white-space:nowrap}
+#resetBtn{background:none;border:1px solid var(--line);color:var(--sub);border-radius:8px;padding:4px 10px;font-size:13px;cursor:pointer}
+.bags{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-top:6px}
+.bag{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);position:relative}
+.bag .head{padding:14px 18px 10px;border-bottom:1px dashed var(--line)}
+.bag .no{font-family:var(--mono);font-size:11px;letter-spacing:.12em;font-weight:700;display:inline-block;border-radius:6px;padding:2px 9px;color:#FDFBF8}
+.bag.b1 .no{background:#8C4CA6}.bag.b2 .no{background:#BE6E17}.bag.b3 .no{background:#BF3A6B}
+.bag h4{margin:7px 0 2px;font-size:17px;font-family:var(--serif);font-weight:700}
+.bag .role{font-size:12.5px;color:var(--sub);margin:4px 0 0}
+.bag .body{padding:8px 16px 14px}
+.chk-item{display:flex;gap:9px;align-items:flex-start;padding:6px 4px;border-radius:8px;cursor:pointer;font-size:14.5px}
+.chk-item:hover{background:var(--accent-soft)}
+.chk-item input{margin-top:4px;accent-color:var(--flare);width:16px;height:16px;flex:none;cursor:pointer}
+.chk-item.done .t{color:var(--sub);text-decoration:line-through;text-decoration-color:color-mix(in srgb,var(--sub) 55%,transparent)}
+.chk-item .d{display:block;font-size:12.5px;color:var(--sub);margin-top:1px}
+
+/* sources */
+.src ol{padding-left:24px;font-size:13.5px;color:var(--sub)}
+.src li{margin:5px 0;overflow-wrap:anywhere}
+.src h3{margin-top:18px}
+.src .flag{color:var(--bad);font-weight:600}
+.method{font-size:13.5px;color:var(--sub)}
+
+footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--line);color:var(--sub);font-size:13px}
+@media print{
+  nav,#themeBtn,#resetBtn,#tip{display:none}
+  .hero{background:#A83F62;-webkit-print-color-adjust:exact}
+  body{background:#fff}
+  .card,.bag,.tbl,.findings{box-shadow:none;break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <p class="eyebrow">NA RESEARCH · 马尼拉深度调研</p>
+  <h1>马尼拉 2 日单人慢玩攻略</h1>
+  <p class="sub">单人男性 · Makati 落脚 · 舒适慢节奏。文化慢逛 + 华埠美食 + 高端马杀鸡 + 马尼拉湾日落，不暴走、不踩雷。赌场夜生活作可选彩蛋，单人男性安全清单可勾选。</p>
+  <div class="route" aria-label="两天动线">
+    <div class="stop"><span class="daytag">D1</span><b>王城</b>Intramuros</div>
+    <div class="stop"><span class="daytag">D1</span><b>华埠</b>Binondo</div>
+    <div class="stop hl"><span class="daytag">D1</span><b>湾景日落</b>Manila Bay</div>
+    <div class="stop"><span class="daytag">D2</span><b>咖啡</b>Makati/BGC</div>
+    <div class="stop"><span class="daytag">D2</span><b>SPA</b>躺平</div>
+    <div class="stop"><span class="daytag">D2</span><b>菲餐</b>米其林</div>
+  </div>
+  <p class="meta">小红书 17 · YouTube 15 · 官方/Blog 12 · Reddit 19 组交叉验证 · 主编回查原始数据 · as of 2026-07</p>
+</header>
+
+<nav><div class="in">
+  <a href="#tldr">速览</a>
+  <a href="#plan">两天行程</a>
+  <a href="#spa">马杀鸡</a>
+  <a href="#food">美食</a>
+  <a href="#safety">安全清单</a>
+  <a href="#extra">彩蛋</a>
+  <a href="#expect">预期管理</a>
+  <a href="#src">来源</a>
+  <button id="themeBtn" aria-label="切换深浅色">◐ 主题</button>
+</div></nav>
+
+<!-- ============ 速览 ============ -->
+<section id="tldr">
+  <p class="eyebrow">TL;DR</p>
+  <h2>5 条决策级结论</h2>
+  <p class="sec-sub">按重要性排序。每条论点可悬停引用编号看来源，点击溯源。</p>
+  <div class="findings">
+    <div class="finding"><span class="fno">1</span><div><b class="k">住 Makati 是压倒性共识，选对了</b><p>最安全、最好走、SPA/美食/夜生活全在脚边。内部再分：<b>Legazpi / Salcedo / Rockwell = 安静</b>（像更老更慢的 BGC），<b>Poblacion = 热闹夜生活但紧贴红灯区 P. Burgos</b>。舒适预算可直接住带温泉的 I'M Hotel，或 The Peninsula / Makati Shangri-La<sup><a href="#s33">[33]</a><a href="#s40">[40]</a><a href="#s24">[24]</a><a href="#s3">[3]</a><a href="#s5">[5]</a></sup></p></div></div>
+    <div class="finding"><span class="fno">2</span><div><b class="k">「市区认真走 1 天就够，拆成 2 天正好不累」</b><p>这是所有单人攻略的原话——正是你要的「不太累」。别把行程塞满，留白做 SPA、看日落、咖啡馆发呆<sup><a href="#s38">[38]</a><a href="#s39">[39]</a><a href="#s3">[3]</a><a href="#s20">[20]</a><a href="#s29">[29]</a></sup></p></div></div>
+    <div class="finding"><span class="fno">3</span><div><b class="k">动线按地理分天最省力</b><p>Day 1 = 老马尼拉一条线（Intramuros 王城 + Binondo 华埠美食 + 马尼拉湾日落，都在市中心，Grab / 竹车衔接）；Day 2 = Makati/BGC 纯放松（咖啡 → 商场吹空调 → 高端 SPA → 精致菲餐）</p></div></div>
+    <div class="finding"><span class="fno">4</span><div><b class="k">只用 Grab，永远别在街上拦白牌出租</b><p>连本地人都说司机宰客。NAIA→Makati 正常 <b>₱375–500</b>；行前就装好 Grab 绑定支付，机场 ATM 取现、便利店买张 SIM<sup><a href="#s41">[41]</a><a href="#s42">[42]</a><a href="#s34">[34]</a><a href="#s13">[13]</a><a href="#s20">[20]</a></sup></p></div></div>
+    <div class="finding"><span class="fno">5</span><div><b class="k">单人男性三大专属坑</b><p>① 网恋 / 交友骗局（relationship fraud）；② Poblacion 夜店「账单塞水」+ 擦边「men only spa」性质暧昧；③ 被搭讪 → 一起吃喝 → 下药抢劫（一条 1508 赞警示视频的真实剧本）。<b>财不露白 + 只 Grab + 夜里别落单</b>是底线<sup><a href="#s23">[23]</a><a href="#s12">[12]</a><a href="#s14">[14]</a><a href="#s21">[21]</a><a href="#s44">[44]</a></sup></p></div></div>
+  </div>
+</section>
+
+<!-- ============ 两天行程 ============ -->
+<section id="plan">
+  <p class="eyebrow">ITINERARY</p>
+  <h2>两天行程（放松版）</h2>
+  <p class="sec-sub">上午都晚点出发不赶；每个「下午二选一」是控制体力的关键——别都做。</p>
+
+  <div class="card" style="padding:8px 20px">
+    <div class="day">
+      <div class="dt"><span class="dd">DAY 1</span><span class="wk">老马尼拉</span></div>
+      <div class="bd">
+        <div class="slot">
+          <h4><span class="tm">上午</span>Intramuros 西班牙王城</h4>
+          <ul>
+            <li>16 世纪殖民古城，鹅卵石街，慢逛半日。必看 <b>Fort Santiago 圣地亚哥堡</b>（门票 75 peso，8am–5pm，黎刹就义前囚禁处）<sup><a href="#s19">[19]</a><a href="#s27">[27]</a></sup>、<b>San Agustin 教堂</b>（UNESCO 最老石造教堂，展区能看大半天）、Manila Cathedral、Casa Manila（约 100p）、Bahay Tsinoy 菲华博物馆<sup><a href="#s25">[25]</a><a href="#s15">[15]</a></sup></li>
+            <li>🛺 代步骑 <b>bambike 竹自行车</b>（要提前预约）——别坐马车 / 三轮，景点步行很短且宰客严重<sup><a href="#s15">[15]</a><a href="#s31">[31]</a><a href="#s24">[24]</a></sup></li>
+            <li>⚠️ <b>周一很多馆闭馆</b>，别踩空<sup><a href="#s23">[23]</a></sup></li>
+          </ul>
+        </div>
+        <div class="slot">
+          <h4><span class="tm">午餐</span>老城 heritage 菲餐</h4>
+          <ul><li>Kabila（米其林必比登，三大岛代表菜）<sup><a href="#s18">[18]</a></sup> 或 Barbara's Heritage（自助 + 表演，有仪式感）<sup><a href="#s2">[2]</a></sup></li></ul>
+        </div>
+        <div class="slot">
+          <h4><span class="tm">下午 · 二选一</span>华埠 <span style="color:var(--sub);font-weight:400">或</span> 博物馆</h4>
+          <ul>
+            <li>🅰️ <b>Binondo 华埠 food crawl</b>（世界最老唐人街，美食 + 文化双命中）：Maki 拉面 / Wan Nan 炖内脏 / Fengsheng / Xin Xiang 炸生蚝 / Polland 的 hopia。跟 food tour 省心且不必独自吃，或 DIY 省钱。⚠️ 人多机车多扒手多，<b>白天去、包前背、选 1–2 家别贪多</b><sup><a href="#s48">[48]</a><a href="#s39">[39]</a><a href="#s35">[35]</a><a href="#s13">[13]</a></sup></li>
+            <li>🅱️ <b>National Museum 博物馆群</b>（黎刹公园片区，<span class="tag free">免费</span>，东南亚顶级馆藏）：Natural History（名鳄 Lolong / 菲律宾鹰）、Fine Arts、Anthropology。<b>选 1–2 个馆别硬逛</b><sup><a href="#s31">[31]</a><a href="#s32">[32]</a><a href="#s3">[3]</a></sup></li>
+          </ul>
+        </div>
+        <div class="slot">
+          <h4><span class="tm">傍晚</span>马尼拉湾日落 🌅</h4>
+          <ul><li>约 5 点 Grab 去 <b>SM Mall of Asia</b>，走到海边买瓶 San Miguel 坐着看日落<sup><a href="#s1">[1]</a><a href="#s3">[3]</a><a href="#s19">[19]</a></sup>。⚠️ 日落「治愈」是多数说法，也有人说「景色一般碰运气」，别抱太高期待；<b>别去 Manila Bay「海滩」</b>（不值），看日落走 MOA seaside 或 rooftop（City Garden 顶楼 / Bay Leaf Sky Deck）<sup><a href="#s11">[11]</a><a href="#s38">[38]</a><a href="#s47">[47]</a></sup></li></ul>
+        </div>
+      </div>
+    </div>
+    <div class="day">
+      <div class="dt"><span class="dd">DAY 2</span><span class="wk">纯放松</span></div>
+      <div class="bd">
+        <div class="slot">
+          <h4><span class="tm">上午</span>咖啡馆慢逛</h4>
+          <ul><li>Makati 或打车去 BGC：Deuces、Elunion（北菲精品咖啡先驱）、%Arabica。菲律宾星巴克被戏称「天花板」<sup><a href="#s18">[18]</a><a href="#s26">[26]</a><a href="#s8">[8]</a></sup></li></ul>
+        </div>
+        <div class="slot">
+          <h4><span class="tm">中午 · 二选一</span>商场吹空调</h4>
+          <ul>
+            <li>🅰️ <b>Greenbelt 商场群</b>（顶奢 + 大众，连着 Landmark / Glorietta / SM Makati，中央花园 + 小教堂，可逛一下午）——就在 Makati 最省力<sup><a href="#s11">[11]</a><a href="#s26">[26]</a></sup></li>
+            <li>🅱️ <b>BGC High Street</b>（Grab 20 分钟，像新加坡：宽林荫道、公共艺术、干净好走）+ Manam 菲菜（可点小份多试 100–300 peso）<sup><a href="#s24">[24]</a><a href="#s26">[26]</a><a href="#s9">[9]</a></sup></li>
+          </ul>
+          <div class="callout warn" style="margin:10px 0 0">马尼拉<b>极热</b>，本地人进 mall 不是购物是避暑——随身带水 + mini 手扇，热会拖慢节奏<sup><a href="#s20">[20]</a><a href="#s29">[29]</a><a href="#s27">[27]</a></sup></div>
+        </div>
+        <div class="slot">
+          <h4><span class="tm">下午</span>高端 SPA 躺平</h4>
+          <ul><li>舒适不差钱的核心项，详见 <a href="#spa">§ 马杀鸡专章</a></li></ul>
+        </div>
+        <div class="slot">
+          <h4><span class="tm">晚</span>精致菲餐收尾</h4>
+          <ul><li>Toyo Eatery（1 星，Asia's 50 Best，需订位）、Hapag、Kasa、Sarsa、Romulo Cafe（经典菲菜）<sup><a href="#s35">[35]</a><a href="#s18">[18]</a></sup>。国民必吃随时补：Jollibee、Lechon 烤乳猪、Sinigang、Mang Inasal、Mary Grace（T3 机场也有）<sup><a href="#s1">[1]</a><a href="#s5">[5]</a><a href="#s10">[10]</a><a href="#s24">[24]</a></sup></li></ul>
+          <div class="callout" style="margin:10px 0 0">餐厅账单多<b>已含 10–15% service charge</b>，看清 itemized 别再按美式习惯加小费<sup><a href="#s23">[23]</a></sup></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SPA ============ -->
+<section id="spa">
+  <p class="eyebrow">MASSAGE / SPA</p>
+  <h2>马杀鸡 · 你的头号放松项</h2>
+  <p class="sec-sub">舒适不差钱首选正规高端；平价合法基准随时能走进；避坑两类擦边店。</p>
+  <div class="tbl"><table>
+    <thead><tr><th>档次</th><th>去处</th><th class="num">参考价</th><th>说明</th></tr></thead>
+    <tbody>
+      <tr><td><span class="tag buy">高端首选</span></td><td><b>I'M Onsen Spa @ I'M Hotel</b></td><td class="num">luxury</td><td>日式温泉 + 按摩，Makati 心脏地带，可直接住这家酒店<sup><a href="#s30">[30]</a><a href="#s36">[36]</a></sup></td></tr>
+      <tr><td><span class="tag buy">高端</span></td><td><b>The Spa</b>（连锁）</td><td class="num">中高</td><td>Bonifacio High St / Greenbelt / Shangri-la 多店，反复被点名<sup><a href="#s36">[36]</a></sup></td></tr>
+      <tr><td><span class="tag buy">高端</span></td><td>Ace Water Spa · <b>La Sema</b> · Okada The Retreat</td><td class="num">中高</td><td>La Sema 含桑拿 + 泡池，可待 12 小时躺一天<sup><a href="#s36">[36]</a><a href="#s43">[43]</a></sup></td></tr>
+      <tr><td><span class="tag free">平价合法</span></td><td><b>Nuat Thai</b> · <b>Ton-Ton</b></td><td class="num">₱250–300</td><td>Makati Ave / Leviste 街，泰式，随时能进，不做 happy ending 可明说<sup><a href="#s43">[43]</a></sup></td></tr>
+      <tr><td><span class="tag maybe">中文技师</span></td><td>颐身 Yishen Massage</td><td class="num">中</td><td>Makati，技师会简单中文，采耳 / 酵素浴 / 拔罐。⚠️ 2022 旧帖，去前先核实是否还营业<sup><a href="#s6">[6]</a></sup></td></tr>
+      <tr><td><span class="tag skip">避坑</span></td><td>Emgrand 帝豪水汇</td><td class="num">₱999+</td><td>近 MOA 的华人洗浴，小妹会中文，但<b>口碑两极且一路涨价</b>（669→999+15%），另有笔记标题「有雷误踩」。想要中文洗浴可去但心里有数<sup><a href="#s7">[7]</a></sup></td></tr>
+      <tr><td><span class="tag skip">避坑</span></td><td>「Men only spa」（如 Hamada）</td><td class="num">₱899</td><td>在 Quezon City 离机场远，评论明确暗示「不只是按摩」（C-therapy / 无内裤技师 / 靠小费）。想要纯正规就<b>别碰，认准上面连锁</b><sup><a href="#s21">[21]</a></sup></td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============ 美食 ============ -->
+<section id="food">
+  <p class="eyebrow">FOOD</p>
+  <h2>美食（你的重心之一）</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>类别</th><th>吃什么 / 去哪</th><th>备注</th></tr></thead>
+    <tbody>
+      <tr><td><b>国民必吃</b></td><td>Jollibee 炸鸡 · Lechon 烤乳猪 · Adobo · Sinigang 酸汤 · Kare-Kare · Mang Inasal 烤鸡 · Mary Grace</td><td>Jollibee 炸鸡评价 10/10 优于 KFC，但意面偏甜可跳过；Mary Grace 意面 / 芒果蛋糕，T3 机场有店<sup><a href="#s1">[1]</a><a href="#s5">[5]</a><a href="#s10">[10]</a><a href="#s24">[24]</a></sup></td></tr>
+      <tr><td><b>精致菲餐</b></td><td>Toyo Eatery（1星，需订位）· Hapag · Kasa · Sarsa · Manam · Romulo Cafe</td><td>Manam 菜单 small/medium/large 可点小份多试；米其林菜单大量在 Makati/BGC<sup><a href="#s35">[35]</a><a href="#s18">[18]</a><a href="#s26">[26]</a></sup></td></tr>
+      <tr><td><b>Binondo 华埠</b></td><td>Maki 拉面 · Wan Nan 炖内脏 · Fengsheng · Xin Xiang 炸生蚝 · Polland hopia</td><td>世界最老唐人街，跟 food tour 或 DIY；⚠️ 白天去、防扒、选 1–2 家<sup><a href="#s48">[48]</a><a href="#s39">[39]</a><a href="#s35">[35]</a></sup></td></tr>
+      <tr><td><b>咖啡</b></td><td>%Arabica · Elunion · Yardstick · Deuces · Key Coffee</td><td>Makati / BGC 咖啡馆慢逛一整天是最松弛玩法<sup><a href="#s18">[18]</a><a href="#s26">[26]</a><a href="#s9">[9]</a></sup></td></tr>
+      <tr><td><span class="tag skip">避雷</span></td><td>George（sisig 有猪毛）· nownow（粉色汤拉肚子）</td><td>本地 30 年长居者说网红「必吃」清单「都很一般」，别神话<sup><a href="#s9">[9]</a><a href="#s10">[10]</a></sup></td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============ 安全清单（签名）============ -->
+<section id="safety">
+  <p class="eyebrow">CHECKLIST · 可勾选 · 自动保存</p>
+  <h2>单人男性安全清单</h2>
+  <p class="sec-sub">多渠道高频共识，勾选状态存在你自己浏览器里。行前 + 落地 + 每天随身三组。</p>
+  <div class="chk-toolbar">
+    <div class="progress"><i id="bar"></i></div>
+    <span id="chkCount">0 / 0</span>
+    <button id="resetBtn">重置</button>
+  </div>
+  <div class="bags">
+    <div class="bag b1">
+      <div class="head"><span class="no">STEP 01</span><h4>行前准备（在家）</h4><p class="role">出发前搞定，落地不慌</p></div>
+      <div class="body">
+        <label class="chk-item"><input type="checkbox" data-id="p1"><span class="t">装好 Grab App 并绑定支付<span class="d">别落地才手忙脚乱注册<sup><a href="#s20">[20]</a></sup></span></span></label>
+        <label class="chk-item"><input type="checkbox" data-id="p2"><span class="t">查移民局 / 使馆官网确认签证要求<span class="d">网传中国护照 14 天免签需直飞，但签证是高风险时效信息，只信官方<sup><a href="#s2">[2]</a><a href="#s3">[3]</a></sup></span></span></label>
+        <label class="chk-item"><input type="checkbox" data-id="p3"><span class="t">订 Makati 酒店<span class="d">安静选 Legazpi / Salcedo；热闹选 Poblacion 但紧邻红灯区<sup><a href="#s33">[33]</a><a href="#s40">[40]</a></sup></span></span></label>
+        <label class="chk-item"><input type="checkbox" data-id="p4"><span class="t">备防盗背包（可前背）+ 折叠手扇<span class="d">防扒刚需 + 马尼拉极热<sup><a href="#s28">[28]</a><a href="#s29">[29]</a></sup></span></span></label>
+      </div>
+    </div>
+    <div class="bag b2">
+      <div class="head"><span class="no">STEP 02</span><h4>落地机场（NAIA）</h4><p class="role">机场是重灾区，按顺序做</p></div>
+      <div class="body">
+        <label class="chk-item"><input type="checkbox" data-id="a1"><span class="t">ATM 取现<span class="d">Grab 很依赖现金；比换汇点划算<sup><a href="#s41">[41]</a></sup></span></span></label>
+        <label class="chk-item"><input type="checkbox" data-id="a2"><span class="t">便利店买 Globe SIM 或开 eSIM<span class="d">一楼 uncle johns 柜台 ≈ 6rmb，货架上没有要问店员<sup><a href="#s3">[3]</a><a href="#s27">[27]</a></sup></span></span></label>
+        <label class="chk-item"><input type="checkbox" data-id="a3"><span class="t">只叫 Grab（₱375–500 到 Makati）<span class="d">别让「帮拎行李」的人碰包（强收小费）<sup><a href="#s42">[42]</a><a href="#s34">[34]</a><a href="#s23">[23]</a></sup></span></span></label>
+        <label class="chk-item"><input type="checkbox" data-id="a4"><span class="t">别在机场显眼换汇点换钱<span class="d">带崭新无折痕美元；当面数清<sup><a href="#s41">[41]</a><a href="#s23">[23]</a></sup></span></span></label>
+      </div>
+    </div>
+    <div class="bag b3">
+      <div class="head"><span class="no">DAILY</span><h4>随身安全（每天）</h4><p class="role">内化成习惯</p></div>
+      <div class="body">
+        <label class="chk-item"><input type="checkbox" data-id="d1"><span class="t">财不露白<span class="d">不戴名表名牌，手机现金别露，包前背（solo 亲历者：背斜挎包防飞车党抢包）<sup><a href="#s13">[13]</a><a href="#s24">[24]</a><a href="#s28">[28]</a><a href="#s4">[4]</a></sup></span></span></label>
+        <label class="chk-item"><input type="checkbox" data-id="d2"><span class="t">只坐 Grab，搭车锁门<span class="d">绝不路边拦白牌出租；摩的用 MoveIt / JoyRide<sup><a href="#s3">[3]</a><a href="#s28">[28]</a><a href="#s41">[41]</a></sup></span></span></label>
+        <label class="chk-item"><input type="checkbox" data-id="d3"><span class="t">夜里灯暗街区别落单<span class="d">暗巷一个人绝对别进；谨慎区 Quiapo / Divisoria / Ermita（夜间）<sup><a href="#s13">[13]</a><a href="#s26">[26]</a></sup></span></span></label>
+        <label class="chk-item"><input type="checkbox" data-id="d4"><span class="t">不跟陌生人一起吃喝<span class="d">下药抢劫真实案例；警惕「借钱付车费」搭讪；盯紧自己的酒<sup><a href="#s14">[14]</a><a href="#s23">[23]</a></sup></span></span></label>
+        <label class="chk-item"><input type="checkbox" data-id="d5"><span class="t">网恋 / 交友骗局保持距离<span class="d">单身男性头号坑，别被卷走上千美元<sup><a href="#s23">[23]</a></sup></span></span></label>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 彩蛋 ============ -->
+<section id="extra">
+  <p class="eyebrow">OPTIONAL</p>
+  <h2>可选彩蛋：赌场 &amp; 夜生活</h2>
+  <p class="sec-sub">你没把这两项列为重心，这里给最小信息 + 安全提醒，想加就加。</p>
+  <div class="card">
+    <h3 style="margin-top:6px">🎰 赌场（不豪赌也能逛）</h3>
+    <ul>
+      <li>都在 Entertainment City（Pasay / Parañaque，近 MOA + 机场）。<b>Okada</b>：大喷泉 + 室内 beach club，可纯逛不赌；21 点起步 500 比索（≈60rmb）新手友好<sup><a href="#s17">[17]</a><a href="#s45">[45]</a><a href="#s37">[37]</a></sup></li>
+      <li><b>Solaire</b>：常被评「最 welcome」，剧院看完演出出来就是赌场、不查证件<sup><a href="#s8">[8]</a><a href="#s45">[45]</a></sup></li>
+      <li>德州扑克 rmb 3/6 起丰俭由人、无年龄门槛<sup><a href="#s16">[16]</a></sup>；Layover 友好的 Newport World 就在 NAIA T3 对面天桥连通<sup><a href="#s37">[37]</a></sup></li>
+    </ul>
+    <h3>🍸 夜生活（Poblacion 步行 bar-hopping）</h3>
+    <ul>
+      <li>从 Z Hostel 起步走 Padre Burgos 一带，隐藏酒吧 Bank Bar（藏在 7-11 里）/ The Spirits Library / Gin Lab；日间 Poblacion 冷清<sup><a href="#s22">[22]</a><a href="#s26">[26]</a></sup></li>
+    </ul>
+    <div class="callout bad">⚠️ <b>红灯区 P. Burgos 就在 Poblacion 夜生活旁 2 分钟</b>——想避就往内街（Don Pedro 一带）走；进 gogo / girly bar 务必盯紧点单与结账（会「往账单塞水」乱定价宰客）；club 有 spiked drinks，盯着自己的酒别接陌生人递的<sup><a href="#s44">[44]</a><a href="#s22">[22]</a><a href="#s23">[23]</a><a href="#s12">[12]</a></sup></div>
+  </div>
+</section>
+
+<!-- ============ 预期管理 ============ -->
+<section id="expect">
+  <p class="eyebrow">REALITY CHECK</p>
+  <h2>预期管理 · 最高赞的泼冷水</h2>
+  <div class="card">
+    <ul>
+      <li><b>「马尼拉值不值得待 2 天」有真实分歧</b>：一派「历史文化商业中心、Intramuros 值得逛、菲律宾人很好玩、别 skip」；另一派「最多 1 天、住机场附近就好，堵车 + 污染 + 物价贵、赶紧去海岛」（甚至有「香港人终身不踏足」的极端评论）。对「不太累 2 天单人」而言：慢逛市区核心 + SPA + 美食，2 天刚好，别期待海岛级风光<sup><a href="#s46">[46]</a><a href="#s25">[25]</a><a href="#s23">[23]</a><a href="#s29">[29]</a></sup></li>
+      <li><b>「马尼拉不是观光城市」</b>：靠美食 / 夜生活 / 跟人连接去体验，不是暴走扫景点——<b>这对你反而是利好</b>（少赶景点，正好慢）<sup><a href="#s29">[29]</a></sup></li>
+      <li><b>网红「必吃」别神话</b>：在菲 30 年的本地评论说那些清单「都很一般」；避雷 George、nownow<sup><a href="#s10">[10]</a><a href="#s9">[9]</a></sup></li>
+      <li><b>热是真的会拖慢你</b>——把它当行程变量，别硬排<sup><a href="#s20">[20]</a><a href="#s29">[29]</a></sup></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ 来源 ============ -->
+<section id="src" class="src">
+  <p class="eyebrow">SOURCES</p>
+  <h2>数据来源</h2>
+  <p class="method">三渠道并行采集（小红书 search + fetch / YouTube 转录 + 评论 / Tavily + Brave + Reddit 片段），评论权重 ≥ 正文；每条按 Subject Anchor（马尼拉市区 · 2 天 · 单人男性 · 不太累）打匹配度，海岛引流与非马尼拉内容已过滤。主编回读原始 JSON 抽查 4 个 keystone（Okada 21 点 500 比索、机场 Grab 236p vs 宰客 1000p、Poblacion = Makati 红灯区、Emgrand 涨价 999p），均与摘要逐字一致。<span class="flag">已知缺口</span>：Perplexity 配额用尽（改 Tavily + Brave）；Reddit 全渠道 403，评论为搜索引擎片段、无精确 upvote 数；部分 SPA 报价为 2016–2026 混合旧数据。</p>
+
+  <h3>小红书（正文 + 评论）</h3>
+  <ol>
+    <li id="s1">小红书·马尼拉两天一夜｜轻松逛吃不踩雷（不化妆只化缘，68♥） · <a href="https://www.xiaohongshu.com/explore/6a0ad7c5000000000702ed4e" target="_blank" rel="noopener">xiaohongshu.com/explore/6a0ad7c5</a></li>
+    <li id="s2">小红书·刚从马尼拉回来真实感受（林小贼，970♥，免签 + BGC/Newport 安全） · <a href="https://www.xiaohongshu.com/explore/698e8efe000000001a021058" target="_blank" rel="noopener">explore/698e8efe</a></li>
+    <li id="s3">小红书·马尼拉不罪恶不好逛 solo 实操（Ana，348♥，SIM / 住 Makati / 日落 / 只用 Grab） · <a href="https://www.xiaohongshu.com/explore/69ec4111000000001f004592" target="_blank" rel="noopener">explore/69ec4111</a></li>
+    <li id="s4">小红书·Solo 马尼拉一日游没想象得那么危险（玩玻璃球，273♥） · <a href="https://www.xiaohongshu.com/explore/68e1a5f7000000000501167f" target="_blank" rel="noopener">explore/68e1a5f7</a></li>
+    <li id="s5">小红书·马尼拉攻略住这超方便（Travelyn，1466♥，Makati + 景点清单） · <a href="https://www.xiaohongshu.com/explore/68c0eada000000001d037a36" target="_blank" rel="noopener">explore/68c0eada</a></li>
+    <li id="s6">小红书·颐身 Yishen 按摩 Makati 中文技师（进强在菲，403♥，2022 旧帖） · <a href="https://www.xiaohongshu.com/explore/62cb8bc800000000210343d5" target="_blank" rel="noopener">explore/62cb8bc8</a></li>
+    <li id="s7">小红书·Emgrand 帝豪水汇 SPA 周末躺平（不尽十一，121♥，涨价 + 口碑两极） · <a href="https://www.xiaohongshu.com/explore/67dc1cf2000000000d016e6c" target="_blank" rel="noopener">explore/67dc1cf2</a></li>
+    <li id="s8">小红书·马尼拉 48 小时含 Solaire 赌场（Ann，solo，看剧 + 星巴克） · <a href="https://www.xiaohongshu.com/explore/697ed10a000000002103fc56" target="_blank" rel="noopener">explore/697ed10a</a></li>
+    <li id="s9">小红书·私藏马尼拉 BGC 网红美食（RemoveMi，278♥，含避雷店） · <a href="https://www.xiaohongshu.com/explore/68e6022f000000000301b16f" target="_blank" rel="noopener">explore/68e6022f</a></li>
+    <li id="s10">小红书·菲律宾马尼拉必吃 5 样（OK Fam，144♥，本地长居者反对意见） · <a href="https://www.xiaohongshu.com/explore/69dce0290000000022000d7b" target="_blank" rel="noopener">explore/69dce029</a></li>
+    <li id="s11">小红书·马尼拉逛商场 TOP3（云淡风轻，155♥，日落一般碰运气） · <a href="https://www.xiaohongshu.com/explore/66efe576000000000c01bfd3" target="_blank" rel="noopener">explore/66efe576</a></li>
+    <li id="s12">小红书·Poblacion 虽然危险但出片（小禄，203♥，红灯区暗示 + 看好随身） · <a href="https://www.xiaohongshu.com/explore/67b01c5e0000000018009132" target="_blank" rel="noopener">explore/67b01c5e</a></li>
+    <li id="s13">小红书·马尼拉保命指南（momo，271♥，危险区 + 机场打车 236p vs 1000p + 黑警） · <a href="https://www.xiaohongshu.com/explore/69775f51000000000b00befe" target="_blank" rel="noopener">explore/69775f51</a></li>
+    <li id="s14">小红书·马尼拉大家还是小心些（李大璐，1508♥，被搭讪下药抢劫警示视频） · <a href="https://www.xiaohongshu.com/explore/6a36c16e000000001503d337" target="_blank" rel="noopener">explore/6a36c16e</a></li>
+    <li id="s15">小红书·Intramuros 穿越西班牙殖民（0-0，229♥，别坐马车骑 bambike） · <a href="https://www.xiaohongshu.com/explore/67cd764f000000002903ca0d" target="_blank" rel="noopener">explore/67cd764f</a></li>
+    <li id="s16">小红书·娱乐性最丰富的 casino 德扑（Rhett，195♥，丰俭由人毫无压力） · <a href="https://www.xiaohongshu.com/explore/6889332f0000000004000516" target="_blank" rel="noopener">explore/6889332f</a></li>
+    <li id="s17">小红书·马尼拉 Okada 大战 21 点（A股守门员，21 点起步 500 比索新手友好） · <a href="https://www.xiaohongshu.com/explore/699c4246000000001a027f7a" target="_blank" rel="noopener">explore/699c4246</a></li>
+  </ol>
+
+  <h3>YouTube（转录 + 评论）</h3>
+  <ol start="18">
+    <li id="s18">YouTube·MICHELIN Guide《2 Days in Manila》（92 万播放，近半年，美食 + 文化慢节奏） · <a href="https://www.youtube.com/watch?v=FImTyTAPwuY" target="_blank" rel="noopener">youtube.com/watch?v=FImTyTAPwuY</a></li>
+    <li id="s19">YouTube·Sammy and Tommy《Top 10 Things to do in Manila》（50 万，Fort Santiago 75p / 8am–5pm） · <a href="https://www.youtube.com/watch?v=JEk6W_7_P9w" target="_blank" rel="noopener">watch?v=JEk6W_7_P9w</a></li>
+    <li id="s20">YouTube·Travel For Phoebe《2 days in Manila first-timer》（22 万，Day1 观光 / Day2 放松公式） · <a href="https://www.youtube.com/watch?v=S5sGmWebiZ4" target="_blank" rel="noopener">watch?v=S5sGmWebiZ4</a></li>
+    <li id="s21">YouTube·Follow Us《Manila men only spa — Hamada》（10 万，评论暗示服务性质暧昧 + 在 QC 离机场远） · <a href="https://www.youtube.com/watch?v=RbdbUfwkYh0" target="_blank" rel="noopener">watch?v=RbdbUfwkYh0</a></li>
+    <li id="s22">YouTube·DW Travel《Manila's Exciting Nightlife: Secret Bars》（26 万，Poblacion bar-hopping） · <a href="https://www.youtube.com/watch?v=GYwZ3u_RDks" target="_blank" rel="noopener">watch?v=GYwZ3u_RDks</a></li>
+    <li id="s23">YouTube·Jaycation《15 Philippines Scams & Tourist Traps》（60 万，网恋 / taxi / spiked drinks / 含服务费） · <a href="https://www.youtube.com/watch?v=niRTPJVyQZQ" target="_blank" rel="noopener">watch?v=niRTPJVyQZQ</a></li>
+    <li id="s24">YouTube·Alina Mcleod《Solo Travel Philippines: First Impressions》（23 万，住宿定价 + 男女通用安全建议） · <a href="https://www.youtube.com/watch?v=J5LWi9sqvQk" target="_blank" rel="noopener">watch?v=J5LWi9sqvQk</a></li>
+    <li id="s25">YouTube·老宋 CHANNEL《马尼拉现在到底怎么样》（14 万，3 个月前，中文避雷 + 王城 + MOA 日落） · <a href="https://www.youtube.com/watch?v=_m7SBVHJ1HU" target="_blank" rel="noopener">watch?v=_m7SBVHJ1HU</a></li>
+    <li id="s26">YouTube·Adelle《3 days in Manila BGC and Makati》（24 万，cafe-hopping 最松弛 + 独游暗巷别去） · <a href="https://www.youtube.com/watch?v=saGkmUgrQ5E" target="_blank" rel="noopener">watch?v=saGkmUgrQ5E</a></li>
+    <li id="s27">YouTube·What's Next Ab《2 Days Solo in Manila》（solo 2 天直击 anchor，Fort Santiago / redlight district 评论） · <a href="https://www.youtube.com/watch?v=j9SS8xKYqG4" target="_blank" rel="noopener">watch?v=j9SS8xKYqG4</a></li>
+    <li id="s28">YouTube·阿汤汤 世界爬透透《马尼拉 40 小时快闪》（含 lakershank 安全清单：财不露白 / 只 Grab / 搭车锁门） · <a href="https://www.youtube.com/watch?v=uKIUO5yspXE" target="_blank" rel="noopener">watch?v=uKIUO5yspXE</a></li>
+    <li id="s29">YouTube·Nellyslife《Manila Travel Mistakes》（5 万，马尼拉不是观光城市 / 极热 / BGC walkable） · <a href="https://www.youtube.com/watch?v=xOU_l-AzVOw" target="_blank" rel="noopener">watch?v=xOU_l-AzVOw</a></li>
+    <li id="s30">YouTube·Making it happen《Luxury Massage: I'm Onsen Spa Makati》（5 万，I'M Hotel 日式温泉） · <a href="https://www.youtube.com/watch?v=LA4iPP9J5O4" target="_blank" rel="noopener">watch?v=LA4iPP9J5O4</a></li>
+  </ol>
+
+  <h3>官方 / Blog</h3>
+  <ol start="31">
+    <li id="s31">Will Fly for Food·马尼拉首访者指南（本地人写，含 massage + Poblacion food crawl + Bambike） · <a href="https://www.willflyforfood.net/the-first-timers-travel-guide-to-manila-philippines-from-a-local" target="_blank" rel="noopener">willflyforfood.net/…/manila</a></li>
+    <li id="s32">Postcards from the World·2 Days in Manila（pace yourself、选 1–2 个博物馆展厅不硬逛） · <a href="https://postcardsfromtheworld.com/2-days-in-manila" target="_blank" rel="noopener">postcardsfromtheworld.com/2-days-in-manila</a></li>
+    <li id="s33">SEA Hotel·Where to Stay in Manila: Makati vs BGC vs Pasay（首访单人首选 Makati CBD） · <a href="https://seahotel.com.sg/blog/where-to-stay-in-manila" target="_blank" rel="noopener">seahotel.com.sg/blog/where-to-stay-in-manila</a></li>
+    <li id="s34">Grab / Hoppa 官方·NAIA 机场到市区交通（NAIA→Makati Grab ₱400–700，as of 2026） · <a href="https://www.grab.com/global/airport-rides/ninoy-aquino-international-airport" target="_blank" rel="noopener">grab.com/global/airport-rides/naia</a></li>
+    <li id="s35">MICHELIN Guide + Travelling Foodie·Metro Manila 餐厅（Toyo Eatery / Hapag / Manam / Sarsa） · <a href="https://guide.michelin.com/ph/en/metro-manila/restaurants" target="_blank" rel="noopener">guide.michelin.com/ph/en/metro-manila/restaurants</a></li>
+    <li id="s36">TripAdvisor + Mandara·Metro Manila SPA 榜（I'M Onsen / The Spa / Ace Water Spa / Devarana） · <a href="https://www.tripadvisor.com/Attractions-g298449-Activities-c40-Metro_Manila_Luzon.html" target="_blank" rel="noopener">tripadvisor.com/…/Metro_Manila SPA</a></li>
+    <li id="s37">Wikipedia·Entertainment City（City of Dreams / Okada / Solaire + Newport World 近 T3） · <a href="https://en.wikipedia.org/wiki/Entertainment_City" target="_blank" rel="noopener">en.wikipedia.org/wiki/Entertainment_City</a></li>
+  </ol>
+
+  <h3>Reddit（评论片段，无精确 upvote）</h3>
+  <ol start="38">
+    <li id="s38">r/phtravel·Budget-friendly travel tips at Manila（skip Manila Bay beach、安排 relaxed day） · <a href="https://www.reddit.com/r/phtravel/comments/1hx85mb/budgetfriendly_travel_tips_at_manila/" target="_blank" rel="noopener">reddit.com/r/phtravel/…/budgetfriendly</a></li>
+    <li id="s39">r/phtravel·Affordable itinerary / 3 days in Manila（1 天够、Binondo 半天别塞满） · <a href="https://www.reddit.com/r/phtravel/comments/1i5zi2q/affordable_itinerary_from_manila/" target="_blank" rel="noopener">reddit.com/r/phtravel/…/affordable_itinerary</a></li>
+    <li id="s40">r/Philippines_Expats·Best neighbourhood for 2-day trip（Makati/BGC，Poblacion 近红灯区提醒） · <a href="https://www.reddit.com/r/Philippines_Expats/comments/1nzebcw/best_neighbourhood_to_stay_for_2day_trip_to_manila/" target="_blank" rel="noopener">reddit.com/r/Philippines_Expats/…/2day_trip</a></li>
+    <li id="s41">r/phtravel·Manila safety tips（换汇走 ATM、只用 Grab、防扒钱包） · <a href="https://www.reddit.com/r/phtravel/comments/1goitm7/what_are_your_manila_safety_tips_advice/" target="_blank" rel="noopener">reddit.com/r/phtravel/…/manila_safety_tips</a></li>
+    <li id="s42">r/phtravel·NAIA T1 to Makati（Grab ₱375–500 even with traffic；本地人都不信出租车） · <a href="https://www.reddit.com/r/phtravel/comments/1ndvq1s/travel_options_from_naia_terminal_1_to_hotel_in_makati/" target="_blank" rel="noopener">reddit.com/r/phtravel/…/naia_terminal_1</a></li>
+    <li id="s43">r/Philippines + r/makati·合法马杀鸡（Nuat Thai / Ton-Ton P250–300、La Sema 含桑拿泡池 12h） · <a href="https://www.reddit.com/r/makati/comments/1dhz9yw/spamassage/" target="_blank" rel="noopener">reddit.com/r/makati/…/spamassage</a></li>
+    <li id="s44">r/MANILA + r/Philippines_Expats·Poblacion / P. Burgos 红灯区（离夜生活 2 分钟、账单塞水宰客） · <a href="https://www.reddit.com/r/MANILA/comments/1deqaqu/nightlife_in_makati_and_bgc/" target="_blank" rel="noopener">reddit.com/r/MANILA/…/nightlife_in_makati_and_bgc</a></li>
+    <li id="s45">r/Philippines_Expats·Okada vs City of Dreams vs Solaire（Okada 不豪赌也能逛） · <a href="https://www.reddit.com/r/Philippines_Expats/comments/1j4uy57/okada_vs_city_of_dreams_vs_solaire/" target="_blank" rel="noopener">reddit.com/r/Philippines_Expats/…/okada_vs_solaire</a></li>
+    <li id="s46">r/travel·Is Manila worth it（值不值得 2 天，两派对立） · <a href="https://www.reddit.com/r/travel/comments/xu1mpf/is_manila_worth_it/" target="_blank" rel="noopener">reddit.com/r/travel/…/is_manila_worth_it</a></li>
+    <li id="s47">r/Philippines_Expats·Manila nightlife（City Garden Hotel 顶楼看日落最佳、住 Poblacion 一带） · <a href="https://www.reddit.com/r/Philippines_Expats/comments/18sw08b/manila_nightlife/" target="_blank" rel="noopener">reddit.com/r/Philippines_Expats/…/manila_nightlife</a></li>
+    <li id="s48">r/phtravel·binondo food trip solo（单人华埠逐店清单：Maki / Wan Nan / Xin Xiang / Polland） · <a href="https://www.reddit.com/r/phtravel/comments/1l4kqek/binondo_food_trip_solo/" target="_blank" rel="noopener">reddit.com/r/phtravel/…/binondo_food_trip_solo</a></li>
+  </ol>
+</section>
+
+<footer>
+  <p>🤖 本页由 Claude（deep research 流程）于 2026-07-10 汇编：3 个并行调研通道（小红书 / YouTube / Web+Reddit）+ 人工回查原始数据验证。价格 / 签证 / 班次为来源发布时点信息，出发前请以菲律宾移民局 / 使馆 / 运营商官网为准。仅供朋友间分享参考，无商业用途。</p>
+</footer>
+
+</div>
+
+<div id="tip" role="tooltip" aria-hidden="true"></div>
+
+<script>
+(function(){
+  // ---------- theme ----------
+  var btn=document.getElementById('themeBtn');
+  var saved=localStorage.getItem('mnl-theme');
+  if(saved)document.documentElement.setAttribute('data-theme',saved);
+  btn.addEventListener('click',function(){
+    var cur=document.documentElement.getAttribute('data-theme');
+    var prefersDark=window.matchMedia('(prefers-color-scheme: dark)').matches;
+    var next=(cur? cur==='dark' : prefersDark)?'light':'dark';
+    document.documentElement.setAttribute('data-theme',next);
+    localStorage.setItem('mnl-theme',next);
+  });
+
+  // ---------- citation tooltips (body-level, escapes overflow containers) ----------
+  var tip=document.getElementById('tip');
+  var srcMap={};
+  document.querySelectorAll('.src li[id]').forEach(function(li){
+    var t=li.textContent.replace(/\s+/g,' ').trim();
+    var cut=t.indexOf(' · ');
+    srcMap[li.id]=(cut>0?t.slice(0,cut):t).slice(0,90);
+  });
+  function showTip(a){
+    var id=a.getAttribute('href').slice(1);
+    var txt=srcMap[id];
+    if(!txt)return;
+    tip.textContent='['+id.slice(1)+'] '+txt;
+    tip.classList.add('on');
+    var r=a.getBoundingClientRect();
+    tip.style.left='0px';tip.style.top='0px';
+    var tw=tip.offsetWidth,th=tip.offsetHeight;
+    var x=Math.min(Math.max(8,r.left+r.width/2-tw/2),window.innerWidth-tw-8);
+    var y=r.top-th-8; if(y<8)y=r.bottom+8;
+    tip.style.left=x+'px';tip.style.top=y+'px';
+  }
+  function hideTip(){tip.classList.remove('on')}
+  document.querySelectorAll('a[href^="#s"]').forEach(function(a){
+    if(!/^#s\d+$/.test(a.getAttribute('href')))return;
+    a.addEventListener('mouseenter',function(){showTip(a)});
+    a.addEventListener('mouseleave',hideTip);
+    a.addEventListener('focus',function(){showTip(a)});
+    a.addEventListener('blur',hideTip);
+  });
+  window.addEventListener('scroll',hideTip,{passive:true});
+
+  // links inside checklist labels shouldn't toggle the checkbox
+  document.querySelectorAll('.chk-item a').forEach(function(a){
+    a.addEventListener('click',function(e){e.stopPropagation()});
+  });
+
+  // ---------- checklist persistence ----------
+  var KEY='mnl-safety-v1';
+  var state={};
+  try{state=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
+  var boxes=[].slice.call(document.querySelectorAll('.chk-item input'));
+  function save(){localStorage.setItem(KEY,JSON.stringify(state))}
+  function refresh(){
+    var done=0;
+    boxes.forEach(function(b){
+      var on=!!state[b.dataset.id];
+      b.checked=on;
+      b.closest('.chk-item').classList.toggle('done',on);
+      if(on)done++;
+    });
+    document.getElementById('chkCount').textContent=done+' / '+boxes.length;
+    document.getElementById('bar').style.width=(boxes.length?100*done/boxes.length:0)+'%';
+  }
+  boxes.forEach(function(b){
+    b.addEventListener('change',function(){state[b.dataset.id]=b.checked;save();refresh();});
+  });
+  document.getElementById('resetBtn').addEventListener('click',function(){
+    if(confirm('清空所有勾选？')){state={};save();refresh();}
+  });
+  refresh();
+})();
+</script>
+</body>
+</html>
