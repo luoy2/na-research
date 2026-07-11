@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
 <style>
 :root{
   --bg:#F0F4F5; --card:#FBFDFD; --ink:#16303E; --sub:#5A6E7A; --line:#DCE4E8;
@@ -162,6 +163,24 @@ a.amz::before{content:"🔍 ";font-size:10px}
 .callout.bad{border-color:color-mix(in srgb,var(--bad) 35%,var(--line));background:var(--bad-soft)}
 .callout.good{border-color:color-mix(in srgb,var(--good) 35%,var(--line));background:var(--good-soft)}
 
+/* map (Leaflet) */
+#map{height:440px;border-radius:14px;border:1px solid var(--line);box-shadow:var(--shadow);margin:12px 0;background:var(--chip);z-index:1}
+#map .fallback{padding:34px 24px;color:var(--sub);font-size:14px;text-align:center}
+.leaflet-container{font-family:inherit;background:var(--chip)}
+.leaflet-popup-content-wrapper,.leaflet-popup-tip{background:var(--card);color:var(--ink);box-shadow:0 4px 16px rgba(0,0,0,.22)}
+.leaflet-popup-content{font-size:14px;margin:11px 14px;line-height:1.5}
+.leaflet-popup-content b{font-family:var(--serif)}
+.leaflet-popup-content .go{font-family:var(--mono);font-size:12.5px;display:inline-block;margin-top:5px}
+.leaflet-bar a{background:var(--card);color:var(--ink);border-bottom-color:var(--line)}
+.leaflet-bar a:hover{background:var(--accent-soft)}
+.leaflet-control-attribution{background:color-mix(in srgb,var(--card) 82%,transparent)!important;color:var(--sub)!important}
+.leaflet-control-attribution a{color:var(--accent)!important}
+.mk{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--mono);font-weight:700;font-size:13px;border:2px solid #fff;box-shadow:0 1px 5px rgba(0,0,0,.45)}
+.mk.star{font-size:14px}
+.map-legend{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:13px;color:var(--sub);margin:8px 2px 0}
+.map-legend span{display:inline-flex;align-items:center;gap:6px}
+.map-legend i{width:12px;height:12px;border-radius:50%;flex:none}
+
 /* sources */
 .src ol{padding-left:24px;font-size:13.5px;color:var(--sub)}
 .src li{margin:5px 0;overflow-wrap:anywhere}
@@ -197,6 +216,7 @@ footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--line);color:v
 
 <nav><div class="in">
   <a href="#tldr">结论</a>
+  <a href="#map-sec">地图</a>
   <a href="#visa">签证</a>
   <a href="#action">必办</a>
   <a href="#sunset">落日飞车</a>
@@ -238,6 +258,20 @@ footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--line);color:v
 </section>
 
 <!-- ============ 01 结论 ============ -->
+<!-- ============ 地图 ============ -->
+<section id="map-sec">
+  <p class="eyebrow">MAP</p>
+  <h2>行程地图：东京市内 + 箱根远足</h2>
+  <p class="sec-sub">🔵 东京市内景点集中在都心 · 🟠 箱根是唯一出城的一天（西南约 80km 一日环线，D2）。点 marker 看地点 + 一键跳 Google Maps 导航。</p>
+  <div id="map" role="application" aria-label="东京箱根行程地图"><div class="fallback">地图加载中…若长时间空白，可能是网络屏蔽了地图源，不影响正文攻略阅读。</div></div>
+  <div class="map-legend">
+    <span><i style="background:#20708F"></i>东京市内</span>
+    <span><i style="background:#D96038"></i>箱根一日远足</span>
+    <span><i style="background:#2E7D5B"></i>★ 银座住宿</span>
+    <span><i style="background:#7C8A93"></i>✈ 羽田机场</span>
+  </div>
+</section>
+
 <section id="tldr">
   <p class="eyebrow">01 · KEY FINDINGS</p>
   <h2>六个最重要的结论</h2>
@@ -708,6 +742,7 @@ footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--line);color:v
 
 <div id="tip" role="tooltip" aria-hidden="true"></div>
 
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 <script>
 (function(){
   // ---------- theme ----------
@@ -720,6 +755,7 @@ footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--line);color:v
     var next=(cur? cur==='dark' : prefersDark)?'light':'dark';
     document.documentElement.setAttribute('data-theme',next);
     localStorage.setItem('tk4-theme',next);
+    if(window.__tk4SetTile)window.__tk4SetTile();
   });
 
   // ---------- citation tooltips (body-level, escapes overflow containers) ----------
@@ -782,6 +818,45 @@ footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--line);color:v
     if(confirm('清空所有勾选？')){state={};save();refresh();}
   });
   refresh();
+
+  // ---------- itinerary map (Leaflet + CARTO/OSM，加载失败降级不影响攻略) ----------
+  var mapEl=document.getElementById('map');
+  if(mapEl && window.L){
+    try{
+      mapEl.innerHTML='';
+      var tokyo=[
+        {n:1,name:'浅草寺（D1 清晨避暑避人）',ll:[35.7148,139.7967],q:'Sensoji Temple Asakusa'},
+        {n:2,name:'上野动物园（D1 · 5 岁免票）',ll:[35.7166,139.7714],q:'Ueno Zoo Tokyo'},
+        {n:3,name:'东京塔（D1 SKY BUS 夜线 / D4 儿童乐园）',ll:[35.6586,139.7454],q:'Tokyo Tower'},
+        {n:4,name:'teamLab Planets 丰洲（D3 早场踩水）',ll:[35.6494,139.7900],q:'teamLab Planets Toyosu'},
+        {n:5,name:'台场彩虹桥（D3 百合海鸥线看落日）',ll:[35.6297,139.7736],q:'Odaiba Rainbow Bridge Tokyo'}
+      ];
+      var hakone=[
+        {n:1,name:'箱根汤本（D2 浪漫特快到站）',ll:[35.2323,139.1050],q:'Hakone-Yumoto Station'},
+        {n:2,name:'雕刻之森美术馆（D2 娃的主场）',ll:[35.2447,139.0498],q:'Hakone Open-Air Museum'},
+        {n:3,name:'大涌谷（D2 缆车·大风会停）',ll:[35.2444,139.0197],q:'Owakudani Hakone'},
+        {n:4,name:'芦之湖水上鸟居（D2 顺时针先到避人）',ll:[35.2005,139.0260],q:'Hakone Shrine Heiwa Torii'},
+        {n:5,name:'NARAYA CAFE 足汤（D2 收尾·周三休）',ll:[35.2340,139.0553],q:'NARAYA CAFE Hakone'}
+      ];
+      var base={name:'银座（住宿）',ll:[35.6717,139.7650],q:'Ginza Tokyo'};
+      var hnd={name:'羽田机场 HND（往返）',ll:[35.5494,139.7798],q:'Haneda Airport Tokyo'};
+      var map=L.map('map',{scrollWheelZoom:false,zoomControl:true});
+      var tl=null;
+      function isDark(){var t=document.documentElement.getAttribute('data-theme');return t? t==='dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;}
+      function setTile(){var s=isDark()?'dark_all':'light_all';if(tl)map.removeLayer(tl);tl=L.tileLayer('https://{s}.basemaps.cartocdn.com/'+s+'/{z}/{x}/{y}.png',{subdomains:'abcd',maxZoom:19,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>'}).addTo(map);}
+      window.__tk4SetTile=setTile; setTile();
+      function pin(c,l,st){return L.divIcon({html:'<div class="mk '+(st?'star':'')+'" style="background:'+c+'">'+l+'</div>',className:'',iconSize:[26,26],iconAnchor:[13,13],popupAnchor:[0,-15]});}
+      function pop(o){return '<b>'+o.name+'</b><br><a class="go" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(o.q)+'">↗ 在 Google Maps 打开</a>';}
+      var all=[];
+      tokyo.forEach(function(o){L.marker(o.ll,{icon:pin('#20708F',o.n),title:o.name}).addTo(map).bindPopup(pop(o));all.push(o.ll);});
+      hakone.forEach(function(o){L.marker(o.ll,{icon:pin('#D96038',o.n),title:o.name}).addTo(map).bindPopup(pop(o));all.push(o.ll);});
+      L.marker(base.ll,{icon:pin('#2E7D5B','★',1),title:base.name,zIndexOffset:1000}).addTo(map).bindPopup(pop(base));all.push(base.ll);
+      L.marker(hnd.ll,{icon:pin('#7C8A93','✈'),title:hnd.name}).addTo(map).bindPopup(pop(hnd));all.push(hnd.ll);
+      L.polyline([base.ll].concat(tokyo.map(function(o){return o.ll})),{color:'#20708F',weight:3,opacity:.7,dashArray:'6,7'}).addTo(map);
+      L.polyline([base.ll].concat(hakone.map(function(o){return o.ll})),{color:'#D96038',weight:3,opacity:.72,dashArray:'6,7'}).addTo(map);
+      map.fitBounds(all,{padding:[36,36]});
+    }catch(e){ mapEl.innerHTML='<div class="fallback">地图初始化失败：'+(e&&e.message||e)+'</div>'; }
+  }
 })();
 </script>
 </body>

@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
 <style>
 :root{
   --bg:#F0F4F5; --card:#FBFDFD; --ink:#16303E; --sub:#5A6E7A; --line:#DCE4E8;
@@ -163,6 +164,24 @@ a.amz::before{content:"🔍 ";font-size:10px}
 .callout.bad{border-color:color-mix(in srgb,var(--bad) 35%,var(--line));background:var(--bad-soft)}
 .callout.good{border-color:color-mix(in srgb,var(--good) 35%,var(--line));background:var(--good-soft)}
 
+/* map (Leaflet) */
+#map{height:440px;border-radius:14px;border:1px solid var(--line);box-shadow:var(--shadow);margin:12px 0;background:var(--chip);z-index:1}
+#map .fallback{padding:34px 24px;color:var(--sub);font-size:14px;text-align:center}
+.leaflet-container{font-family:inherit;background:var(--chip)}
+.leaflet-popup-content-wrapper,.leaflet-popup-tip{background:var(--card);color:var(--ink);box-shadow:0 4px 16px rgba(0,0,0,.22)}
+.leaflet-popup-content{font-size:14px;margin:11px 14px;line-height:1.5}
+.leaflet-popup-content b{font-family:var(--serif)}
+.leaflet-popup-content .go{font-family:var(--mono);font-size:12.5px;display:inline-block;margin-top:5px}
+.leaflet-bar a{background:var(--card);color:var(--ink);border-bottom-color:var(--line)}
+.leaflet-bar a:hover{background:var(--accent-soft)}
+.leaflet-control-attribution{background:color-mix(in srgb,var(--card) 82%,transparent)!important;color:var(--sub)!important}
+.leaflet-control-attribution a{color:var(--accent)!important}
+.mk{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--mono);font-weight:700;font-size:13px;border:2px solid #fff;box-shadow:0 1px 5px rgba(0,0,0,.45)}
+.mk.star{font-size:14px}
+.map-legend{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:13px;color:var(--sub);margin:8px 2px 0}
+.map-legend span{display:inline-flex;align-items:center;gap:6px}
+.map-legend i{width:12px;height:12px;border-radius:50%;flex:none}
+
 /* sources */
 .src ol{padding-left:24px;font-size:13.5px;color:var(--sub)}
 .src li{margin:5px 0;overflow-wrap:anywhere}
@@ -221,6 +240,13 @@ footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--line);color:v
   <p class="eyebrow">00 · ITINERARY</p>
   <h2>航线一览</h2>
   <p class="sec-sub">7-Day Alaska Round-trip Seattle · 全员须在开船前 2 小时登船</p>
+  <div id="map" role="application" aria-label="阿拉斯加邮轮航线地图"><div class="fallback">地图加载中…若长时间空白，可能是网络屏蔽了地图源，不影响下方航线表阅读。</div></div>
+  <div class="map-legend">
+    <span><i style="background:#2E7D5B"></i>★ 西雅图 起/终点</span>
+    <span><i style="background:#20708F"></i>停靠港</span>
+    <span><i style="background:#D96038"></i>Glacier Bay 冰川湾高光</span>
+    <span><i style="background:#20708F;border-radius:2px;width:16px;height:3px"></i>航线</span>
+  </div>
   <div class="tbl"><table>
     <tr><th>日期</th><th>停靠</th><th>时间</th><th>一句话</th></tr>
     <tr><td><b>7/12 日</b></td><td>西雅图 Pier 66 登船</td><td>– 16:00 离港</td><td>建议 11:30 左右到，上船先吃人少的午餐<sup><a href="#s22">[22]</a></sup></td></tr>
@@ -883,6 +909,7 @@ footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--line);color:v
 
 <div id="tip" role="tooltip" aria-hidden="true"></div>
 
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 <script>
 (function(){
   // ---------- theme ----------
@@ -895,6 +922,7 @@ footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--line);color:v
     var next=(cur? cur==='dark' : prefersDark)?'light':'dark';
     document.documentElement.setAttribute('data-theme',next);
     localStorage.setItem('akc-theme',next);
+    if(window.__akcSetTile)window.__akcSetTile();
   });
 
   // ---------- citation tooltips (body-level, escapes overflow containers) ----------
@@ -957,6 +985,34 @@ footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--line);color:v
     if(confirm('清空所有勾选？')){state={};save();refresh();}
   });
   refresh();
+
+  // ---------- cruise route map (Leaflet + CARTO/OSM，加载失败降级不影响航线表) ----------
+  var mapEl=document.getElementById('map');
+  if(mapEl && window.L){
+    try{
+      mapEl.innerHTML='';
+      var ports=[
+        {lbl:'★',name:'Seattle · Pier 66（起 / 终点）',ll:[47.6114,-122.3509],q:'Pier 66 Seattle cruise terminal',c:'#2E7D5B',star:1},
+        {lbl:1,name:'Juneau 朱诺（观鲸 + Mendenhall 冰川）',ll:[58.3019,-134.4197],q:'Juneau Alaska cruise port',c:'#20708F'},
+        {lbl:2,name:'Skagway 史凯威（White Pass 观景火车）',ll:[59.4583,-135.3139],q:'Skagway Alaska',c:'#20708F'},
+        {lbl:3,name:'Glacier Bay 冰川湾（全程高光·巡游不下船）',ll:[58.6650,-136.9000],q:'Glacier Bay National Park',c:'#D96038'},
+        {lbl:4,name:'Ketchikan · Ward Cove（停自家码头，半天）',ll:[55.4083,-131.7189],q:'Ward Cove Ketchikan Alaska',c:'#20708F'},
+        {lbl:5,name:'Victoria, BC（合规停靠·夜逛内港）',ll:[48.4222,-123.3657],q:'Victoria BC Inner Harbour',c:'#20708F'}
+      ];
+      var map=L.map('map',{scrollWheelZoom:false,zoomControl:true});
+      var tl=null;
+      function isDark(){var t=document.documentElement.getAttribute('data-theme');return t? t==='dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;}
+      function setTile(){var s=isDark()?'dark_all':'light_all';if(tl)map.removeLayer(tl);tl=L.tileLayer('https://{s}.basemaps.cartocdn.com/'+s+'/{z}/{x}/{y}.png',{subdomains:'abcd',maxZoom:19,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>'}).addTo(map);}
+      window.__akcSetTile=setTile; setTile();
+      function pin(c,l,st){return L.divIcon({html:'<div class="mk '+(st?'star':'')+'" style="background:'+c+'">'+l+'</div>',className:'',iconSize:[26,26],iconAnchor:[13,13],popupAnchor:[0,-15]});}
+      function pop(o){return '<b>'+o.name+'</b><br><a class="go" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(o.q)+'">↗ 在 Google Maps 打开</a>';}
+      var all=[];
+      ports.forEach(function(o){L.marker(o.ll,{icon:pin(o.c,o.lbl,o.star),title:o.name,zIndexOffset:o.star?1000:0}).addTo(map).bindPopup(pop(o));all.push(o.ll);});
+      var line=ports.map(function(o){return o.ll}); line.push(ports[0].ll);
+      L.polyline(line,{color:'#20708F',weight:3,opacity:.7,dashArray:'7,8'}).addTo(map);
+      map.fitBounds(all,{padding:[34,34]});
+    }catch(e){ mapEl.innerHTML='<div class="fallback">地图初始化失败：'+(e&&e.message||e)+'</div>'; }
+  }
 })();
 </script>
 </body>
