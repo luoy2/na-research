@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
 <style>
 :root{
   --bg:#F6F3EE; --card:#FDFBF8; --ink:#2B2420; --sub:#7C6E63; --line:#E7DFD4;
@@ -132,6 +133,24 @@ td.num,th.num{text-align:center;font-family:var(--mono);white-space:nowrap}
 .day .bd ul{margin:3px 0 0;padding-left:19px;font-size:14.5px}
 .day .bd li{margin:3px 0}
 
+/* map (Leaflet) */
+#map{height:460px;border-radius:14px;border:1px solid var(--line);box-shadow:var(--shadow);margin:12px 0;background:var(--chip);z-index:1}
+#map .fallback{padding:34px 24px;color:var(--sub);font-size:14px;text-align:center}
+.leaflet-container{font-family:inherit;background:var(--chip)}
+.leaflet-popup-content-wrapper,.leaflet-popup-tip{background:var(--card);color:var(--ink);box-shadow:0 4px 16px rgba(0,0,0,.22)}
+.leaflet-popup-content{font-size:14px;margin:11px 14px;line-height:1.5}
+.leaflet-popup-content b{font-family:var(--serif)}
+.leaflet-popup-content .go{font-family:var(--mono);font-size:12.5px;display:inline-block;margin-top:5px}
+.leaflet-bar a{background:var(--card);color:var(--ink);border-bottom-color:var(--line)}
+.leaflet-bar a:hover{background:var(--accent-soft)}
+.leaflet-control-attribution{background:color-mix(in srgb,var(--card) 82%,transparent)!important;color:var(--sub)!important}
+.leaflet-control-attribution a{color:var(--accent)!important}
+.mk{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--mono);font-weight:700;font-size:13px;border:2px solid #fff;box-shadow:0 1px 5px rgba(0,0,0,.45)}
+.mk.star{font-size:14px}
+.map-legend{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:13px;color:var(--sub);margin:8px 2px 0}
+.map-legend span{display:inline-flex;align-items:center;gap:6px}
+.map-legend i{width:12px;height:12px;border-radius:50%;flex:none}
+
 /* callouts：全边框+底色，不用侧色条 */
 .callout{border:1px solid color-mix(in srgb,var(--accent) 35%,var(--line));background:var(--accent-soft);border-radius:12px;padding:12px 16px;font-size:14.5px;margin:14px 0}
 .callout.warn{border-color:color-mix(in srgb,var(--warn) 38%,var(--line));background:var(--warn-soft)}
@@ -196,6 +215,7 @@ footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--line);color:v
 <nav><div class="in">
   <a href="#tldr">速览</a>
   <a href="#plan">两天行程</a>
+  <a href="#map-sec">地图</a>
   <a href="#spa">马杀鸡</a>
   <a href="#food">美食</a>
   <a href="#safety">安全清单</a>
@@ -280,6 +300,20 @@ footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--line);color:v
         </div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ============ 地图 ============ -->
+<section id="map-sec">
+  <p class="eyebrow">MAP</p>
+  <h2>两天动线地图</h2>
+  <p class="sec-sub">真实马尼拉地图，可缩放拖动。点任意 marker 看地点名 + 一键跳 Google Maps 导航。注意区与区的距离感：老城 ↔ Makati 打车约 30–45 分钟。</p>
+  <div id="map" role="application" aria-label="马尼拉两天行程地图"><div class="fallback">地图加载中…若长时间空白，可能是网络屏蔽了地图源，不影响上下文攻略阅读。</div></div>
+  <div class="map-legend">
+    <span><i style="background:#BE6E17"></i>Day 1 · 老城线</span>
+    <span><i style="background:#BF3A6B"></i>Day 2 · Makati/BGC 放松线</span>
+    <span><i style="background:#8C7A6B"></i>彩蛋 · 赌场/机场</span>
+    <span><i style="background:#2E7D5B"></i>★ Makati 落脚区</span>
   </div>
 </section>
 
@@ -473,6 +507,7 @@ footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--line);color:v
 
 <div id="tip" role="tooltip" aria-hidden="true"></div>
 
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 <script>
 (function(){
   // ---------- theme ----------
@@ -485,6 +520,7 @@ footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--line);color:v
     var next=(cur? cur==='dark' : prefersDark)?'light':'dark';
     document.documentElement.setAttribute('data-theme',next);
     localStorage.setItem('mnl-theme',next);
+    if(window.__mnlSetTile)window.__mnlSetTile();
   });
 
   // ---------- citation tooltips (body-level, escapes overflow containers) ----------
@@ -547,6 +583,68 @@ footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--line);color:v
     if(confirm('清空所有勾选？')){state={};save();refresh();}
   });
   refresh();
+
+  // ---------- itinerary map (Leaflet + CARTO/OSM，加载失败降级不影响攻略) ----------
+  var mapEl=document.getElementById('map');
+  if(mapEl && window.L){
+    try{
+      mapEl.innerHTML='';
+      var day1=[
+        {n:1,name:'Intramuros 王城 / Fort Santiago',ll:[14.5943,120.9710],q:'Fort Santiago Intramuros Manila'},
+        {n:2,name:'San Agustin 教堂',ll:[14.5889,120.9748],q:'San Agustin Church Manila'},
+        {n:3,name:'Binondo 华埠（美食）',ll:[14.6002,120.9748],q:'Binondo Manila Chinatown'},
+        {n:4,name:'National Museum 博物馆群（免费）',ll:[14.5869,120.9814],q:'National Museum of Fine Arts Manila'},
+        {n:5,name:'Rizal Park 黎刹公园',ll:[14.5825,120.9797],q:'Rizal Park Manila'},
+        {n:6,name:'SM Mall of Asia · 马尼拉湾日落 🌅',ll:[14.5350,120.9827],q:'SM Mall of Asia Manila'}
+      ];
+      var day2=[
+        {n:1,name:'Greenbelt 商场群（Makati）',ll:[14.5514,121.0199],q:'Greenbelt Makati'},
+        {n:2,name:'Poblacion 夜生活（可选·近红灯区）',ll:[14.5660,121.0293],q:'Poblacion Makati'},
+        {n:3,name:'BGC High Street',ll:[14.5510,121.0498],q:'BGC High Street Taguig'},
+        {n:4,name:"I'M Onsen Spa（I'M Hotel Makati）",ll:[14.5607,121.0273],q:"I'M Hotel Makati"}
+      ];
+      var extra=[
+        {name:'Okada Manila 赌场（彩蛋）',ll:[14.5106,120.9822],q:'Okada Manila'},
+        {name:'Solaire Resort 赌场（彩蛋）',ll:[14.5237,120.9812],q:'Solaire Resort Manila'},
+        {name:'NAIA 机场 ✈',ll:[14.5086,121.0197],q:'Ninoy Aquino International Airport'}
+      ];
+      var base={name:'Makati 落脚区 🏨（建议住这）',ll:[14.5547,121.0244],q:'Makati Central Business District'};
+
+      var map=L.map('map',{scrollWheelZoom:false,zoomControl:true});
+      var tl=null;
+      function isDark(){
+        var t=document.documentElement.getAttribute('data-theme');
+        return t? t==='dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+      }
+      function setTile(){
+        var style=isDark()?'dark_all':'light_all';
+        if(tl)map.removeLayer(tl);
+        tl=L.tileLayer('https://{s}.basemaps.cartocdn.com/'+style+'/{z}/{x}/{y}.png',{
+          subdomains:'abcd',maxZoom:19,
+          attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>'
+        }).addTo(map);
+      }
+      window.__mnlSetTile=setTile;
+      setTile();
+
+      function pin(color,label,cls){
+        return L.divIcon({html:'<div class="mk '+(cls||'')+'" style="background:'+color+'">'+label+'</div>',className:'',iconSize:[26,26],iconAnchor:[13,13],popupAnchor:[0,-15]});
+      }
+      function pop(o){
+        return '<b>'+o.name+'</b><br><a class="go" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(o.q)+'">↗ 在 Google Maps 打开</a>';
+      }
+      var all=[];
+      day1.forEach(function(o){L.marker(o.ll,{icon:pin('#BE6E17',o.n),title:o.name}).addTo(map).bindPopup(pop(o));all.push(o.ll);});
+      day2.forEach(function(o){L.marker(o.ll,{icon:pin('#BF3A6B',o.n),title:o.name}).addTo(map).bindPopup(pop(o));all.push(o.ll);});
+      extra.forEach(function(o){L.marker(o.ll,{icon:pin('#8C7A6B','·'),title:o.name}).addTo(map).bindPopup(pop(o));all.push(o.ll);});
+      L.marker(base.ll,{icon:pin('#2E7D5B','★','star'),title:base.name,zIndexOffset:1000}).addTo(map).bindPopup(pop(base));all.push(base.ll);
+
+      L.polyline(day1.map(function(o){return o.ll}),{color:'#BE6E17',weight:3,opacity:.75,dashArray:'6,7'}).addTo(map);
+      L.polyline([base.ll].concat(day2.map(function(o){return o.ll})),{color:'#BF3A6B',weight:3,opacity:.75,dashArray:'6,7'}).addTo(map);
+
+      map.fitBounds(all,{padding:[38,38]});
+    }catch(e){ mapEl.innerHTML='<div class="fallback">地图初始化失败：'+(e&&e.message||e)+'</div>'; }
+  }
 })();
 </script>
 </body>
