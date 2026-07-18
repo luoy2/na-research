@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>阿拉斯加攻略 · 游后反馈</title>
+<meta name="description" content="按 NCL Encore 阿拉斯加攻略走完后的实地反馈：哪条准、哪条坑、漏了什么。草稿自动存本机，一键提交为 GitHub Issue。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F0F4F5; --card:#FBFDFD; --ink:#16303E; --sub:#5A6E7A; --line:#DCE4E8;
+  --accent:#20708F; --accent-soft:#E3EEF3;
+  --flare:#D96038; --flare-soft:#FBEDE6;
+  --good:#2E7D5B; --good-soft:#E5F2EC;
+  --warn:#A97614; --warn-soft:#F9F1DE;
+  --bad:#B23B2E; --bad-soft:#F9E8E5;
+  --chip:#E9EEF1;
+  --shadow:0 1px 2px rgba(22,48,62,.06),0 10px 28px rgba(22,48,62,.06);
+  --serif:"Noto Serif SC",serif;
+  --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
+}
+[data-theme="dark"]{
+  --bg:#0C151C; --card:#14202A; --ink:#E4ECF1; --sub:#8FA3B0; --line:#243442;
+  --accent:#57A8CC; --accent-soft:#16303E;
+  --flare:#E6764C; --flare-soft:#33211A;
+  --good:#4EBE8C; --good-soft:#14291F;
+  --warn:#D9A23F; --warn-soft:#2B2312;
+  --bad:#DD6A57; --bad-soft:#2E1B17;
+  --chip:#1D2B36; --shadow:0 1px 3px rgba(0,0,0,.45);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0C151C; --card:#14202A; --ink:#E4ECF1; --sub:#8FA3B0; --line:#243442;
+    --accent:#57A8CC; --accent-soft:#16303E;
+    --flare:#E6764C; --flare-soft:#33211A;
+    --good:#4EBE8C; --good-soft:#14291F;
+    --warn:#D9A23F; --warn-soft:#2B2312;
+    --bad:#DD6A57; --bad-soft:#2E1B17;
+    --chip:#1D2B36; --shadow:0 1px 3px rgba(0,0,0,.45);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;line-height:1.68;font-size:16px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:0 16px 120px}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--flare);outline-offset:2px}
+
+/* hero */
+.hero{background:linear-gradient(160deg,#0A2434,#134D68 52%,#1B6E86);color:#fff;border-radius:0 0 22px 22px;padding:34px 22px 26px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;inset:auto -70px -110px auto;width:300px;height:300px;background:radial-gradient(circle,rgba(255,255,255,.13),transparent 62%)}
+.hero .in{max-width:720px;margin:0 auto;position:relative;z-index:1}
+.hero .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.16em;opacity:.75;margin:0 0 10px;text-transform:uppercase}
+.hero h1{margin:0 0 8px;font-family:var(--serif);font-weight:900;font-size:clamp(24px,5vw,34px);line-height:1.28}
+.hero .sub{opacity:.92;font-size:14.5px;margin:0}
+.hero .back{display:inline-block;margin-bottom:14px;font-family:var(--mono);font-size:12.5px;color:#fff;opacity:.85}
+.hero .back:hover{opacity:1;text-decoration:none}
+#themeBtn{position:absolute;top:16px;right:16px;z-index:2;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);border-radius:8px;color:#fff;cursor:pointer;padding:5px 10px;font-size:13px}
+
+/* intro callout */
+.note{border:1px solid color-mix(in srgb,var(--accent) 35%,var(--line));background:var(--accent-soft);border-radius:12px;padding:12px 16px;font-size:13.8px;color:var(--ink);margin:20px 0 8px}
+.note b{color:var(--accent)}
+
+/* form blocks */
+.blk{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:18px 18px 20px;margin-top:16px}
+.blk > h2{font-family:var(--serif);font-weight:900;font-size:18px;margin:0 0 3px}
+.blk > .h-sub{color:var(--sub);font-size:13px;margin:0 0 14px}
+.eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;color:var(--flare);margin:0 0 4px}
+
+label.fld{display:block;margin:14px 0 0}
+label.fld > .lab{display:block;font-size:13.5px;font-weight:600;margin-bottom:5px}
+label.fld > .lab .opt{font-weight:400;color:var(--sub);font-family:var(--mono);font-size:11.5px;margin-left:6px}
+input[type=text],textarea{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:10px;color:var(--ink);font:inherit;font-size:14.5px;padding:9px 12px;resize:vertical}
+input[type=text]:focus,textarea:focus{border-color:var(--accent)}
+textarea{min-height:64px;line-height:1.6}
+
+/* star rating */
+.stars{display:flex;gap:6px;font-size:30px;line-height:1;user-select:none}
+.stars .st{cursor:pointer;color:var(--line);transition:transform .08s}
+.stars .st.on{color:#E8B23A}
+.stars .st:active{transform:scale(.88)}
+.rate-txt{font-family:var(--mono);font-size:12.5px;color:var(--sub);margin-left:10px;align-self:center}
+
+/* pill radio groups */
+.pills{display:flex;flex-wrap:wrap;gap:8px}
+.pill{position:relative}
+.pill input{position:absolute;opacity:0;pointer-events:none}
+.pill span{display:inline-block;border:1px solid var(--line);background:var(--bg);border-radius:99px;padding:5px 13px;font-size:13.5px;cursor:pointer;color:var(--sub);transition:.1s}
+.pill:hover span{border-color:var(--accent)}
+.pill input:checked + span{background:var(--accent-soft);border-color:var(--accent);color:var(--accent);font-weight:600}
+.pill.g input:checked + span{background:var(--good-soft);border-color:var(--good);color:var(--good)}
+.pill.o input:checked + span{background:var(--warn-soft);border-color:var(--warn);color:var(--warn)}
+.pill.n input:checked + span{background:var(--chip);border-color:var(--line);color:var(--sub)}
+
+/* topic rows */
+.topic{padding:14px 0;border-top:1px dashed var(--line)}
+.topic:first-of-type{border-top:none;padding-top:4px}
+.topic .tname{font-size:14.5px;font-weight:600;margin-bottom:8px}
+.topic textarea{margin-top:8px;min-height:0;height:40px}
+
+/* action bar */
+.bar{position:sticky;bottom:0;left:0;right:0;margin:22px -16px 0;padding:12px 16px calc(12px + env(safe-area-inset-bottom));background:color-mix(in srgb,var(--card) 92%,transparent);backdrop-filter:blur(8px);border-top:1px solid var(--line);z-index:20}
+.bar .in{max-width:720px;margin:0 auto;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.btn{border:none;border-radius:11px;padding:11px 18px;font-size:14.5px;font-weight:700;cursor:pointer;font-family:inherit}
+.btn.primary{background:var(--flare);color:#fff}
+.btn.primary:hover{filter:brightness(1.05)}
+.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--ink)}
+.btn.ghost:hover{border-color:var(--accent);color:var(--accent)}
+.btn.link{background:none;border:none;color:var(--sub);font-weight:500;font-size:13px;cursor:pointer;text-decoration:underline;padding:6px}
+.saved{font-family:var(--mono);font-size:12px;color:var(--good);margin-left:auto}
+.saved.off{color:var(--sub)}
+
+/* toast */
+#toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%) translateY(12px);background:var(--ink);color:var(--bg);font-size:13.5px;padding:9px 16px;border-radius:10px;box-shadow:0 8px 26px rgba(0,0,0,.3);opacity:0;pointer-events:none;transition:.2s;z-index:60;max-width:88vw;text-align:center}
+#toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+
+footer{margin-top:28px;color:var(--sub);font-size:12.5px;text-align:center}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <button id="themeBtn" title="切换亮暗主题">🌓</button>
+  <div class="in">
+    <a class="back" href="index.html">← 返回攻略</a>
+    <p class="eyebrow">POST-TRIP FEEDBACK</p>
+    <h1>阿拉斯加攻略 · 游后反馈</h1>
+    <p class="sub">NCL Encore 7 天 · 按攻略走完后，哪条准、哪条坑、漏了什么 —— 回来把它改得更准</p>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="note">
+    <b>说明：</b>你填的内容会<b>自动存在本机浏览器</b>（关掉再回来不丢，可以边玩边记）。写好后点
+    <b>「提交为 GitHub Issue」</b> —— 会打开一条预填好的 issue 到 <span style="font-family:var(--mono);font-size:12px">luoy2/na-research</span>，直接发布即可（需登录 GitHub）。
+    没 GitHub 就用 <b>「复制为 Markdown」</b> 贴到笔记 / 发给我。全程不经过任何第三方表单服务。
+  </div>
+
+  <form id="fb" autocomplete="off">
+
+    <!-- 1 整体 -->
+    <div class="blk">
+      <p class="eyebrow">01 · OVERALL</p>
+      <h2>整体感受</h2>
+      <p class="h-sub">这份攻略这趟到底顶不顶用</p>
+
+      <label class="fld">
+        <span class="lab">整体打分</span>
+        <div style="display:flex;align-items:center">
+          <div class="stars" id="stars" role="radiogroup" aria-label="整体打分">
+            <span class="st" data-v="1">★</span><span class="st" data-v="2">★</span><span class="st" data-v="3">★</span><span class="st" data-v="4">★</span><span class="st" data-v="5">★</span>
+          </div>
+          <span class="rate-txt" id="rateTxt">未评分</span>
+        </div>
+        <input type="hidden" name="rating" id="rating">
+      </label>
+
+      <label class="fld">
+        <span class="lab">一句话总评 <span class="opt">选填</span></span>
+        <input type="text" name="summary" placeholder="例：整体很准，就是 Ketchikan 那站按攻略走差点误船">
+      </label>
+
+      <label class="fld">
+        <span class="lab">谁填的 <span class="opt">选填</span></span>
+        <input type="text" name="author" placeholder="例：Yikang / 汤汤妈">
+      </label>
+    </div>
+
+    <!-- 2 分板块 -->
+    <div class="blk">
+      <p class="eyebrow">02 · BY SECTION</p>
+      <h2>分板块纠错</h2>
+      <p class="h-sub">用到的板块标个「准 / 有出入」，有出入的写一句实际情况 —— 这是最能帮我改攻略的部分</p>
+      <div id="topics"></div>
+    </div>
+
+    <!-- 3 细项 -->
+    <div class="blk">
+      <p class="eyebrow">03 · HIGHLIGHTS</p>
+      <h2>几个关键问题</h2>
+
+      <label class="fld">
+        <span class="lab">🏆 攻略里最有用的一条</span>
+        <textarea name="best" placeholder="哪个建议 / 提醒真的救了场"></textarea>
+      </label>
+      <label class="fld">
+        <span class="lab">🕳️ 最坑 / 最该改的一条</span>
+        <textarea name="worst" placeholder="哪里写得不对、误导、或让你白折腾"></textarea>
+      </label>
+      <label class="fld">
+        <span class="lab">➕ 攻略漏了什么 · 下次该加</span>
+        <textarea name="missing" placeholder="实地发现但攻略没提的：某个店 / 某条捷径 / 某个坑 / 排队时间 / 价格变化…"></textarea>
+      </label>
+
+      <label class="fld">
+        <span class="lab">会把这份攻略推荐给朋友吗？</span>
+        <div class="pills" role="radiogroup" aria-label="是否推荐">
+          <label class="pill g"><input type="radio" name="recommend" value="会"><span>👍 会</span></label>
+          <label class="pill o"><input type="radio" name="recommend" value="改改会"><span>🤏 改改会</span></label>
+          <label class="pill n"><input type="radio" name="recommend" value="不会"><span>👎 不会</span></label>
+        </div>
+      </label>
+      <label class="fld">
+        <span class="lab">理由 <span class="opt">选填</span></span>
+        <input type="text" name="recommend_reason" placeholder="一句话就行">
+      </label>
+    </div>
+
+  </form>
+
+  <footer>草稿仅存于你当前浏览器（localStorage）· 提交前不会发送到任何服务器</footer>
+</div>
+
+<div class="bar"><div class="in">
+  <button class="btn primary" id="btnIssue">📮 提交为 GitHub Issue</button>
+  <button class="btn ghost" id="btnCopy">📋 复制为 Markdown</button>
+  <button class="btn link" id="btnClear">清空草稿</button>
+  <span class="saved off" id="saved">— 未修改</span>
+</div></div>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+  var REPO='luoy2/na-research';
+  var GUIDE='NCL Encore 阿拉斯加 7 天亲子攻略';
+  var KEY='akc-feedback-v1';
+
+  var TOPICS=[
+    {id:'prep',    label:'行前必办（加签 / 证件）'},
+    {id:'shop',    label:'购物清单 & 望远镜'},
+    {id:'bags',    label:'行李三件分装'},
+    {id:'juneau',  label:'Juneau 观鲸 + Mendenhall'},
+    {id:'skagway', label:'Skagway · White Pass 火车'},
+    {id:'glacier', label:'Glacier Bay 冰川湾'},
+    {id:'ketchikan',label:'Ketchikan · Ward Cove（半天）'},
+    {id:'victoria',label:'Victoria 内港 & 法餐（末站夜）'},
+    {id:'onboard', label:'船上消费（餐 / Thermal / 卡丁 / 酒水）'}
+  ];
+  var STATUS=[
+    {v:'good',cls:'g',t:'👍 准确'},
+    {v:'off', cls:'o',t:'👎 有出入'},
+    {v:'na',  cls:'n',t:'➖ 没用到'}
+  ];
+
+  // ---------- render topic rows ----------
+  var host=document.getElementById('topics');
+  TOPICS.forEach(function(tp){
+    var row=document.createElement('div'); row.className='topic';
+    var name=document.createElement('div'); name.className='tname'; name.textContent=tp.label; row.appendChild(name);
+    var pills=document.createElement('div'); pills.className='pills'; pills.setAttribute('role','radiogroup');
+    STATUS.forEach(function(s){
+      var lab=document.createElement('label'); lab.className='pill '+s.cls;
+      var inp=document.createElement('input'); inp.type='radio'; inp.name='status_'+tp.id; inp.value=s.v;
+      var sp=document.createElement('span'); sp.textContent=s.t;
+      lab.appendChild(inp); lab.appendChild(sp); pills.appendChild(lab);
+    });
+    row.appendChild(pills);
+    var ta=document.createElement('textarea'); ta.name='notes_'+tp.id; ta.placeholder='实际情况 / 纠错（选填）';
+    row.appendChild(ta);
+    host.appendChild(row);
+  });
+
+  // ---------- theme ----------
+  var root=document.documentElement;
+  try{var st=localStorage.getItem('akc-theme'); if(st)root.setAttribute('data-theme',st);}catch(e){}
+  document.getElementById('themeBtn').addEventListener('click',function(){
+    var cur=root.getAttribute('data-theme');
+    var next=cur==='dark'?'light':(cur==='light'?'dark':(window.matchMedia('(prefers-color-scheme: dark)').matches?'light':'dark'));
+    root.setAttribute('data-theme',next);
+    try{localStorage.setItem('akc-theme',next)}catch(e){}
+  });
+
+  // ---------- star rating ----------
+  var ratingEl=document.getElementById('rating');
+  var rateTxt=document.getElementById('rateTxt');
+  var stars=[].slice.call(document.querySelectorAll('#stars .st'));
+  function paint(v){ stars.forEach(function(s){ s.classList.toggle('on', (+s.dataset.v)<=v); }); rateTxt.textContent = v? v+' / 5' : '未评分'; }
+  stars.forEach(function(s){
+    s.addEventListener('click',function(){ var v=+s.dataset.v; if(+ratingEl.value===v){v=0;} ratingEl.value=v||''; paint(v); persist(); });
+  });
+
+  // ---------- persistence (name-based, generic) ----------
+  var form=document.getElementById('fb');
+  var savedEl=document.getElementById('saved');
+  function fields(){ return [].slice.call(form.querySelectorAll('[name]')); }
+  function collect(){
+    var o={};
+    fields().forEach(function(f){
+      if(f.type==='radio'){ if(f.checked)o[f.name]=f.value; }
+      else o[f.name]=f.value;
+    });
+    return o;
+  }
+  function persist(){
+    try{ localStorage.setItem(KEY, JSON.stringify(collect())); }catch(e){}
+    savedEl.textContent='✓ 草稿已存'; savedEl.classList.remove('off');
+  }
+  function restore(){
+    var o={}; try{ o=JSON.parse(localStorage.getItem(KEY)||'{}'); }catch(e){}
+    fields().forEach(function(f){
+      if(!(f.name in o))return;
+      if(f.type==='radio'){ f.checked=(f.value===o[f.name]); }
+      else f.value=o[f.name];
+    });
+    if(o.rating){ paint(+o.rating); }
+  }
+  restore();
+  form.addEventListener('input', persist);
+  form.addEventListener('change', persist);
+
+  // ---------- build markdown ----------
+  function val(n){ var el=form.querySelector('[name="'+n+'"]'); return el?el.value.trim():''; }
+  function radioVal(n){ var el=form.querySelector('[name="'+n+'"]:checked'); return el?el.value:''; }
+  function statusText(v){ if(v==='good')return '👍 准确'; if(v==='off')return '👎 有出入'; if(v==='na')return '➖ 没用到'; return ''; }
+  function nowStr(){ try{ return new Date().toLocaleString('zh-CN',{hour12:false}); }catch(e){ return ''; } }
+
+  function buildMd(){
+    var L=[];
+    var r=val('rating');
+    L.push('## '+GUIDE+' · 游后反馈');
+    L.push('');
+    L.push('- **整体打分**：'+(r? ('★'.repeat(+r)+'☆'.repeat(5-+r)+'  ('+r+'/5)') : '未评分'));
+    if(val('summary')) L.push('- **一句话**：'+val('summary'));
+    if(val('author'))  L.push('- **填写人**：'+val('author'));
+    L.push('');
+    // sections
+    var rows=[];
+    TOPICS.forEach(function(tp){
+      var s=radioVal('status_'+tp.id); var n=val('notes_'+tp.id);
+      if(!s && !n) return;
+      var line='- **'+tp.label+'**'+(s? ' — '+statusText(s):'');
+      if(n) line+= (s?'：':' — ')+n;
+      rows.push(line);
+    });
+    if(rows.length){ L.push('### 分板块'); L=L.concat(rows); L.push(''); }
+    // highlights
+    var hi=[];
+    if(val('best'))    hi.push('**🏆 最有用**：'+val('best'));
+    if(val('worst'))   hi.push('**🕳️ 最坑 / 最该改**：'+val('worst'));
+    if(val('missing')) hi.push('**➕ 漏了 / 下次加**：'+val('missing'));
+    var rec=radioVal('recommend');
+    if(rec) hi.push('**推荐给朋友**：'+rec+(val('recommend_reason')?(' — '+val('recommend_reason')):''));
+    if(hi.length){ L.push('### 细项'); hi.forEach(function(h){L.push('- '+h);}); L.push(''); }
+
+    L.push('---');
+    L.push('_提交：'+nowStr()+' · 来自攻略反馈页_');
+    return L.join('\n');
+  }
+
+  function isEmpty(){
+    if(val('rating')||radioVal('recommend'))return false;
+    var any=false;
+    ['summary','author','best','worst','missing','recommend_reason'].forEach(function(n){ if(val(n))any=true; });
+    TOPICS.forEach(function(tp){ if(radioVal('status_'+tp.id)||val('notes_'+tp.id))any=true; });
+    return !any;
+  }
+
+  function toast(msg){
+    var t=document.getElementById('toast'); t.textContent=msg; t.classList.add('on');
+    clearTimeout(toast._t); toast._t=setTimeout(function(){t.classList.remove('on');},2200);
+  }
+
+  // ---------- submit as GitHub issue ----------
+  document.getElementById('btnIssue').addEventListener('click',function(){
+    if(isEmpty()){ toast('先填点内容再提交～'); return; }
+    var r=val('rating');
+    var title='[反馈] 阿拉斯加攻略'+(r?(' · '+r+'★'):'')+(val('author')?(' · '+val('author')):'');
+    var body=buildMd();
+    var url='https://github.com/'+REPO+'/issues/new?labels='+encodeURIComponent('feedback')
+          +'&title='+encodeURIComponent(title)+'&body='+encodeURIComponent(body);
+    window.open(url,'_blank','noopener');
+    toast('已打开 GitHub，确认后点绿色 Submit 即可');
+  });
+
+  // ---------- copy markdown ----------
+  document.getElementById('btnCopy').addEventListener('click',function(){
+    if(isEmpty()){ toast('先填点内容～'); return; }
+    var md=buildMd();
+    function done(){ toast('已复制 Markdown，可粘到笔记 / 发给我'); }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(md).then(done).catch(function(){ fallback(md); done(); });
+    } else { fallback(md); done(); }
+  });
+  function fallback(txt){
+    var ta=document.createElement('textarea'); ta.value=txt; ta.style.position='fixed'; ta.style.opacity='0';
+    document.body.appendChild(ta); ta.select();
+    try{document.execCommand('copy');}catch(e){}
+    document.body.removeChild(ta);
+  }
+
+  // ---------- clear ----------
+  document.getElementById('btnClear').addEventListener('click',function(){
+    if(!confirm('清空当前草稿？此操作不可撤销。'))return;
+    try{localStorage.removeItem(KEY);}catch(e){}
+    fields().forEach(function(f){ if(f.type==='radio')f.checked=false; else f.value=''; });
+    ratingEl.value=''; paint(0);
+    savedEl.textContent='— 已清空'; savedEl.classList.add('off');
+    toast('草稿已清空');
+  });
+})();
+</script>
+</body>
+</html>
