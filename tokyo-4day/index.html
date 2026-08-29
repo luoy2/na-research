@@ -165,6 +165,7 @@ a.amz::before{content:"🔍 ";font-size:10px}
 
 /* map (Leaflet) */
 #map{height:440px;border-radius:14px;border:1px solid var(--line);box-shadow:var(--shadow);margin:12px 0;background:var(--chip);z-index:1}
+#map.dk .leaflet-tile-pane{filter:invert(1) hue-rotate(180deg) brightness(.92) contrast(.88) saturate(.7)}
 #map .fallback{padding:34px 24px;color:var(--sub);font-size:14px;text-align:center}
 .leaflet-container{font-family:inherit;background:var(--chip)}
 .leaflet-popup-content-wrapper,.leaflet-popup-tip{background:var(--card);color:var(--ink);box-shadow:0 4px 16px rgba(0,0,0,.22)}
@@ -843,7 +844,7 @@ footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--line);color:v
       var map=L.map('map',{scrollWheelZoom:false,zoomControl:true});
       var tl=null;
       function isDark(){var t=document.documentElement.getAttribute('data-theme');return t? t==='dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;}
-      function setTile(){var s=isDark()?'dark_all':'light_all';if(tl)map.removeLayer(tl);tl=L.tileLayer('https://{s}.basemaps.cartocdn.com/'+s+'/{z}/{x}/{y}.png',{subdomains:'abcd',maxZoom:19,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>'}).addTo(map);}
+      function setTile(){if(!tl)tl=L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(map);var el=document.getElementById('map');if(el)el.classList.toggle('dk',isDark());}
       window.__tk4SetTile=setTile; setTile();
       function pin(c,l,st){return L.divIcon({html:'<div class="mk '+(st?'star':'')+'" style="background:'+c+'">'+l+'</div>',className:'',iconSize:[26,26],iconAnchor:[13,13],popupAnchor:[0,-15]});}
       function pop(o){return '<b>'+o.name+'</b><br><a class="go" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(o.q)+'">↗ 在 Google Maps 打开</a>';}
