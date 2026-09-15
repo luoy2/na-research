@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>让 AI 帮我卖车换车：四家报价的完整实战</title>
-<meta name="description" content="一台 2026 BMW X3 换 Tesla Model 3 的全过程记录：四家报价横评、置换 vs 现金卖车的临界点公式、可直接复制的 master prompt、交车当天清单。所有数字来自真实成交。">
+<title>137 条 prompt 卖掉一台车：Claude Code 四周实录</title>
+<meta name="description" content="一个人四周里对 Claude Code 打了 137 条 prompt，卖掉一台 2026 BMW X3、订了一台 Model 3。全部 prompt 原文、每阶段的轮数、模型（claude-opus-5 / claude-fable-5 / claude-fable-5-1）、它做了什么、结果是什么。所有数字来自真实成交。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@700;900&display=swap" rel="stylesheet">
@@ -16,7 +16,7 @@
   --good:#2C7A56; --good-soft:#E2F0E9;
   --warn:#8F6512; --warn-soft:#F6EDD8;
   --bad:#A8382A; --bad-soft:#F7E4E1;
-  --chip:#EAE7E1;
+  --chip:#EAE7E1; --me:#E9EEF2;
   --shadow:0 1px 2px rgba(31,33,36,.06),0 10px 28px rgba(31,33,36,.07);
   --serif:"Noto Serif SC",serif;
   --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
@@ -28,7 +28,7 @@
   --good:#4FB183; --good-soft:#15291F;
   --warn:#D0A34A; --warn-soft:#2A2312;
   --bad:#DA715F; --bad-soft:#2E1B18;
-  --chip:#242930; --shadow:0 1px 3px rgba(0,0,0,.5);
+  --chip:#242930; --me:#232B33; --shadow:0 1px 3px rgba(0,0,0,.5);
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
@@ -38,7 +38,7 @@
     --good:#4FB183; --good-soft:#15291F;
     --warn:#D0A34A; --warn-soft:#2A2312;
     --bad:#DA715F; --bad-soft:#2E1B18;
-    --chip:#242930; --shadow:0 1px 3px rgba(0,0,0,.5);
+    --chip:#242930; --me:#232B33; --shadow:0 1px 3px rgba(0,0,0,.5);
   }
 }
 *{box-sizing:border-box}
@@ -50,20 +50,11 @@ a{color:var(--accent);text-decoration:none}
 a:hover{text-decoration:underline}
 a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--flare);outline-offset:2px}
 img{max-width:100%}
-
-/* citations */
-sup{line-height:0}
-sup a{font-family:var(--mono);font-size:.7em;color:var(--sub);padding:0 1px;border-bottom:1px dotted var(--sub)}
-sup a:hover{color:var(--flare);border-bottom-color:var(--flare);text-decoration:none}
-#tip{position:fixed;z-index:200;max-width:280px;background:var(--ink);color:var(--bg);font-size:12.5px;line-height:1.45;padding:7px 10px;border-radius:8px;pointer-events:none;opacity:0;transition:opacity .12s;box-shadow:0 6px 20px rgba(0,0,0,.25)}
-#tip.on{opacity:1}
 [id]{scroll-margin-top:76px}
-.src li:target{background:var(--warn-soft);border-radius:8px;padding:4px 8px;margin-left:-8px}
 
-/* hero：石墨到信号红，一台车换手 */
+/* hero */
 .hero{background:linear-gradient(148deg,#1B1E22 0%,#33383F 30%,#5C3A2E 62%,#A8421F 84%,#D65A2A 100%);color:#FCF7F4;border-radius:0 0 22px 22px;padding:46px 22px 30px;position:relative;overflow:hidden}
 .hero::before{content:"";position:absolute;right:-30px;top:-20px;width:190px;height:190px;border-radius:50%;background:radial-gradient(circle at 42% 42%,rgba(255,196,150,.34),rgba(214,90,42,.16) 55%,transparent 72%)}
-.hero::after{content:"";position:absolute;left:0;right:0;bottom:74px;height:1px;background:linear-gradient(90deg,transparent,rgba(255,206,178,.5),transparent)}
 .hero .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.16em;opacity:.8;margin:0 0 10px;text-transform:uppercase}
 .hero h1{margin:0 0 8px;font-family:var(--serif);font-weight:900;font-size:clamp(25px,5.2vw,38px);line-height:1.28;position:relative}
 .hero .sub{opacity:.93;font-size:15px;margin:0 0 22px;max-width:54ch}
@@ -75,6 +66,8 @@ sup a:hover{color:var(--flare);border-bottom-color:var(--flare);text-decoration:
 .route .stop.hl::before{background:#FFC98A;box-shadow:0 0 0 3px rgba(255,201,138,.38)}
 .route .stop b{display:block;font-size:12px}
 .hero .meta{margin-top:18px;font-size:12.5px;opacity:.72}
+.hero .models{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.hero .models span{font-family:var(--mono);font-size:11px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);border-radius:6px;padding:2px 8px}
 
 /* nav */
 nav{position:sticky;top:0;z-index:50;background:var(--card);border-bottom:1px solid var(--line);margin:0 -16px;padding:0 12px;overflow-x:auto;white-space:nowrap;box-shadow:var(--shadow)}
@@ -96,36 +89,33 @@ p{max-width:70ch}
 .card li{margin:5px 0}
 .card h4{margin:0 0 8px;font-size:15.5px}
 
-/* 结论：序号即重要性 */
-.findings{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:6px 20px}
-.finding{display:flex;gap:16px;padding:15px 0;border-top:1px solid var(--line)}
-.finding:first-child{border-top:none}
-.finding .fno{font-family:var(--mono);font-weight:700;font-size:19px;color:var(--flare);flex:none;width:28px;line-height:1.5}
-.finding b.k{display:block;font-size:15.5px;margin-bottom:2px}
-.finding p{margin:0;font-size:14px;color:var(--sub)}
+/* 数字面板：不是 hero-metric 模板，是一张有标签行的表 */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}
+.stats div{background:var(--card);padding:14px 16px}
+.stats b{display:block;font-family:var(--mono);font-size:22px;line-height:1.2;color:var(--ink)}
+.stats span{font-size:12.5px;color:var(--sub)}
 
-/* tables */
-.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--card);box-shadow:var(--shadow);margin:10px 0}
-table{border-collapse:collapse;width:100%;font-size:14.5px;min-width:560px}
-th{background:var(--chip);text-align:left;padding:9px 12px;font-size:12.5px;color:var(--sub);white-space:nowrap;font-family:var(--mono);font-weight:600}
-td{padding:10px 12px;border-top:1px solid var(--line);vertical-align:top}
-tr:hover td{background:color-mix(in srgb,var(--accent-soft) 40%,transparent)}
-td b{white-space:nowrap}
-td.num,th.num{text-align:right;font-family:var(--mono);white-space:nowrap}
-tr.win td{background:color-mix(in srgb,var(--good-soft) 55%,transparent)}
-tr.win:hover td{background:color-mix(in srgb,var(--good-soft) 80%,transparent)}
+/* 阶段头 */
+.phase{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:18px 20px 6px;margin-top:18px}
+.phase .ph{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 14px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.phase .ph h3{margin:0;font-size:17px;font-family:var(--serif);font-weight:900}
+.phase .ph .m{font-family:var(--mono);font-size:11.5px;color:var(--sub)}
+.phase .ph .m b{color:var(--flare);font-weight:600}
+.phase .ph .model{font-family:var(--mono);font-size:11px;background:var(--accent-soft);color:var(--accent);border-radius:6px;padding:1px 8px}
 
-/* tags */
-.tag{display:inline-block;border-radius:6px;padding:1px 8px;font-size:12.5px;font-weight:600;white-space:nowrap}
-.tag.buy{background:var(--good-soft);color:var(--good)}
-.tag.maybe{background:var(--warn-soft);color:var(--warn)}
-.tag.skip{background:var(--bad-soft);color:var(--bad)}
-.tag.free{background:var(--accent-soft);color:var(--accent)}
-
-/* 公式 */
-.formula{background:var(--chip);border:1px solid var(--line);border-radius:12px;padding:20px 18px;text-align:center;font-family:var(--mono);margin:14px 0}
-.formula .eq{font-size:clamp(14px,3.4vw,17px);font-weight:700;line-height:2}
-.formula .note{font-size:12.5px;color:var(--sub);margin-top:10px;font-family:inherit}
+/* 对话组 */
+.turn{padding:16px 0;border-top:1px solid var(--line)}
+.turn:first-of-type{border-top:none}
+.turn .when{font-family:var(--mono);font-size:11.5px;color:var(--sub);margin-bottom:6px}
+.turn .me{margin:0}
+.turn .me q{display:block;quotes:none;background:var(--me);border-radius:10px;padding:8px 13px;margin:5px 0;font-size:14.5px;line-height:1.6}
+.turn .me q.pic{color:var(--sub);font-size:13px}
+.turn .it{display:flex;gap:10px;margin-top:12px}
+.turn .it .lab{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--flare);flex:none;width:44px;padding-top:4px}
+.turn .it p{margin:0;font-size:14px;color:var(--sub);max-width:none}
+.turn .it.got .lab{color:var(--good)}
+.turn .it.got p{color:var(--ink)}
+.turn .it.fix .lab{color:var(--warn)}
 
 /* prompt 复制块 */
 .promptbox{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);overflow:hidden}
@@ -136,195 +126,424 @@ tr.win:hover td{background:color-mix(in srgb,var(--good-soft) 80%,transparent)}
 .promptbox .bar button.done{background:var(--good)}
 .promptbox pre{margin:0;padding:16px 14px;overflow-x:auto;font-family:var(--mono);font-size:13px;line-height:1.72;white-space:pre-wrap;word-break:break-word}
 
-/* 清单 */
-.checks{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:8px 18px}
-.checks label{display:flex;gap:11px;align-items:flex-start;padding:11px 0;border-top:1px solid var(--line);cursor:pointer;font-size:14.5px}
-.checks label:first-child{border-top:none}
-.checks input{margin:5px 0 0;flex:none;width:16px;height:16px;accent-color:var(--accent);cursor:pointer}
-.checks input:checked ~ .ct{opacity:.5;text-decoration:line-through}
-.checks .ct b{display:block}
-.checks .ct em{font-style:normal;color:var(--sub);font-size:13.5px}
-.checks .grp{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;color:var(--flare);padding:14px 0 2px;border-top:1px solid var(--line)}
-.checks .grp:first-child{border-top:none;padding-top:8px}
+/* tables */
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--card);box-shadow:var(--shadow);margin:10px 0}
+table{border-collapse:collapse;width:100%;font-size:14.5px;min-width:520px}
+th{background:var(--chip);text-align:left;padding:9px 12px;font-size:12.5px;color:var(--sub);white-space:nowrap;font-family:var(--mono);font-weight:600}
+td{padding:10px 12px;border-top:1px solid var(--line);vertical-align:top}
+td.num,th.num{text-align:right;font-family:var(--mono);white-space:nowrap}
+tr.win td{background:color-mix(in srgb,var(--good-soft) 55%,transparent)}
 
-/* 引用 / 警告 */
-.quote{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;font-size:14.5px;box-shadow:var(--shadow)}
-.quote cite{display:block;margin-top:7px;font-style:normal;font-size:12.5px;color:var(--sub);font-family:var(--mono)}
 .warn{background:var(--warn-soft);border:1px solid color-mix(in srgb,var(--warn) 32%,var(--line));border-radius:12px;padding:14px 16px;font-size:14.5px}
 .warn b{color:var(--warn)}
-
-/* 来源 */
-.src{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:12px 20px}
-.src ol{margin:0;padding-left:22px;font-size:13.5px;color:var(--sub)}
-.src li{margin:7px 0;line-height:1.6}
-.src h4{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;color:var(--flare);margin:16px 0 6px}
-.src h4:first-child{margin-top:6px}
+.quote{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;font-size:14.5px;box-shadow:var(--shadow)}
+.quote cite{display:block;margin-top:7px;font-style:normal;font-size:12.5px;color:var(--sub);font-family:var(--mono)}
 
 footer{margin-top:52px;color:var(--sub);font-size:13px;border-top:1px solid var(--line);padding-top:16px}
 footer a{color:var(--accent)}
 @media (max-width:520px){
   .hero{padding:36px 18px 26px}
-  .finding{gap:11px}
+  .turn .it{gap:8px}
+  .turn .it .lab{width:38px}
   .promptbox pre{font-size:12px}
 }
 </style>
 </head>
 <body>
 
-<div id="tip"></div>
-
 <header class="hero">
-  <p class="eyebrow">NA RESEARCH · AGENT 实战</p>
-  <h1>让 AI 帮我卖车换车：四家报价的完整实战</h1>
-  <p class="sub">一台开了 1,243 英里的 2026 BMW X3，换一台 Tesla Model 3。四周、四家报价、两次决策翻案，最后比走品牌置换多拿到约 $2,200。所有数字来自真实成交，不是模拟。</p>
+  <p class="eyebrow">NA RESEARCH · CLAUDE CODE 实录</p>
+  <h1>137 条 prompt 卖掉一台车</h1>
+  <p class="sub">四周，一个会话，一笔真实交易。我对 Claude Code 打的每一条原话都在下面，一字未改。旁边是它做了什么、结果是什么。</p>
   <div class="route">
-    <div class="stop"><b>8/16</b>调研开工</div>
-    <div class="stop"><b>8/17</b>下单锁价</div>
-    <div class="stop"><b>9/10</b>四家报价到齐</div>
-    <div class="stop hl"><b>9/12</b>成交交车</div>
-    <div class="stop"><b>9/15</b>货款到账</div>
+    <div class="stop"><b>8/15</b>「先做 Research」</div>
+    <div class="stop"><b>8/16</b>拉报价·谈判</div>
+    <div class="stop"><b>8/17</b>下单</div>
+    <div class="stop"><b>9/10</b>卖车渠道铺开</div>
+    <div class="stop hl"><b>9/12</b>交车 $45,000</div>
+    <div class="stop"><b>9/15</b>到账</div>
   </div>
-  <p class="meta">新泽西 · 2026 年 8 至 9 月 · 全程由 AI agent 执行：拉报价、查法规、写谈判邮件、填表单、取 payoff 文件</p>
+  <div class="models">
+    <span>claude-opus-5</span><span>claude-fable-5</span><span>claude-fable-5-1</span><span>Claude Code · 1M context</span>
+  </div>
+  <p class="meta">新泽西 · 2026-08-15 至 09-15 · 同一个会话被 compact 五次以上，跨了三代模型</p>
 </header>
 
 <nav>
   <div class="in">
-    <a href="#result">结论</a>
-    <a href="#formula">临界点</a>
-    <a href="#offers">四家横评</a>
-    <a href="#prompt">复制 Prompt</a>
-    <a href="#traps">防坑</a>
-    <a href="#checklist">交车清单</a>
-    <a href="#method">方法</a>
+    <a href="#numbers">数字</a>
+    <a href="#p1">8/15</a>
+    <a href="#p2">8/16</a>
+    <a href="#p3">8/17</a>
+    <a href="#p4">8/18</a>
+    <a href="#p5">9/10</a>
+    <a href="#p6">9/11</a>
+    <a href="#p7">9/12</a>
+    <a href="#boundary">边界</a>
+    <a href="#prompt">复制</a>
     <button id="themeBtn" type="button">◐ 主题</button>
   </div>
 </nav>
 
 <div class="wrap">
 
-<section id="result">
-  <p class="eyebrow">01 / 结论先行</p>
-  <h2>最后是卖给 Carvana，不是置换给 Tesla</h2>
-  <p class="sec-sub">品牌置换有一个几乎所有人都会高估的隐藏优势：销售税抵扣。算清楚之后，它仍然输了 $967。</p>
+<section id="numbers">
+  <p class="eyebrow">00 / 数字</p>
+  <h2>我打了多少字，它干了多少活</h2>
+  <p class="sec-sub">下面的 prompt 数从会话记录里逐条数出来的，不是估的。截图算一条，语音转写的错别字保留。</p>
 
-  <div class="tbl">
-    <table>
-      <thead><tr><th>口径</th><th class="num">金额</th><th>说明</th></tr></thead>
-      <tbody>
-        <tr class="win"><td><b>Carvana 现金收购</b></td><td class="num"><b>$45,000</b></td><td>书面报价，7 天有效，现场足额成交零扣减</td></tr>
-        <tr><td>Tesla 置换报价</td><td class="num">$41,100</td><td>看着低 $3,900，但不能直接比</td></tr>
-        <tr><td>置换省下的销售税</td><td class="num">+$2,723</td><td>新泽西 6.625%，只抵置换车价那部分税基<sup><a href="#s1">1</a></sup></td></tr>
-        <tr><td>置换赠送 2,000 超充英里</td><td class="num">+$210</td><td>只在真去超充时才兑现</td></tr>
-        <tr><td><b>置换等效现金</b></td><td class="num"><b>$44,033</b></td><td>这才是 Carvana 要打败的数字</td></tr>
-        <tr class="win"><td><b>毛差</b></td><td class="num"><b>+$967</b></td><td>现金卖车胜出</td></tr>
-      </tbody>
-    </table>
+  <div class="stats">
+    <div><b>137</b><span>我打的 prompt 总数</span></div>
+    <div><b>≈110</b><span>直接用于卖车买车（其余 18 条是紧接着的保险线）</span></div>
+    <div><b>9 天</b><span>有对话的天数，跨 4 周</span></div>
+    <div><b>5+</b><span>同一会话 compact 次数</span></div>
+    <div><b>3</b><span>经手的模型代际</span></div>
+    <div><b>$45,000</b><span>最终成交，零扣减</span></div>
   </div>
 
-  <h3>还有一笔容易被忽略的钱</h3>
-  <p>不置换意味着要多贷约 $30,000。而这台车的贷款利率是 <b>1.99%</b>，远低于同期美国国债收益率（1 年 4.15%、3 年 4.44%）。把本该用来抵扣车价的现金留着买国债，利差现值约 <b>$1,173 至 $1,400</b>。</p>
-  <p>国债利息免新泽西州所得税、联邦应税；车贷利息不可抵扣。两边都算进去之后：</p>
-  <p style="font-size:14.5px;color:var(--sub)">这个套利成立有个前提：随时能把贷款提前还掉。新泽西的零售分期销售法保障可以提前付清并退还未到期财务费用，<b>不得收取罚金</b><sup><a href="#s4">4</a></sup>。别的州未必一样，签合同前先确认本州规则和合同条款。</p>
-
-  <div class="formula">
-    <div class="eq">$967 <span style="opacity:.55">（毛差）</span> + $1,200 <span style="opacity:.55">（利差）</span> ≈ <span style="color:var(--flare)">$2,200</span></div>
-    <div class="note">这是「多花四周时间跑流程」换来的钱</div>
+  <div class="tbl" style="margin-top:14px">
+    <table>
+      <thead><tr><th>阶段</th><th class="num">我的 prompt</th><th>主模型</th><th>它交付的东西</th></tr></thead>
+      <tbody>
+        <tr><td>8/15 夜 · 起点</td><td class="num">5</td><td>claude-opus-5</td><td>初轮调研，排除 Cybertruck，摸清 FSD 与 NJ 政策</td></tr>
+        <tr><td>8/16 凌晨 · 拉报价 + 谈判研究</td><td class="num">24</td><td>opus-5 → fable-5</td><td>4 家报价、89 源调研、谈判邮件发出</td></tr>
+        <tr><td>8/17 · 下单</td><td class="num">18</td><td>fable-5 → opus-5</td><td>税基解释、报价汇总 PDF、订单落地、邮箱错挂被发现</td></tr>
+        <tr><td>8/18 · 账户合并</td><td class="num">9</td><td>claude-opus-5</td><td>回信、短信草稿、时间压力解除</td></tr>
+        <tr><td>9/10 · 卖车渠道铺开</td><td class="num">33</td><td>claude-opus-5</td><td>Carvana 账户 + $45,000 真报价、lien 时点问死、本地车行出局</td></tr>
+        <tr><td>9/11 · 材料 + 套利</td><td class="num">16</td><td>claude-opus-5</td><td>CarMax 出局、国债套利算账、登录贷款方取 payoff、上传材料</td></tr>
+        <tr class="win"><td>9/12 · 交车</td><td class="num">4</td><td>claude-opus-5</td><td>钥匙数量核实、交车清单、成交确认</td></tr>
+        <tr><td>9/15 · 收官</td><td class="num">7</td><td>opus-5 → fable-5-1</td><td>到账核对、整理记录、这个页面</td></tr>
+      </tbody>
+    </table>
   </div>
 
   <div class="warn" style="margin-top:14px">
-    <b>代价也要写清楚：</b>放弃的 $2,981 销售税抵扣<b>无法在报税时补回来</b>。新泽西税务指引写明该抵扣要求「同一笔交易」且经销商取得产权证，它不是所得税扣除项。<sup><a href="#s1">1</a></sup> 有人以为「先卖车再买车，报税时补申报」，这条路不存在。
+    <b>怎么读下面的记录：</b>「我」后面的灰色气泡是我打的原话，含错别字（Cybertruk、appluy、lien hodler）和语音转写错误（「加卡哇纳」是 +carvana），一字未改。📷 表示我发了一张截图。「它做了」和「结果」是我事后压缩的，不是它的原话。地址、手机号、验证码三处替换成了方括号。
   </div>
 </section>
 
-<section id="formula">
-  <p class="eyebrow">02 / 一个公式</p>
-  <h2>置换和现金卖车的临界点</h2>
-  <p class="sec-sub">不要拿置换报价和现金报价直接比大小，那是错的。置换的价值里藏着销售税抵扣，必须先折算。</p>
+<section id="p1">
+  <p class="eyebrow">01 / 8 月 15 日夜</p>
+  <h2>起点：一句话，先别动手</h2>
+  <p class="sec-sub">第一条 prompt 是手机语音输入的，标点都没有。它没有立刻去拉报价，先把「买什么」这个前提问清楚了。</p>
 
-  <div class="formula">
-    <div class="eq">临界点 = 外部现金报价 ÷ (1 + 本州销售税率)</div>
-    <div class="note">品牌置换报价高于这条线就置换，低于就卖现金</div>
+  <div class="phase">
+    <div class="ph"><h3>调研，不发布</h3><span class="m"><b>5</b> 条 prompt</span><span class="model">claude-opus-5</span></div>
+
+    <div class="turn">
+      <div class="when">21:21</div>
+      <div class="me"><q>我想把我的那个2026宝马X3X3布鲁克林灰MSP给卖了换model3或者Cybertruk不知道能卖多少钱然后整个这笔交易是多少不用帮我发布到页面先做Research</q></div>
+      <div class="it"><span class="lab">它做了</span><p>X3 一年折旧 26 至 32% 的数据；Cybertruck 2026 上半年销量下滑 32%、11 次召回；联邦 $7,500 抵免已于 2025-09-30 终结。然后反问：家里已经有什么车，这台车平时谁开。</p></div>
+    </div>
+
+    <div class="turn">
+      <div class="when">21:30 至 21:35</div>
+      <div class="me">
+        <q>📷 我现在已经有ModelY了,到底应该买Cybertruk还是什么其他的车</q>
+        <q>宝马只是买XI的时候开了。 买菜的时候开因为我们两个都不想开宝马都抢着开FS。sd。</q>
+      </div>
+      <div class="it"><span class="lab">它做了</span><p>抓住「抢着开是因为 FSD」这条，把选车问题收窄为「哪台车能跑 FSD 且最便宜」。查到 FSD 已于 2026-02 取消买断只剩 $99 月订阅、订阅绑车不绑人，且推荐链接送 3 个月免费。Cybertruck 因保值崩塌排除。</p></div>
+      <div class="it got"><span class="lab">结果</span><p>方向定为 Model 3。四条我随口说的信息（已有 Model Y、两人通勤、为 FSD 抢车、新泽西）每一条都改写了结论。</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="p2">
+  <p class="eyebrow">02 / 8 月 16 日凌晨</p>
+  <h2>「你来负责这个事情」</h2>
+  <p class="sec-sub">这一夜 24 条，从零点打到快四点。中间切了一次模型。它跑完了四家报价，做了一轮 89 源的谈判研究，然后替我给销售发了第一封邮件。</p>
+
+  <div class="phase">
+    <div class="ph"><h3>拉报价</h3><span class="m"><b>12</b> 条</span><span class="model">claude-opus-5</span></div>
+
+    <div class="turn">
+      <div class="when">00:19 至 00:33</div>
+      <div class="me">
+        <q>你帮我拉个估价吧 你来负责这个事情</q>
+        <q class="pic">📷 📷 📷 📷（四张截图）</q>
+        <q>不对吧 sunday sa有gmail的东西吧</q>
+      </div>
+      <div class="it"><span class="lab">它做了</span><p>起了一个隔离的 Chrome profile 走浏览器自动化，跑 Carvana 全流程（VIN 解码认出了 Premium 包、M Sport 和 Brooklyn Grey 稀有色）。CarMax 走人工评估邮件。CARFAX 拿到三档估值。Tesla app 的估价由我手机完成。中途它要取邮箱凭据，我提醒它凭据在另一个服务账号里。</p></div>
+      <div class="it got"><span class="lab">结果</span><p>Carvana $44,000（7 天有效）· CarMax $43,000 · CARFAX Good $43,720 · Tesla 估价 $41,500。代价是真名和邮箱进了四家经销商的线索池，后来收到 9 封同文自动邮件。</p></div>
+    </div>
+
+    <div class="turn">
+      <div class="when">02:38 至 03:19</div>
+      <div class="me">
+        <q>经销商如果让我当场卖 我是不是还是最划算是在tesla trade in</q>
+        <q>新泽西可以给tsla贴车衣吗 我想0907我老婆过生日 送她一辆粉色的</q>
+        <q>最便宜的就好 反正都是fsd 别乱搞</q>
+        <q>不是要4个厂商要报价吗</q>
+        <q>premium呢</q>
+        <q>tesla销售也给我发邮件了。你可以直接和他回复。就交给你了 ⏎ btw 我自己是tesla车主 我买第二个tsla有incentive吗</q>
+        <q>我们就买台最便宜的premium,反正都要贴车衣</q>
+        <q>match 44000合理吗 是不是可以第一封邮件要求高一点 match 45280</q>
+        <q>这么新的车</q>
+        <q>而且我要贷款, 所以他们还能赚点 这一点也可以bargin</q>
+      </div>
+      <div class="it"><span class="lab">它做了</span><p>算出 NJ 的置换抵税：临界点 = 外部现金报价 ÷ 1.06625，$44,000 对应 $41,266，Tesla 估价 $41,500 已经越线。库存翻案，官网只渲染 1 台是前端问题，调库存接口拿到 25 台。Standard 和 Premium 反复两轮，我用「都要贴车衣」终结，定 Premium。查了 1.99% 促销利率的官方脚注（仅 Premium 和 Performance，Standard 无缘）。</p></div>
+      <div class="it fix"><span class="lab">它拦了</span><p>我想让邮件要求对方 match $45,280。它去查了再回：品牌官方明文不谈判、不 match，estimate 也不含选装包，硬要 match 会被当成不懂规则。改成「系统没吃到配置数据，请重估」这种流程内的合法动作。</p></div>
+    </div>
   </div>
 
+  <div class="phase">
+    <div class="ph"><h3>谈判研究 + 发信</h3><span class="m"><b>7</b> 条</span><span class="model">claude-fable-5</span></div>
+
+    <div class="turn">
+      <div class="when">03:19 至 03:49</div>
+      <div class="me">
+        <q>用research skill查一下 我们这种情况最好的move是啥</q>
+        <q>📷 那个 Reddit，这是，你是不是没有用我自己的那个 Chrome session 来？你是不是用了一个什么 test 的一个什么 Chrome session？</q>
+        <q>subagent是不是都死了</q>
+        <q>不妨碍问一问吧</q>
+        <q>发</q>
+        <q>捋一下我们都做了什么。然后我准备发个小红书攻略，如何用你去买车。然后 最好是那种人家，拿着一个链接直接一复制，就可以知道怎么怎么搞的。然后，对你可以写个文件落盘，然后我准备 compact。</q>
+      </div>
+      <div class="it"><span class="lab">它做了</span><p>三个子 agent 并行：Reddit 36 源、Tesla Motors Club 30 源、网页 23 源。结论翻转了我的直觉：正式报价在下单传照片之后才出，estimate 只是参考；置换燃油车送 2,000 超充英里；交付日签字前必须核对合同上的置换金额，有单方面改价的实案。子 agent 中途被我打断主会话连坐杀掉，重跑了一次。</p></div>
+      <div class="it got"><span class="lab">结果</span><p>邮件发出，措辞避开 match。把整晚做的事写进 Obsidian 落盘，然后 compact。这是第一次 compact，会话从这里开始跨周。</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="p3">
+  <p class="eyebrow">03 / 8 月 17 日</p>
+  <h2>下单，然后发现填错了邮箱</h2>
+  <p class="sec-sub">18 条。前半是我在核对报价单，后半是我自己在 app 里下了单，回头问它两件事，第二件成了后面三周的主线。</p>
+
+  <div class="phase">
+    <div class="ph"><h3>核对 + 下单</h3><span class="m"><b>18</b> 条</span><span class="model">fable-5 → opus-5</span></div>
+
+    <div class="turn">
+      <div class="when">16:51 至 17:41</div>
+      <div class="me">
+        <q>我的vin是多少</q>
+        <q>tsla给我trade in的话 我要多少钱算比较合适? 正式offer?  trade in我需要办什么手续</q>
+        <q>所以我如果trade in的话是不用交税的?</q>
+        <q>📷 报价单整理到downloads发给我</q>
+        <q>不得在pdf里面放原始文件啊</q>
+        <q class="pic">📷 📷 📷 📷 📷 📷（六张截图，报价单原件）</q>
+      </div>
+      <div class="it"><span class="lab">它做了</span><p>纠正「置换不用交税」这个误解：NJ 是按「车价减置换价」计税，不是免税，抵的是税基。整理了一份 5 页 PDF，第一页汇总，后面四页是 Carvana 邮件、Carvana 网页、CarMax 邮件、CARFAX 邮件的原件截图。</p></div>
+    </div>
+
+    <div class="turn">
+      <div class="when">18:10 至 18:43</div>
+      <div class="me">
+        <q>那边给的4w3. 我直接订tesla了</q>
+        <q>推荐码我用了的</q>
+        <q>坏了 下订单填错email了  没有用我已有的email账户 怎么办</q>
+        <q>而且还有一个 我看我从app里面order model3 有$500刀的优惠. 这个能不能也appluy</q>
+        <q>📷</q>
+        <q>置换已经提交了 有消息我再给你说 其余不用管了</q>
+      </div>
+      <div class="it"><span class="lab">它做了</span><p>按邮件的真实收件人拆分，证明我的 Model Y 车主账户是另一个邮箱（31 封车主专属邮件对 4 封新账户邮件）。查到 $500 忠诚折扣的条款原文要求「同一账户购买」，新账户名下无车即不合格。给这个错误标了价：$500。写第二封邮件给销售，要求把订单挪到老账户，并问清折扣能否补上。</p></div>
+      <div class="it got"><span class="lab">结果</span><p>订单 8/17 14:06 落地，$250 订单费，推荐码已用（3 个月免费 FSD）。邮箱错挂成了待解问题。</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="p4">
+  <p class="eyebrow">04 / 8 月 18 日</p>
+  <h2>账户合并，和一次时间压力的解除</h2>
+  <p class="sec-sub">9 条。销售回了信，它替我回信、替我编短信。这一天最重要的发现是：交付要等到 9 到 10 月，所以 Carvana 那个 8/22 到期的报价不再是约束。</p>
+
+  <div class="phase">
+    <div class="ph"><h3>合并流程</h3><span class="m"><b>9</b> 条</span><span class="model">claude-opus-5</span></div>
+
+    <div class="turn">
+      <div class="when">14:36 至 15:29</div>
+      <div class="me">
+        <q>merge的事情回邮件了。 你看看。然后我们需要和他确认清楚referal奖励、布鲁克林灰以及loyaty奖励</q>
+        <q>不用一定等那台车 这个事情不重要</q>
+        <q>我定的新车</q>
+        <q>她回邮件了。 你帮我编辑一下短信问她吧。 简短一点。邮件说自动获得loyaty benifit， 问referal fsd和rare color的估价问题</q>
+        <q>我在remote。 你短信发出来</q>
+        <q>📷 这怎么填啊</q>
+        <q>这个plate就是bmw的。</q>
+        <q>我驾照的地址需要更新吗？我记得我在mvc填过 但是驾照没有换新的。不用换吧？</q>
+      </div>
+      <div class="it"><span class="lab">它做了</span><p>读了销售的回信，发现一句要紧的话：「合并后关联的推荐和忠诚奖励将被作废」，且全文没提订单会怎样。回信要求暂停合并、两条路径都给书面答复。我在外面，它把短信草稿直接打在屏幕上让我复制。填 Tesla app 的转牌表单时，它确认了「plate 就是 BMW 现在这块牌」。</p></div>
+      <div class="it got"><span class="lab">结果</span><p>合并确认，3 到 5 个工作日。交付预计 9 至 10 月，Tesla 正式置换报价只有 30 天有效，所以「赶在 8/22 前决定」这个前提失效，置换应临近交付再做。之后三周没有对话。</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="p5">
+  <p class="eyebrow">05 / 9 月 10 日</p>
+  <h2>三周后回来，33 条，从傍晚打到深夜</h2>
+  <p class="sec-sub">交付日定在 9/18。Tesla 重新给了置换报价，我第一个问题就是「还划算吗」。这一天它开了 Carvana 账户、拿到 $45,000 真报价、问死了「有贷款时钱什么时候到手」，还被我抓到一个错。</p>
+
+  <div class="phase">
+    <div class="ph"><h3>重新算账</h3><span class="m"><b>7</b> 条</span><span class="model">claude-opus-5</span></div>
+
+    <div class="turn">
+      <div class="when">18:18 至 18:32</div>
+      <div class="me">
+        <q>因为offer到期, 我重新submmit了. 重新给了41100. 这个扣除购置税+2000超充还划算吗? 我可以直接去现场argue吗? 然后好像carvana给我发了邮件, 说我的车涨价了 你也可以查查 好像涨了500</q>
+        <q>我现在1243 mile. 交付0918(为了提前交付所以改配置了). 可以重新出个carvana的报价, 然后那个超充优惠是2000刀还是2000英里啊 你查一下啊</q>
+        <q>我们就没创建过carvana的号</q>
+        <q>你帮我创建吧。然后记得帮我用那个，Gmail 地址后面跟一个加卡哇纳，然后这样信息泄露也知道是怎么泄露的。创建完了过后，直接存到那个 Sunday 那个 bot，OneP 的 bot 里边去就好了。这样你也知道。然后那个 Ultra Red 的车架，是，我看看，Ultra Red 的这个车架是，是有折扣的，因为它是一个 demo 车。所以，不会不会有这么贵，它应该是有1820的折扣。</q>
+      </div>
+      <div class="it"><span class="lab">它做了</span><p>算出 $41,100 的等效现金是 $43,823（加抵税 $2,723），超充是 2,000 英里不是 2,000 刀，折现约 $210。去建 Carvana 账户，注册表单拒绝带 + 号的邮箱别名，两次失败后改用主地址。填入真实里程 1,243 后拿到真报价。</p></div>
+      <div class="it got"><span class="lab">结果</span><p>Carvana <b>$45,000</b>，到期 9/17。比置换等效价高 $967。凭据存进 1Password。</p></div>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div class="ph"><h3>贷款怎么办</h3><span class="m"><b>14</b> 条</span><span class="model">claude-opus-5</span></div>
+
+    <div class="turn">
+      <div class="when">18:57 至 19:20</div>
+      <div class="me">
+        <q>[地址] 07932</q>
+        <q>可以. 然后carvana那个premium package的问题解决了吗</q>
+        <q>carvana卖车的话, 我们的贷款啥的咋办</q>
+        <q>📷 carfax也可以重新出一下吧, 为啥都拿到45000还只要求人家beat 44050. 你这什么邮件啊</q>
+        <q>如果我走 lease 或者走 loan，可以提前还款吗？ ⏎ 如果是走特斯拉的 loan，如果我直接卖车，还能再贷款这么多吗？</q>
+      </div>
+      <div class="it fix"><span class="lab">我拦了</span><p>它起草的给车行的谈判文件初版里，把我的心理底价 $44,050 印在了纸面上，等于主动放弃约 $900。我看到就骂了。它把底牌和 Tesla 的 $41,100 全部从对外文件里移除，目标价改成 CARFAX 的 $45,710。</p></div>
+      <div class="it"><span class="lab">它做了</span><p>CARFAX 重新估值 $45,710，但发现它是按 3,071 英里推算的（没采到真实里程），实车只有 1,243，这份带官方抬头的报告成了最硬的锚点。查了 NJ 零售分期销售法，提前还款不得收罚金。Lease 排除，Tesla 自营 Model 3 租约历来无买断权。</p></div>
+    </div>
+
+    <div class="turn">
+      <div class="when">19:40 至 20:30</div>
+      <div class="me">
+        <q>📷</q>
+        <q>1.99好像一直有吧</q>
+        <q>有可能车行可以当场结清吗</q>
+        <q>lien怎么读</q>
+        <q>carmax可以直接结清？那跑一次看看</q>
+        <q>📷</q>
+        <q>bmwx3的hood怎么开</q>
+        <q>Submit了</q>
+        <q>ok</q>
+      </div>
+      <div class="it fix"><span class="lab">它改口</span><p>它之前把「1.99% 促销可能消失」讲得很重。我说好像一直有，它去查了 tesla.com 的 current-offers 历史，承认该利率自 7/31 起连续挂了六周，消失风险低。真正的变量是取消置换后贷款额度占车价的比例会变，那是另一个问题。</p></div>
+      <div class="it"><span class="lab">它做了</span><p>把「有 lien 时净权益什么时候到账」这个问题逐家问：Carvana 官网三处一致写「交车当场付」；CarMax 写「当天 bank draft」但没覆盖 lien 分支；本地加盟店给了书面答复。CarMax 需要传照片才出真报价，我拍了照，它引导我打开引擎盖。</p></div>
+    </div>
+
+    <div class="turn">
+      <div class="when">21:20 至 22:05</div>
+      <div class="me">
+        <q>已经有人回邮件了 你可以看看</q>
+        <q>查一下carmax是不是当天出支票</q>
+        <q>你先试试给我打电话看看通不通先 [我的手机号]</q>
+        <q>没接到 重新打</q>
+        <q>让sunday打电话问问吧</q>
+        <q>你试试用claude call吧</q>
+      </div>
+      <div class="it got"><span class="lab">结果</span><p>本地车行的书面回复：「由于有 lien，我们要先还清银行再说，<b>不可能当天完成</b>」，追问耗时，答「几周」。新车 6 天后到，这家直接出局。它试了两个打电话的路径，第一个不通，第二个拨通了但我没接到。CarMax 那通「lien 时净权益是否当天给」的电话最后没打成。</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="p6">
+  <p class="eyebrow">06 / 9 月 11 日凌晨</p>
+  <h2>CarMax 出局，去银行取文件</h2>
+  <p class="sec-sub">16 条，凌晨三点半到四点半。CarMax 的报价到了，比 Carvana 低 $3,000，那通电话不用打了。然后它登进贷款方账户取正式 payoff 单，把材料传给 Carvana。</p>
+
+  <div class="phase">
+    <div class="ph"><h3>算账 + 取文件</h3><span class="m"><b>16</b> 条</span><span class="model">claude-opus-5</span></div>
+
+    <div class="turn">
+      <div class="when">03:34 至 04:02</div>
+      <div class="me">
+        <q>好像收到carmax的邮件了. tsla也回复就算reject trade in rates也不会影响</q>
+        <q>📷 📷</q>
+        <q>我感觉这1.99的利率 我直接拿到现金, 然后去买国债套利 然后用盈利来付贷款 岂不是很划算</q>
+        <q class="pic">📷 📷 📷 📷（贷款计算器截图）</q>
+        <q>你怎么看的.  就是1.99啊</q>
+      </div>
+      <div class="it"><span class="lab">它做了</span><p>CarMax $42,000，低于 Carvana $3,000，甚至低于置换等效价，出局。国债套利这条它算了：多贷约 $30k @1.99%，对一年期国债 4.15%、三年期 4.44%，利息免 NJ 州税、联邦应税，车贷利息不可抵扣，利差现值约 $1,173 至 $1,400。</p></div>
+      <div class="it got"><span class="lab">结果</span><p>决策成立：卖 Carvana，不置换。毛差 $967 加套利约 $1,200，合计约 $2,200。代价是放弃 $2,981 的置换抵税，且它核实了 NJ 税务指引：这不是所得税扣除项，报税时补不回来。</p></div>
+    </div>
+
+    <div class="turn">
+      <div class="when">04:08 至 04:21</div>
+      <div class="me">
+        <q>你帮我搞定payoff document. 密码在1p sunday vault, bmw financial service</q>
+        <q>好了</q>
+        <q>先传那两个吧</q>
+      </div>
+      <div class="it"><span class="lab">它做了</span><p>从 1Password 取凭据（在子 shell 里解析，不进日志），登录 BMW Financial 的 OneID。设备授权需要短信验证码，发到我手机，我授权后它继续。下载了 10 天 payoff 报价单：$14,105.49，日息 $1.92，有效期至 9/21。比我八月口头估的 $12,878 高 $1,226。然后把 payoff PDF 和驾照传到 Carvana 的材料页。</p></div>
+      <div class="it got"><span class="lab">结果</span><p>Carvana 材料齐了三项里的两项，第三项里程照片要我自己拍。我自己约了取车时间。</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="p7">
+  <p class="eyebrow">07 / 9 月 12 日早</p>
+  <h2>交车前的四条</h2>
+  <p class="sec-sub">Carvana 的短信凌晨到了，我五点多起来问它三件事。八点交车，八点十八分成交邮件到。</p>
+
+  <div class="phase">
+    <div class="ph"><h3>交车日</h3><span class="m"><b>4</b> 条</span><span class="model">claude-opus-5</span></div>
+
+    <div class="turn">
+      <div class="when">05:22 至 10:35</div>
+      <div class="me">
+        <q>Carvana: Hey [名字], your appointment is tomorrow! We're super excited to see you 9/12 at 8:00 a.m. EDT for the purchase of your 2026 BMW X3. Review your appointment checklist: [链接] ⏎ 帮我查一下这个区安全吗？</q>
+        <q>我就找到一把车钥匙 然后还有个service key card. 你查查宝马x3一般给几把钥匙</q>
+        <q>我要带哪些东西</q>
+      </div>
+      <div class="it"><span class="lab">它做了</span><p>查了交车地点：Carvana 自有检测中心，前身是拍卖场，Manville 暴力犯罪率是 NJ 均值的 1/20。钥匙那条它查到 2026 款出厂就只给一把实体钥匙加两张卡，厂家文档把 Service Card 定义为「additional key」，Carvana 短信的「两把钥匙」是通用模板，给了现场被压价时的应对话术。清单列了必带、必清、以及最容易忘的「怎么回家」。</p></div>
+    </div>
+
+    <div class="turn">
+      <div class="when">14:37</div>
+      <div class="me"><q>卖完了 告一段落 回执已经收到邮件了</q></div>
+      <div class="it got"><span class="lab">结果</span><p><b>$45,000 足额成交，零扣减。</b>扣 BMW 贷款 $14,107.41，ACH 打款 $30,892.59。Carvana 自己拉的 payoff 比它前一天取的多 $1.92，正好一天利息，两边口径对上。它把最终账写进 Obsidian，决策闸门那节标成已裁决留档。9/15 货款到账。</p></div>
+    </div>
+  </div>
+
+  <div class="quote" style="margin-top:18px">
+    9/12 下午还有 18 条 prompt，是紧接着的保险线：摘掉 X3、把 Model 3 加进保单、发现 Model 3 的碰撞险是同免赔额下 X3 的 2.06 倍、4 个子 agent 去查 HLDI 数据和 NJ 本地保险公司。那是另一篇。
+    <cite>本页只记卖车买车这条线</cite>
+  </div>
+</section>
+
+<section id="boundary">
+  <p class="eyebrow">08 / 边界</p>
+  <h2>它做不到的，和它做错的</h2>
+  <p class="sec-sub">写这一节是因为不写，上面的记录就是广告。</p>
+
   <div class="card">
-    <h4>代入本例</h4>
+    <h4>四周里我必须亲手做的</h4>
     <ul>
-      <li>外部现金报价 $45,000，新泽西税率 6.625%</li>
-      <li>$45,000 ÷ 1.06625 = <b>$42,204</b></li>
-      <li>Tesla 只给 $41,100，低于这条线 $1,104，所以卖现金</li>
+      <li><b>所有短信验证码。</b>BMW Financial 的设备授权、Progressive 的二次验证，全部要我的手机。它能把流程推到验证码那一步，然后停下等我。</li>
+      <li><b>打电话。</b>它试了两条路径（自有电话工具、另一个助手 agent），一条不通，一条我没接到。「有 lien 时净权益是否当天给」这种问题邮件拿不到答复，最后是靠对方的书面回复而不是电话解决的。</li>
+      <li><b>拍照。</b>里程表、车况照片、引擎盖。它能告诉我 BMW X3 的引擎盖开关在哪，不能替我掀。</li>
+      <li><b>在 app 里下单和改地址。</b>Tesla 账户挂着 passkey，它进不去。下单、提交置换、改配置、传保险证明，都是我在手机上点的。</li>
+      <li><b>拍板。</b>「愿不愿意为了 $967 多跑一趟」不是它能替我决定的。它把账算到我没法反驳，然后我说卖。</li>
     </ul>
   </div>
 
   <div class="card">
-    <h4>用之前先确认三件事</h4>
+    <h4>四周里它自己推翻的</h4>
     <ul>
-      <li><b>你的州抵不抵。</b>大多数州按「车价减置换价」计税，但加州、密歇根（部分）、弗吉尼亚等不是这个规则。查本州税务局的官方指引，不要问销售。</li>
-      <li><b>抵扣按毛价还是净权益算。</b>本例中车上有贷款，能抵入购车的额度是净权益，但<b>销售税抵扣仍按毛价 $45,000 计</b>。这两个数字不一样，很容易算错。</li>
-      <li><b>必须同一笔交易。</b>先把车卖掉、再去买新车，抵扣就没了，哪怕只隔一天。</li>
+      <li><b>「估价没算进我的选装包」。</b>这是它写给销售的第一封邮件里的一句话。信发出去之后它回头翻邮件原文，发现三封估价邮件从第一封起就写着 M Sport 和准确里程。配置一直都在，那句话是错的，重估上行空间接近零。它在记录里明确标注了这一条。</li>
+      <li><b>「1.99% 随时可能消失」。</b>我说好像一直有，它去查了促销页历史，承认连续六周未断，把风险改成了贷款额度占比问题。</li>
+      <li><b>「Carvana 上能置换的车门槛是 $45,000」。</b>我截图给它看横幅变成了 $30,896。它承认之前是在录入贷款前观察的，录入后可用额度从毛价变成净权益，重新抓了页面，改了结论。</li>
     </ul>
   </div>
-</section>
 
-<section id="offers">
-  <p class="eyebrow">03 / 四家横评</p>
-  <h2>同一台车，四家报价差 $3,900</h2>
-  <p class="sec-sub">2026 BMW X3 30 xDrive，1,243 英里，Premium 包 + M Sport，无事故，新泽西。报价窗口 2026 年 8 至 9 月。</p>
-
-  <div class="tbl">
-    <table>
-      <thead><tr><th>渠道</th><th class="num">报价</th><th>有 lien 时何时拿到钱</th><th>结论</th></tr></thead>
-      <tbody>
-        <tr class="win">
-          <td><b>Carvana</b></td><td class="num"><b>$45,000</b></td>
-          <td><b>交车当场</b>发起转账，1 至 2 个工作日到账<sup><a href="#s2">2</a></sup></td>
-          <td><span class="tag buy">成交</span></td>
-        </tr>
-        <tr>
-          <td><b>CARFAX 估值</b></td><td class="num">$45,710</td>
-          <td>只是估值，不是报价</td>
-          <td><span class="tag free">当锚点用</span></td>
-        </tr>
-        <tr>
-          <td><b>CarMax</b></td><td class="num">$42,000</td>
-          <td>官方写「当天 bank draft」，但从未说明有 lien 时净权益是否也当天给<sup><a href="#s3">3</a></sup></td>
-          <td><span class="tag skip">低 $3,000</span></td>
-        </tr>
-        <tr>
-          <td><b>Tesla 官方置换</b></td><td class="num">$41,100</td>
-          <td>权益当场抵扣，零现金</td>
-          <td><span class="tag maybe">等效 $44,033</span></td>
-        </tr>
-        <tr>
-          <td><b>本地品牌经销商</b></td><td class="num">未报价</td>
-          <td>书面回复「要先还清银行，<b>不可能当天完成</b>，大概几周」</td>
-          <td><span class="tag skip">出局</span></td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="card">
+    <h4>我拦下它的</h4>
+    <ul>
+      <li><b>把底价印在给车行的文件上。</b>见 9/10 那段。这一条如果没拦住，损失约 $900。</li>
+      <li><b>用我的个人 Chrome session 去爬 Reddit。</b>8/16 我怀疑它用了我的登录态，它确认用的是隔离的临时 profile。这条守住了。</li>
+    </ul>
   </div>
 
-  <h3>CARFAX 估值为什么值钱</h3>
-  <p>它给的三档估值（Excellent $45,710 / Good $44,240 / Fair $42,010）是<b>按 3,071 英里推算的</b>，因为 CARFAX 没采集到真实里程。实车只有 1,243 英里，所以真实价值只会更高。这份带官方抬头的报告成了谈判时最硬的锚点，比任何口头议价都有用。</p>
-
-  <h3>有贷款的车，「什么时候拿到钱」比报价更重要</h3>
-  <p>如果车上有 lien，卖家拿到的是<b>净权益</b>（报价减贷款余额），而这笔钱什么时候到手，各家差别极大。本例中新车交付日就在卖车后第 6 天，所以这条直接决定了可行性。</p>
-
-  <div class="quote">
-    「Carvana will pay you for your car <b>at your pickup or drop-off appointment</b>. We'll either hand you a printed check or initiate payment via an ACH direct deposit.」
-    <cite>carvana.com/sell-my-car，官方页面原文<sup><a href="#s2">2</a></sup></cite>
+  <div class="warn" style="margin-top:14px">
+    <b>关于成本：</b>137 条 prompt 里有相当一部分是我在纠正、追问、或者发一张截图让它自己看。「解放自己」的真实含义不是不用管，而是从「自己去查、去填、去算」变成「看它查的对不对」。前者要几个下午，后者要几十条 prompt。
   </div>
-  <div class="quote" style="margin-top:12px">
-    「Due to the lien, we would pay it off to the bank and go from there. <b>It is not possible for it to be done same day.</b>」追问耗时多久，答「A few weeks.」
-    <cite>某本地品牌经销商二手车部门的书面答复</cite>
-  </div>
-
-  <p style="margin-top:14px">这不是个别现象，是流程差异：Carvana 自己代取 payoff、代为清偿、再付净权益给你，整条链在它内部；加盟经销商要走银行放行，天然快不了。<b>结论：车上还有贷款、又赶时间的，直接排除本地加盟店。</b></p>
 </section>
 
 <section id="prompt">
-  <p class="eyebrow">04 / 可复制</p>
-  <h2>把这段贴给你自己的 AI</h2>
-  <p class="sec-sub">下面是整个流程压缩成的一段指令。改掉方括号里的内容就能用。它的重点不是「帮我找个好价钱」，而是把顺序和停顿点定死。</p>
+  <p class="eyebrow">09 / 可复制</p>
+  <h2>如果你也想这么干</h2>
+  <p class="sec-sub">下面这段是把 137 条 prompt 里真正起作用的顺序压缩出来的。改掉方括号里的内容就能用。它的重点不是「帮我找个好价钱」，是把顺序和停顿点定死。</p>
 
   <div class="promptbox">
     <div class="bar">
@@ -365,170 +584,35 @@ footer a{color:var(--accent)}
   </div>
 
   <div class="card" style="margin-top:14px">
-    <h4>为什么第 8 条要写进去</h4>
-    <p style="margin:0;font-size:14.5px;color:var(--sub)">这个流程里真的会遇到要提交驾照照片、真名、住址、VIN 的表单，还有一次性就把报价锁死的按钮。把停顿点写进指令，比事后补救省事得多。本例中就有一次：给经销商的谈判文件初版里，误把自己的心理底价印了上去，等于主动放弃约 $900，发现得早才改掉。</p>
-  </div>
-</section>
-
-<section id="traps">
-  <p class="eyebrow">05 / 防坑</p>
-  <h2>这一轮踩到和差点踩到的</h2>
-  <p class="sec-sub">按代价从大到小排。前三条每条都值四位数。</p>
-
-  <div class="findings">
-    <div class="finding">
-      <div class="fno">1</div>
-      <div>
-        <b class="k">订单上的地址挂错州，差点损失约 $4,200</b>
-        <p>账户合并时，新车订单的客户地址被带成了另一个州的旧地址。如果按那个州登记，会同时失去本州的置换抵税约 $2,723 和新能源车补贴 $1,500<sup><a href="#s5">5</a></sup>。<b>交付前务必逐字核对订单协议上的地址</b>，这是单项金额最大的一个坑，而且它不会自己报错。</p>
-      </div>
-    </div>
-    <div class="finding">
-      <div class="fno">2</div>
-      <div>
-        <b class="k">用错邮箱下单，$500 忠诚折扣直接不合格</b>
-        <p>下单时随手用了一个新邮箱，系统建了个新账户，而名下已有车的账户是另一个邮箱。品牌的忠诚折扣条款原文要求「使用同一个账户购买」，新账户名下无车即不合格。后来靠账户合并补回来了，但合并流程走了三周，中间还被告知「合并会作废关联的推荐和忠诚奖励」。<b>下单前先确认你登录的是哪个账户。</b></p>
-      </div>
-    </div>
-    <div class="finding">
-      <div class="fno">3</div>
-      <div>
-        <b class="k">贷款 payoff 的口头估计差了 $1,226</b>
-        <p>八月记的余额是 $12,878，九月去银行正式取 payoff quote 是 $14,104。差额来自利息和记错。payoff 报价单上写着<b>每天 $1.92 的日息</b>，且有明确失效日期。所有基于余额的计算都要用正式报价单，不要用 app 首页那个数。</p>
-      </div>
-    </div>
-    <div class="finding">
-      <div class="fno">4</div>
-      <div>
-        <b class="k">线上估价不含选装包，但也别高估这一点</b>
-        <p>「估价没算进我的选装」是常见的重估理由，但要先去核对：本例中三封估价邮件从第一封起就写着 M Sport 和准确里程，配置一直都在，重估上行空间接近零。<b>先看证据再写信</b>，否则信里那句话就是错的，对方一眼看得出来。</p>
-      </div>
-    </div>
-    <div class="finding">
-      <div class="fno">5</div>
-      <div>
-        <b class="k">收购平台的表单，改一个字段可能触发全部重报价</b>
-        <p>Carvana 的车况问卷里有一栏「无原厂选装」看着填错了，但点 Edit 会进入完整重新报价流程并替换掉现有报价。既然 VIN 解码已经认出了 Premium 和 M Sport，收益不确定而损失确定，就别去动它。<b>手上有满意的书面报价时，不要为了修一个小字段去重跑流程。</b></p>
-      </div>
-    </div>
-    <div class="finding">
-      <div class="fno">6</div>
-      <div>
-        <b class="k">同一个表单里，Save 不等于提交</b>
-        <p>修改贷款状态时，填完点了 Save，页面状态却没变。原因是 Save 只保存当前小问题，必须再点面板底部的 Continue 才真正落库。<b>改完关键信息后，回到列表页读一遍状态文字，别信按钮。</b></p>
-      </div>
-    </div>
-    <div class="finding">
-      <div class="fno">7</div>
-      <div>
-        <b class="k">新车的钥匙数量，标准变了</b>
-        <p>收购方的清单模板写着「带齐两把钥匙」，而这台 2026 款出厂就只给一把实体遥控钥匙加两张卡（Setup Card + Service Card），厂家文档把 Service Card 定义为「additional key」<sup><a href="#s7">7</a></sup>。现场如果被以此压价，拿厂家文档说话。本例最终足额成交，零扣减。</p>
-      </div>
-    </div>
-    <div class="finding">
-      <div class="fno">8</div>
-      <div>
-        <b class="k">交车后别急着按对方邮件说的做</b>
-        <p>收购方的成交邮件会让你「取消保险」和「注销登记」。两条都要想一想：如果六天后就提新车，中间断保会在投保历史上留下 lapse 记录、拉高后续几年的费率；车牌如果本州允许转移，留着过户给新车能省一笔。<b>这些邮件是通用模板，不知道你的下一步。</b></p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="checklist">
-  <p class="eyebrow">06 / 交车当天</p>
-  <h2>去交车前对一遍</h2>
-  <p class="sec-sub">可以勾选，状态存在你自己的浏览器里。最后一项是最多人忘的。</p>
-
-  <div class="checks" id="cl">
-    <div class="grp">必带，缺了办不成</div>
-    <label><input type="checkbox" data-k="c1"><span class="ct"><b>驾照原件</b><em>产权证上的本人必须到场</em></span></label>
-    <label><input type="checkbox" data-k="c2"><span class="ct"><b>全套钥匙</b><em>含出厂配的卡片钥匙，别只带遥控器</em></span></label>
-    <label><input type="checkbox" data-k="c3"><span class="ct"><b>轮毂锁钥匙</b><em>带花纹的套筒，通常在手套箱或后备厢工具包，最容易漏</em></span></label>
-    <label><input type="checkbox" data-k="c4"><span class="ct"><b>螺丝刀</b><em>现场拆车牌，牌照归你</em></span></label>
-    <label><input type="checkbox" data-k="c5"><span class="ct"><b>10 天贷款结清单</b><em>车上有贷款才需要，向贷款方索取正式 payoff quote</em></span></label>
-
-    <div class="grp">走之前清空</div>
-    <label><input type="checkbox" data-k="c6"><span class="ct"><b>拆 ETC / 高速收费贴片</b><em>不拆就跟着车走，之后别人上高速刷你的账户</em></span></label>
-    <label><input type="checkbox" data-k="c7"><span class="ct"><b>车库遥控器和车机里的开门设置</b><em>遥控器带走，车机里的配对记录清掉</em></span></label>
-    <label><input type="checkbox" data-k="c8"><span class="ct"><b>手机数字钥匙注销</b><em>在车机里删除，别让车带着你的数字钥匙走</em></span></label>
-    <label><input type="checkbox" data-k="c9"><span class="ct"><b>翻一遍中控台、扶手箱、门板、后备厢侧格、遮阳板</b><em>收购方明确不对遗留物品负责</em></span></label>
-
-    <div class="grp">最容易忘的一条</div>
-    <label><input type="checkbox" data-k="c10"><span class="ct"><b>安排怎么回家</b><em>车留在对方场地，你得有人接或者提前叫车。本例中打车约 $50 至 $60</em></span></label>
-
-    <div class="grp">交车之后</div>
-    <label><input type="checkbox" data-k="c11"><span class="ct"><b>核对到账</b><em>ACH 通常 1 至 2 个工作日</em></span></label>
-    <label><input type="checkbox" data-k="c12"><span class="ct"><b>盯贷款结清</b><em>收购方代为清偿通常要 5 至 7 个工作日，和打款不是同一条时间线，到期没清要主动追</em></span></label>
-    <label><input type="checkbox" data-k="c13"><span class="ct"><b>保险改挂新车，不是停保</b><em>见防坑第 8 条</em></span></label>
-  </div>
-</section>
-
-<section id="method">
-  <p class="eyebrow">07 / 方法</p>
-  <h2>这四周实际做了什么</h2>
-  <p class="sec-sub">写清楚是为了让你判断哪些部分值得自己复刻，哪些不值得。</p>
-
-  <div class="card">
-    <h4>AI 实际承担的部分</h4>
+    <h4>本次用的工具链，供对照</h4>
     <ul>
-      <li><b>调研</b>：三个渠道共 89 条来源交叉验证<sup><a href="#s6">6</a></sup>，包括车主论坛、社区问答和官方文档。结论包括「官方明文不谈判不 match」「正式报价才是真数字」这类会直接改变策略的事实。</li>
-      <li><b>拉报价</b>：用浏览器自动化跑完收购平台的完整问卷流程，VIN 解码确认配置后取得报价。</li>
-      <li><b>查法规</b>：本州销售税抵扣规则、新能源车补贴、提前还款是否允许收罚金，全部引官方出处。</li>
-      <li><b>写邮件</b>：给品牌销售的重估请求，措辞避开「match」，改用流程内合法的「请重新评估」。</li>
-      <li><b>填表单和取文件</b>：在收购平台上更正贷款状态、上传材料，以及登录贷款方账户取得正式 payoff 文件。</li>
+      <li><b>Claude Code</b>，一个会话跑完四周，1M 上下文，compact 五次以上。主模型 claude-opus-5，8/16 凌晨到 8/17 下午是 claude-fable-5，9/15 收官切到 claude-fable-5-1。</li>
+      <li><b>浏览器</b>：playwright-core 通过 CDP 接一个带隔离 profile 的真 Chrome，跑收购平台的问卷、贷款方的登录、保险公司的表单。收购平台的报价子域挂了反爬，那一步它没绕，让我自己填。</li>
+      <li><b>邮件</b>：IMAP 读、SMTP 发，凭据从 1Password 服务账号在执行时解析，不进命令行和日志。</li>
+      <li><b>调研</b>：Perplexity、Tavily、WebFetch，加子 agent 并行抓 Reddit 和车主论坛。Reddit 后来对抓取全面 403。</li>
+      <li><b>记录</b>：每次 compact 前把状态写进 Obsidian，下一段会话从那份文件接上。四周里这份文件改了七版。</li>
     </ul>
-  </div>
-
-  <div class="card">
-    <h4>人必须自己做的部分</h4>
-    <ul>
-      <li><b>所有短信验证码</b>。银行和贷款方的设备授权全部需要本人手机。</li>
-      <li><b>打电话</b>。问「有 lien 时净权益什么时候到账」这种问题，邮件经常拿不到明确答复。</li>
-      <li><b>拍照</b>。里程表、车况照片。</li>
-      <li><b>最终决策</b>。AI 能把账算清楚、把证据摆出来，但「愿不愿意为了 $967 多跑一趟」是你的偏好，不是它的。</li>
-    </ul>
-  </div>
-
-  <div class="card">
-    <h4>过程中被推翻的判断</h4>
-    <ul>
-      <li>最初认为「置换肯定亏」。算进销售税抵扣后，两者差距缩小到不足千元，结论差点反过来。</li>
-      <li>最初认为「品牌官网库存只有一台」。那是前端渲染的问题，直接调库存接口取到 25 台。</li>
-      <li>最初把「促销利率随时可能消失」当成主要风险。查证后发现该利率已连续挂了六周，真正的变量是取消置换后贷款额度占车价比例变化，那是另一个问题。</li>
-      <li>最初以为收购平台上「能置换的车」门槛是毛报价。录入贷款后发现门槛是净权益，实测分界线精确落在净权益那个数字上。</li>
-    </ul>
-  </div>
-
-  <div class="warn" style="margin-top:14px">
-    <b>关于时效：</b>本文所有金额、利率、补贴和税率均为 2026 年 8 至 9 月新泽西的实际数字。收购平台的报价通常 7 天有效，品牌置换报价通常 30 天或 1,000 英里，补贴项目按财年重开或关闭。<b>照搬数字没有意义，照搬方法才有。</b>
   </div>
 </section>
 
 <section id="sources">
-  <p class="eyebrow">08 / 来源</p>
+  <p class="eyebrow">10 / 来源</p>
   <h2>可核查的出处</h2>
-  <p class="sec-sub">正文里标注编号的地方对应下面条目。其余数字来自本次交易的书面文件（报价单、订单协议、payoff 报价、成交确认邮件），因含个人信息未公开。</p>
-
-  <div class="src">
-    <h4>官方文档</h4>
-    <ol>
-      <li id="s1">新泽西州税务局，Consumer Automotive Tax Guide，关于置换抵减销售税基的规定与「同一笔交易」要求。<a href="https://www.nj.gov/treasury/taxation/" target="_blank" rel="noopener">nj.gov/treasury/taxation</a></li>
-      <li id="s2">Carvana，Sell My Car 页面与 Help Center 条目 014546，关于交车当场付款与 ACH 到账时间；Terms of Use 第 7 条关于代为清偿 lien 与支付净权益。<a href="https://www.carvana.com/sell-my-car" target="_blank" rel="noopener">carvana.com/sell-my-car</a></li>
-      <li id="s3">CarMax，How do I get paid for my car 常见问题与 How to Sell Your Car to CarMax 文章，关于当天 bank draft；官方页面未覆盖有 lien 时净权益的支付时点。<a href="https://www.carmax.com/sell-my-car" target="_blank" rel="noopener">carmax.com/sell-my-car</a></li>
-      <li id="s4">新泽西零售分期销售法 N.J.S.A. 17:16C-38，关于提前付清与退还未到期财务费用、不得收取罚金。</li>
-      <li id="s5">Charge Up New Jersey 新能源车补贴项目，FY27 自 7 月 1 日重开，point-of-sale 形式，车价上限适用。</li>
-    </ol>
-    <h4>调研渠道</h4>
-    <ol start="6">
-      <li id="s6">品牌车主论坛与社区问答共 89 条来源，用于置换机制、报价可谈性、交付日风险的交叉验证。个别帖子的结论与官方文档冲突时，以官方文档为准。</li>
-      <li id="s7">厂家关于数字钥匙与随车钥匙配置的官方文档，用于核实新款车出厂钥匙数量。</li>
-    </ol>
+  <div class="card">
+    <ul style="font-size:13.5px;color:var(--sub)">
+      <li>新泽西州税务局 Consumer Automotive Tax Guide，关于置换抵减销售税基与「同一笔交易」要求。</li>
+      <li>Carvana Sell My Car 页面与 Help Center，关于交车当场付款；Terms of Use 第 7 条关于代为清偿 lien。</li>
+      <li>CarMax 常见问题，关于当天 bank draft；官方页面未覆盖有 lien 时净权益的支付时点。</li>
+      <li>N.J.S.A. 17:16C-38，零售分期销售提前付清不得收取罚金。</li>
+      <li>tesla.com/current-offers 的 1.99% 促销页面历史；tesla.com/support 关于交付前保险要求。</li>
+      <li>厂家关于数字钥匙与随车钥匙配置的官方文档。</li>
+      <li>其余数字来自本次交易的书面文件（报价单、订单协议、payoff 报价、成交确认邮件），含个人信息未公开。</li>
+    </ul>
   </div>
 </section>
 
 <footer>
-  流程说明：多渠道调研加人工回查原始数据验证，所有关键数字均回溯至书面文件或官方页面。本文不含车辆识别码、姓名、地址、账号等个人信息。<br>
+  本页的 prompt 原文由会话记录逐条导出，只做了三处个人信息替换。「它做了」与「结果」为事后压缩，不是模型原话。不含车辆识别码、姓名、地址、账号。<br>
   仅供朋友间分享参考，不构成税务或财务建议。回到 <a href="../">北美 Research</a>。
 </footer>
 
@@ -536,7 +620,6 @@ footer a{color:var(--accent)}
 
 <script>
 (function(){
-  // 主题
   var root=document.documentElement, btn=document.getElementById('themeBtn');
   try{ var saved=localStorage.getItem('nares-theme'); if(saved) root.setAttribute('data-theme',saved); }catch(e){}
   btn.addEventListener('click',function(){
@@ -546,47 +629,17 @@ footer a{color:var(--accent)}
     root.setAttribute('data-theme',next);
     try{ localStorage.setItem('nares-theme',next); }catch(e){}
   });
-
-  // 引用悬浮提示
-  var tip=document.getElementById('tip');
-  document.querySelectorAll('sup a[href^="#s"]').forEach(function(a){
-    a.addEventListener('mouseenter',function(){
-      var t=document.querySelector(a.getAttribute('href'));
-      if(!t) return;
-      tip.textContent=(t.textContent||'').trim().slice(0,150);
-      tip.classList.add('on');
-      var r=a.getBoundingClientRect();
-      var x=Math.min(Math.max(8,r.left-8), innerWidth-tip.offsetWidth-8);
-      var y=r.top>70 ? r.top-tip.offsetHeight-8 : r.bottom+8;
-      tip.style.left=x+'px'; tip.style.top=y+'px';
-    });
-    a.addEventListener('mouseleave',function(){ tip.classList.remove('on'); });
-  });
-
-  // 复制 prompt
   var cb=document.getElementById('copyBtn');
   cb.addEventListener('click',function(){
     var txt=document.getElementById('promptText').textContent;
     var done=function(){ cb.textContent='已复制'; cb.classList.add('done'); setTimeout(function(){ cb.textContent='复制'; cb.classList.remove('done'); },1800); };
-    if(navigator.clipboard && navigator.clipboard.writeText){
-      navigator.clipboard.writeText(txt).then(done,fallback);
-    } else { fallback(); }
     function fallback(){
       var ta=document.createElement('textarea'); ta.value=txt;
       ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta);
       ta.select(); try{ document.execCommand('copy'); done(); }catch(e){}
       document.body.removeChild(ta);
     }
-  });
-
-  // 清单持久化
-  document.querySelectorAll('#cl input[type=checkbox]').forEach(function(i){
-    var k='nares-sellcar-'+i.dataset.k;
-    try{ if(localStorage.getItem(k)==='1') i.checked=true; }catch(e){}
-    i.addEventListener('change',function(){ try{ localStorage.setItem(k, i.checked?'1':'0'); }catch(e){} });
-  });
-  document.querySelectorAll('#cl label a').forEach(function(a){
-    a.addEventListener('click',function(e){ e.stopPropagation(); });
+    if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(done,fallback); } else { fallback(); }
   });
 })();
 </script>
